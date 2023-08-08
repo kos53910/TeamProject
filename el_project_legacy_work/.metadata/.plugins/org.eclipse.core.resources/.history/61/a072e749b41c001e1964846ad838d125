@@ -1,0 +1,5 @@
+package com.gt.s.common;
+
+public abstract class FileUploadUtil {
+
+}

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		
+	<mapper namespace="com.gt.s.kos.organization.dao.GtOrganizationDAO">
+	
+		<select id="gtOrganizationSelectAll" resultType="gtemployeevo" parameterType="gtEmployeeVO">
+			SELECT GENUM, GEDEPT, TITLE, GENAME, GEID, GEEMAIL, GEHP 
+			FROM GOAT_EMPLOYEE
+			WHERE 
+				TITLE  IN ('사원', '대리', '과장', '차장', '이사', '대표이사')
+				 <if test="gename != null and gename != ''">
+		          	AND gename = #{gename}
+		         </if>
+		          <if test="gedept != null and gedept != ''">
+		          	AND gedept = #{gedept}
+		         </if>
+			ORDER BY CASE  WHEN TITLE = '사원' THEN 1
+			               WHEN TITLE = '대리' THEN 2
+			               WHEN TITLE = '과장' THEN 3
+			               WHEN TITLE = '차장' THEN 4
+			               WHEN TITLE = '이사' THEN 5
+			               WHEN TITLE = '대표이사' THEN 6
+    	 			 END DESC, GENUM ASC
+		</select>
+		
+	</mapper>

@@ -1,0 +1,85 @@
+2023-06-30
+-------------------------------
+
+
+http-server 설치 
+---------------------------
+npm init -y
+npm i -g http-server --save			-
+npm install --global http-server --save 	-둘중 하나
+npm install -g npm@9.7.2
+
+C:\00.KOSMO120\60.node\node_http>npm i -g http-server --save
+C:\Users\kosmo\AppData\Roaming\npm\http-server -> C:\Users\kosmo\AppData\Roaming\npm\node_modules\http-server\bin\http-server
++ http-server@14.1.1
+added 39 packages from 43 contributors in 4.065s
+h
+
+http-server 실행하기 
+---------------------------
+-p : 포트 사용하기 옵션 
+8000 : 8000 port 열기 
+
+C:\00.KOSMO108\50.react\node_http>http-server -p 8000
+Starting up http-server, serving ./
+
+http-server version: 14.1.1
+
+http-server settings:
+CORS: disabled
+Cache: 3600 seconds
+Connection Timeout: 120 seconds
+Directory Listings: visible
+AutoIndex: visible
+Serve GZIP Files: false
+Serve Brotli Files: false
+Default File Extension: none
+
+Available on:
+  http://192.168.219.152:8000
+  http://127.0.0.1:8000
+Hit CTRL-C to stop the server
+
+
+http-server 서버 닫기 
+---------------------------
+ CTRL-C
+
+ http-server stopped.
+
+C:\00.KOSMO120\60.node\node_http>
+
+브라우저에서 요청하기 
+http://localhost:8000/
+
+
+
+======================================
+node.js http-server 사용하기 
+
+$ npm init -y
+$ npm install http-server -g 
+$ http-server 
+$ http-server -p 8089 
+
+$ http-server [path] [options]
+path : 웹문서 루트 경로 
+
+$ http-server ./node-http
+$ http-server -p 8089
+$ http-server -h
+
+-p 또는 --port 사용할 포트를 지정 (디폴트는 8080)
+-d 디렉토리 파일목록 가능여부 (디폴트는 true)
+-i 자동 인덱스 사용여부 (디폴트는 true)
+-g 또는 --gzip 활성화할 경우에 xxx.js 요청에 대해서 xxx.js.gz 파일이 존재하는지 확인하여 서비스
+-s 또는 --silent 로그 메시지를 출력하지 않습니다
+--cors Accss-Control-Allow-Origin 헤더를 사용하여 CORS 기능을 활성화
+-c 캐시 타임아웃을 초(Seconds) 단위로 지정합니다. (예: -c10 은 캐쉬 타임아웃 10초)
+--log-ip 로깅시 클라이언트 IP 주소를 출력합니다. (디폴트는 false)
+-S 또는 -ssl https 통신을 활성화 합니다. (인증서 설정 필요)
+-C 또는 --cert SSL 인증서 파일의 경로를 지정합니다.
+-K 또는 --key SSL 키 파일의 경로를 지정합니다.
+-h 또는 --help 도움말을 출력합니다.
+-v 또는 --version 버전정보를 출력합니다.
+======================================

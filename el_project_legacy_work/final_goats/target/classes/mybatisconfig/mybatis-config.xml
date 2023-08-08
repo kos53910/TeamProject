@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<typeAliases>
+		<typeAlias type="com.gt.s.kos.vacation.vo.GtVacationVO" alias="gtvacationvo"/>	
+		<typeAlias type="com.gt.s.kos.employee.vo.GtEmployeeVO" alias="gtemployeevo"/> 
+		<typeAlias type="com.gt.s.kos.business.vo.GtBusinessVO" alias="gtbusinessvo"/> 
+		<typeAlias type="com.gt.s.kos.dept.vo.GtDeptVO" alias="gtdeptvo"/>
+		<typeAlias type="com.gt.s.kos.vacation.vo.GtVacationVO" alias="gtvacationvo"/>
+		<typeAlias type="com.gt.s.kos.spend.vo.GtSpendVO" alias="gtspendvo"/>
+		<typeAlias type="com.gt.s.kos.schedule.vo.GtScheduleVO" alias="gtschedulevo"/>
+		<typeAlias type="com.gt.s.kos.project.vo.GtProjectVO" alias="gtprojectvo"/>
+		<typeAlias type="com.gt.s.kos.draft.vo.GtDraftVO" alias="gtdraftvo"/>
+		<typeAlias type="com.gt.s.kos.resignation.vo.GtResignationVO" alias="gtresignationvo"/>
+		<typeAlias type="com.gt.s.kos.contract.vo.GtContractVO" alias="gtcontractvo"/>
+		<typeAlias type="com.gt.s.kos.approvalline.vo.GtApprovalLineVO" alias="gtapprovallinevo"/> 
+		<typeAlias type="com.gt.s.kos.plan.vo.GtPlanVO" alias="gtplanvo"/> 
+		<typeAlias type="com.gt.s.kos.account.vo.GtAccountVO" alias="gtaccountvo"/>
+		<typeAlias type="com.gt.s.kos.organization.vo.GtOrganizationVO" alias="gtorganizationvo"/>
+
+		
+	</typeAliases>
+</configuration>

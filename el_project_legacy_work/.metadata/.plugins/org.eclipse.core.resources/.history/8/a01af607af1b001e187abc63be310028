@@ -1,0 +1,181 @@
+package com.gt.s.kos.spend.vo;
+
+public class GtSpendVO {
+	public GtSpendVO() {
+
+	}
+	public GtSpendVO(String gsnum, String gsname, String gssubject, String gpnum, String gpdate, String gpgubun,
+			String gpaccount, String gpinfo, String gpcount, String gpcost, String gpfile, String deleteyn,
+			String insertdate, String updatedate, String genum, String writer, String reference, String approver,
+			String dept, String proval, String count) {
+
+		this.gsnum = gsnum;
+		this.gsname = gsname;
+		this.gssubject = gssubject;
+		this.gpnum = gpnum;
+		this.gpdate = gpdate;
+		this.gpgubun = gpgubun;
+		this.gpaccount = gpaccount;
+		this.gpinfo = gpinfo;
+		this.gpcount = gpcount;
+		this.gpcost = gpcost;
+		this.gpfile = gpfile;
+		this.deleteyn = deleteyn;
+		this.insertdate = insertdate;
+		this.updatedate = updatedate;
+		this.genum = genum;
+		this.writer = writer;
+		this.reference = reference;
+		this.approver = approver;
+		this.dept = dept;
+		this.proval = proval;
+		this.count = count;
+	}
+	private String gsnum;
+	private String gsname;
+	private String gssubject;
+	private String gpnum;
+	private String gpdate;
+	private String gpgubun;
+	private String gpaccount;
+	private String gpinfo;
+	private String gpcount;
+	private String gpcost;
+	private String gpfile;
+	private String deleteyn;
+	private String insertdate;
+	private String updatedate;
+	private String genum;
+	private String writer;
+	private String reference;
+	private String approver;
+	private String dept;
+	private String proval;
+	private String count;
+	public String getGsnum() {
+		return gsnum;
+	}
+	public String getGsname() {
+		return gsname;
+	}
+	public String getGssubject() {
+		return gssubject;
+	}
+	public String getGpnum() {
+		return gpnum;
+	}
+	public String getGpdate() {
+		return gpdate;
+	}
+	public String getGpgubun() {
+		return gpgubun;
+	}
+	public String getGpaccount() {
+		return gpaccount;
+	}
+	public String getGpinfo() {
+		return gpinfo;
+	}
+	public String getGpcount() {
+		return gpcount;
+	}
+	public String getGpcost() {
+		return gpcost;
+	}
+	public String getGpfile() {
+		return gpfile;
+	}
+	public String getDeleteyn() {
+		return deleteyn;
+	}
+	public String getInsertdate() {
+		return insertdate;
+	}
+	public String getUpdatedate() {
+		return updatedate;
+	}
+	public String getGenum() {
+		return genum;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public String getReference() {
+		return reference;
+	}
+	public String getApprover() {
+		return approver;
+	}
+	public String getDept() {
+		return dept;
+	}
+	public String getProval() {
+		return proval;
+	}
+	public String getCount() {
+		return count;
+	}
+	public void setGsnum(String gsnum) {
+		this.gsnum = gsnum;
+	}
+	public void setGsname(String gsname) {
+		this.gsname = gsname;
+	}
+	public void setGssubject(String gssubject) {
+		this.gssubject = gssubject;
+	}
+	public void setGpnum(String gpnum) {
+		this.gpnum = gpnum;
+	}
+	public void setGpdate(String gpdate) {
+		this.gpdate = gpdate;
+	}
+	public void setGpgubun(String gpgubun) {
+		this.gpgubun = gpgubun;
+	}
+	public void setGpaccount(String gpaccount) {
+		this.gpaccount = gpaccount;
+	}
+	public void setGpinfo(String gpinfo) {
+		this.gpinfo = gpinfo;
+	}
+	public void setGpcount(String gpcount) {
+		this.gpcount = gpcount;
+	}
+	public void setGpcost(String gpcost) {
+		this.gpcost = gpcost;
+	}
+	public void setGpfile(String gpfile) {
+		this.gpfile = gpfile;
+	}
+	public void setDeleteyn(String deleteyn) {
+		this.deleteyn = deleteyn;
+	}
+	public void setInsertdate(String insertdate) {
+		this.insertdate = insertdate;
+	}
+	public void setUpdatedate(String updatedate) {
+		this.updatedate = updatedate;
+	}
+	public void setGenum(String genum) {
+		this.genum = genum;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
+	}
+	public void setReference(String reference) {
+		this.reference = reference;
+	}
+	public void setApprover(String approver) {
+		this.approver = approver;
+	}
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+	public void setProval(String proval) {
+		this.proval = proval;
+	}
+	public void setCount(String count) {
+		this.count = count;
+	}
+}

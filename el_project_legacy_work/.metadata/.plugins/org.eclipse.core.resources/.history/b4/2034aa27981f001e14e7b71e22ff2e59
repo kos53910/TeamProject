@@ -1,0 +1,141 @@
+package com.gt.s.kos.draft.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.gt.s.common.ChabunUtil;
+import com.gt.s.common.CommonUtils;
+import com.gt.s.common.DateFormatUtil;
+import com.gt.s.common.FileUploadUtil;
+import com.gt.s.common.chabun.service.GtChabunService;
+import com.gt.s.kos.draft.service.GtDraftService;
+import com.gt.s.kos.draft.vo.GtDraftVO;
+
+@Controller
+public class GtDraftController {
+
+	String chabun = "";
+	
+	Logger log = LogManager.getLogger(this.getClass());
+	
+	@Autowired(required = false)
+	private GtDraftService gtDraftService;
+	
+	@Autowired(required = false)
+	private GtChabunService gtChabunService;
+	
+	@GetMapping("draftInsertForm")
+	public String draftInsertForm() {
+		
+		return "draft/draftInsertForm";
+	}
+	
+	@GetMapping("draftInsert")
+	@ResponseBody
+	public String draftInsert(Model m, GtDraftVO gdvo, HttpServletRequest req) {
+							
+		this.chabun = null;
+		
+		this.chabun = gdvo.getGdrnum();
+		
+		String insertdate = req.getParameter("insertdate");
+		log.info("gdrnum~~~~~~~~ : " + gdvo.getGdrnum());
+		
+		String gdrapprover1 = req.getParameter("gdrapprover1");
+		String gdrapprover2 = req.getParameter("gdrapprover2");
+		String gdrapprover3 = req.getParameter("gdrapprover3");
+		String gdrapprover4 = req.getParameter("gdrapprover4");
+		String gdrapprover5 = req.getParameter("gdrapprover5");	
+		
+		String approver = gdrapprover1 + "/" + gdrapprover2 + "/" + gdrapprover3 + "/" + gdrapprover4 + "/" + gdrapprover5 + "/"; 
+		log.info("approver : " + approver);
+		
+		String gdrdept1 = req.getParameter("gdrdept1");
+		String gdrdept2 = req.getParameter("gdrdept2");
+		String gdrdept3 = req.getParameter("gdrdept3");
+		String gdrdept4 = req.getParameter("gdrdept4");
+		String gdrdept5 = req.getParameter("gdrdept5");
+		
+		String dept = gdrdept1 + "/" + gdrdept2 + "/" + gdrdept3 + "/" + gdrdept4 + "/" + gdrdept5 + "/"; 
+		log.info("dept : " + dept);
+		
+		gdvo.setApprover(approver);
+		gdvo.setDept(dept);
+		gdvo.setInsertdate(insertdate);
+		gdvo.setGenum("123");
+		gdvo.setProval("123");
+		gdvo.setCount("1");
+		
+		int nCnt = gtDraftService.draftInsert(gdvo);
+		
+		String str = "";
+			
+			if (nCnt > 0) {
+				
+				str = "OK";
+			}else {
+				str = "NO";
+			}
+		
+		return str;
+	}
+
+	@GetMapping("DraftChanbun")
+	@ResponseBody
+	public String gtDraftChanbun() {
+			
+		String gdr_num = ChabunUtil.BIZ_GUBUN_DR.concat(DateFormatUtil.ymdFormats("D")).concat(gtChabunService.getGtDraftChabun().getGdrnum());
+			
+		return gdr_num;
+		}
+	
+	@PostMapping("draftInsertFile")
+	public String gtDraftInsertFile(HttpServletRequest req) {
+
+		
+		FileUploadUtil fu = new FileUploadUtil(CommonUtils.DRAFT_IMG_UPLOAD_PATH, CommonUtils.DRAFT_IMG_FILE_SIZE, CommonUtils.DRAFT_EN_CODE);
+		
+		boolean bool = fu.imgfileUpload(req);
+		
+		
+		
+		GtDraftVO gdvo = new GtDraftVO();
+		
+		gdvo.setGdrnum(this.chabun);
+		gdvo.setGdrfile(fu.getFileName("gdrfile"));
+		
+		log.info("aaaaaaaaaaaaaaaaaaaaaaa" + gdvo.getGdrnum());
+		
+		int nCnt = gtDraftService.draftInsertFile(gdvo);
+		if (nCnt > 0) {
+			
+			return "draft/draftInsert";
+			
+		}else {
+			return "draft/fail";
+		}
+		
+	}
+	
+	@PostMapping("draftSelect")
+	public String gtDraftSelect(GtDraftVO gdvo, Model m) {
+		
+		List<GtDraftVO> listS = gtDraftService.draftSelect(gdvo);
+		if(listS.size() > 0 ) {
+			m.addAttribute("listS", listS);
+			return "draft/draftSelect";
+		}
+		return "draft/draftInsert";
+	}
+	
+}

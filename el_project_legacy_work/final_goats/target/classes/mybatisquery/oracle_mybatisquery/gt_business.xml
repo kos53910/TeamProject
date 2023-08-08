@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.gt.s.kos.business.dao.GtBusinessDAO">
+		
+		<insert id="gtBusinessInsert" parameterType="gtbusinessvo">
+			INSERT INTO GOAT_BUSINESSTRIP ( GBTNUM <!-- 1 -->
+										,GBTNAME  <!-- 2 -->
+										,GPNUM  <!-- 3 -->
+										,GBTPRICE1  <!-- 4 -->
+										,GBTPRICE2   <!-- 5 -->
+										,GBTPRICE3  <!-- 6 --> 
+										,GBTPRICE4   <!-- 7 -->
+										,GBTPRICE5   <!-- 8 -->
+										,GBTTOTALPRICE   <!-- 9 -->
+										,GBTSTART  <!-- 10 -->
+										,GBTEND   <!-- 11 -->
+										,GENUM	  <!-- 12 -->
+										,WRITER  <!-- 13 -->
+										,REFERENCE   <!-- 14 -->
+										,DEPT   <!-- 15 -->
+										,APPROVER   <!-- 16 -->
+										,PROVAL   <!-- 17 -->
+										,DECIANOTHER  <!-- 18 -->
+										,DELETEYN   <!-- 19 -->
+										,INSERTDATE   <!-- 20 -->
+										,UPDATEDATE   <!-- 21 -->
+										 )
+										VALUES(
+										 #{gbtnum} <!-- 1 -->
+										,#{gbtname} <!-- 2 -->
+										,#{gpnum} <!-- 3 -->
+										,#{gbtprice1} <!-- 4 -->
+										,#{gbtprice2}  <!-- 5 -->
+										,#{gbtprice3}  <!-- 6 -->
+										,#{gbtprice4}  <!-- 7 -->
+										,#{gbtprice5}  <!-- 8 -->
+										,#{gbttotalprice} <!-- 9 -->
+										,#{gbtstart} <!-- 10 -->
+										,#{gbtend}  <!-- 11 -->
+										,#{genum, jdbcType=VARCHAR} <!-- 12 -->	
+										,#{writer, jdbcType=VARCHAR} <!-- 13 -->
+										,#{reference, jdbcType=VARCHAR}  <!-- 14 -->
+										,#{dept}  <!-- 15 -->
+										,#{approver, jdbcType=VARCHAR} <!-- 16 -->
+										,#{proval, jdbcType=VARCHAR} <!-- 17 -->
+										,#{decianother, jdbcType=VARCHAR} <!-- 18 -->
+										,'Y' <!-- 19 -->
+										,TO_CHAR(TO_DATE(SYSDATE), 'YYYY-MM-DD') <!-- 20 -->
+										,TO_CHAR(TO_DATE(SYSDATE), 'YYYY-MM-DD') <!-- 21 -->
+										)
+		</insert>
+		
+		<update id="gtBusinessInsertFile" parameterType="gtbusinessvo">
+			UPDATE GOAT_BUSINESSTRIP 
+			<choose>
+				<when test="gbtfile == null">
+				SET GBTFILE = '-'
+				</when>
+				<otherwise>
+				SET GBTFILE = #{gbtfile}
+			</otherwise>
+			</choose> 
+			WHERE GBTNUM = #{gbtnum} 
+		</update>
+		
+<select id="gtBusinessAppSelectAll" resultType="gtapprovallinevo" parameterType="gtapprovallinevo">
+    SELECT A.GBTNUM AS APPNUM
+        ,A.GBTNAME AS SUBJECT
+        ,A.GPNUM AS GPNUM  
+        ,A.GBTPRICE1 AS GBTPRICE1 
+        ,A.GBTPRICE2 AS GBTPRICE2
+        ,A.GBTPRICE3 AS GBTPRICE3
+        ,A.GBTPRICE4 AS GBTPRICE4
+        ,A.GBTPRICE5 AS GBTPRICE5
+        ,A.GBTTOTALPRICE AS GBTTOTALPRICE
+        ,A.GBTFILE AS GBTFILE 
+        ,A.GBTSTART AS GBTSTART
+        ,A.GBTEND AS GBTEND
+        ,A.DELETEYN AS DELETEYN 
+        ,TO_CHAR(A.INSERTDATE, 'YYYY-MM-DD') AS "DATE" 
+        ,A.UPDATEDATE AS UPDATEDATE 
+        ,A.DEPT AS DEPT  
+        ,A.GENUM AS GENUM	
+        ,A.WRITER AS WRITER
+        ,A.REFERENCE AS REFERENCE 
+        ,A.APPROVER AS APPROVER 
+        ,A.PROVAL AS PPROVAL 
+        ,A.COUNT AS COUNT 
+        ,A.DECIANOTHER AS DECIANOTHER
+    FROM GOAT_BUSINESSTRIP A 
+    WHERE DELETEYN = 'Y'
+        <if test="app=='app'">
+            <![CDATA[AND APPROVER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>   
+        </if>
+        <if test="app=='napp'">
+            <![CDATA[AND COUNT < 0]]>     
+            <![CDATA[AND WRITER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>    
+        </if>
+        <if test="app=='prog'">
+            <![CDATA[AND WRITER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>        
+        </if>
+        <if test="app=='ref'">
+            <![CDATA[AND REFERENCE LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="s_appnum!=''">
+            <![CDATA[AND GBTNUM LIKE '%' || #{s_appnum, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="subject!=''">
+            <![CDATA[AND GBTNAME LIKE '%' || #{subject, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="s_writer!=''">
+            <![CDATA[AND WRITER LIKE '%' || #{s_writer, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="formname!=''">
+            <![CDATA[AND GBTNUM LIKE '%' || #{appnum, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="appstartdate!=''">
+            <![CDATA[AND INSERTDATE >= #{appstartdate, jdbcType=VARCHAR}]]>         
+        </if>
+        <if test="appenddate!=''">
+            <![CDATA[AND INSERTDATE <= #{appenddate, jdbcType=VARCHAR}]]>         
+        </if>
+    ORDER BY 1
+</select>
+		
+		<select id="gtBusinessSelect" resultType="gtbusinessvo" parameterType="gtbusinessvo">
+			SELECT   A.GBTNUM  AS GBTNUM 
+					,A.GBTNAME AS GBTNAME 
+					,A.GPNUM AS GPNUM  
+					,A.GBTPRICE1 AS GBTPRICE1 
+					,A.GBTPRICE2 AS GBTPRICE2
+					,A.GBTPRICE3 AS GBTPRICE3
+					,A.GBTPRICE4 AS GBTPRICE4
+					,A.GBTPRICE5 AS GBTPRICE5
+					,A.GBTTOTALPRICE AS GBTTOTALPRICE
+					,A.GBTFILE AS GBTFILE 
+					,TO_CHAR(A.GBTSTART, 'YYYY-MM-DD') AS GBTSTART
+					,TO_CHAR(A.GBTEND, 'YYYY-MM-DD') AS GBTEND
+					,A.DELETEYN AS DELETEYN 
+					,TO_CHAR(A.INSERTDATE, 'YYYY-MM-DD') AS INSERTDATE 
+					,TO_CHAR(A.UPDATEDATE, 'YYYY-MM-DD') AS UPDATEDATE 
+					,A.DEPT AS DEPT  
+					,A.GENUM	AS GENUM	
+					,A.WRITER AS WRITER
+					,A.REFERENCE AS REFERENCE 
+					,A.DEPT AS DEPT 
+					,A.APPROVER AS APPROVER 
+					,A.PROVAL AS PROVAL 
+					,A.COUNT AS COUNT 
+					,A.DECIANOTHER AS DECIANOTHER
+					FROM GOAT_BUSINESSTRIP A 
+					 WHERE DELETEYN ='Y' AND GBTNUM = #{gbtnum}
+		</select>
+
+		
+		<select id="gtBusinessSelectAll" resultType="gtbusinessvo" parameterType="gtbusinessvo">
+			SELECT   A.GBTNUM  AS GBTNUM 
+					,A.GBTNAME AS GBTNAME 
+					,A.GPNUM AS GPNUM  
+					,A.GBTPRICE1 AS GBTPRICE1 
+					,A.GBTPRICE2 AS GBTPRICE2
+					,A.GBTPRICE3 AS GBTPRICE3
+					,A.GBTPRICE4 AS GBTPRICE4
+					,A.GBTPRICE5 AS GBTPRICE5
+					,A.GBTTOTALPRICE AS GBTTOTALPRICE
+					,A.GBTFILE AS GBTFILE 
+					,TO_CHAR(TO_DATE(A.GBTSTART),'YYYY-MM-DD') AS GBTSTART
+					,TO_CHAR(TO_DATE(A.GBTEND),'YYYY-MM-DD') AS GBTEND
+					,A.DELETEYN AS DELETEYN 
+					,A.INSERTDATE AS INSERTDATE 
+					,A.UPDATEDATE AS UPDATEDATE 
+					,A.DEPT AS DEPT  
+					,A.GENUM	AS GENUM	
+					,A.WRITER AS WRITER
+					,A.REFERENCE AS REFERENCE 
+					,A.APPROVER AS APPROVER 
+					,A.PROVAL AS PROVAL 
+					,A.COUNT AS COUNT 
+					,A.DECIANOTHER AS DECIANOTHER
+					FROM GOAT_BUSINESSTRIP A 
+					WHERE DELETEYN ='Y' 
+					AND COUNT > 0
+					<choose>
+						<when test="searchfilter == '01'">
+							 <![CDATA[AND WRITER LIKE '%' || #{keyword} || '%']]>
+						</when>
+						<when test="searchfilter == '02'">
+							 <![CDATA[AND GPNUM LIKE '%' || #{keyword} || '%']]>
+						</when>
+						<when test="searchfilter == '03'">
+							<![CDATA[AND GBTNAME LIKE '%' || #{keyword} || '%']]>
+						</when>
+					</choose>
+					ORDER BY GBTNUM
+		
+		</select>
+		
+		
+		<update id="gtBusinessUpdate" parameterType="gtbusinessvo">
+		
+			UPDATE GOAT_BUSINESSTRIP 
+			SET GBTPRICE1 = #{gbtprice1} 
+			WHERE GBTNUM = #{gbtnum}
+		</update>
+	
+	<select id="gtDeciBusinessSelect" parameterType="gtapprovallinevo" resultType="gtapprovallinevo">
+	
+	SELECT 
+		WRITER
+	FROM GOAT_BUSINESSTRIP 
+	WHERE DELETEYN = 'Y'
+	<![CDATA[AND DECIANOTHER LIKE '%' || #{gename} || '%']]>
+	<![CDATA[AND TO_CHAR(GBTSTART, 'YYYY-MM-DD') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD')]]>
+	<![CDATA[AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <= TO_CHAR(GBTEND, 'YYYY-MM-DD')]]>
+	
+	</select>
+	
+	</mapper>

@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+#prosubject {
+   padding: 20px 10px 10px 20px;
+}
+
+#prosubjectm {
+   padding: 0px 0px 0px 20px;
+}
+
+#hr-margin {
+   margin: 0px 0px 20px 0px;
+}
+
+#div-maincost {
+   background-color: #fff;
+   display: flex;
+   width: 1300px;
+   height: 900px;
+   margin: 50px;
+   margin-top: 0px;
+   display: flex;
+   flex-direction: column;
+   border:1px solid #ddd;
+}
+
+#prom {
+   width: 100%;
+   /* height: 30px; */
+   position: relative;
+}
+
+#div-maincost>hr {
+   margin: 0px;
+}
+
+#procal {
+   width: 100%;
+   position: absolute;
+   position: relative;
+}
+
+#procal>span {
+   padding: 0px 200px 0px 20px;
+}
+
+#procal > input {
+   width:250px;
+}
+#procal > hr {
+   margin:30px 0px 10px 0px;
+}
+
+.sideWrap{
+   display: flex;
+   width: 100%;
+   height: 100%;
+   flex-direction: column;
+}
+
+#table1{
+	width:100%;	
+	height:100%;
+}
+
+#graph_img{
+	width:100%;
+	height:100%;
+}
+
+.cost{
+	text-align:right;
+}
+
+#table2 > tr > td{
+	text-align:center;
+}
+.sideWrap > .top-side{
+	width: 100%;
+	display: flex;
+	height: 450px; 
+	margin:auto;
+}
+	
+.sideWrap .top-inner{
+	width: 50%;
+	border: 1px solid #ddd; 
+	text-align:center;
+} /*여기가 top left,right*/
+
+.sideWrap > .under-side{
+	width: 100%;
+	height: 450px;
+	border: 1px solid #ddd;
+	overflow:auto;
+}/*여기가 under*/

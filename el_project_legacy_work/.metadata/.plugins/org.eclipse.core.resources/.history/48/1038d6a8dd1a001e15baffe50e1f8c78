@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gt.s.kos.vacation.dao.GtVacationDAO">
+
+	<insert id="gtVacationInsert" parameterType="gtvacationvo">
+	
+		INSERT INTO GOAT_VACATION(GVNUM, GVTYPE, GVREASONS, GVSTARTDATE, 
+									GVENDDATE, GVSUBJECT, GVMEMO , GVFILE,
+									INSERTDATE, UPDATEDATE, DELETEYN, GENUM,
+									WRITER, GEHP, REFERENCE, APPROVER, 
+									DEPT, PROVAL, COUNT, DECIANOTHER
+									)
+						VALUES(
+						#{gva_num, jdbcType=VARCHAR},
+						#{gv_type, jdbcType=VARCHAR},
+						#{gv_reasons, jdbcType=VARCHAR},
+						#{gv_startdate, jdbcType=VARCHAR},
+						#{gv_enddate, jdbcType=VARCHAR},
+						#{gv_subject, jdbcType=VARCHAR},
+						#{gv_memo, jdbcType=VARCHAR},
+						#{gv_file, jdbcType=VARCHAR},
+						SYSDATE,
+						SYSDATE.
+						'Y',
+						#{dept, jdbcType=VARCHAR},
+						#{title, jdbcType=VARCHAR},
+						#{ge_num, jdbcType=VARCHAR},
+						#{ge_name, jdbcType=VARCHAR},
+						#{ge_hp, jdbcType=VARCHAR},
+						#{gdr_reference, jdbcType=VARCHAR},
+						#{gdr_dept, jdbcType=VARCHAR},
+						#{gbt_decianother, jdbcType=VARCHAR},
+						#{gta_proval, jdbcType=VARCHAR}
+						#{gta_count, jdbcType=VARCHAR}
+						)
+	</insert>
+	
+</mapper>

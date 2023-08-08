@@ -1,0 +1,55 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Page</title>
+    <style>
+        /* 왼쪽 사이드바 스타일 */
+        .sidebar {
+            width: 200px;
+            background-color: #f1f1f1;
+            padding: 20px;
+        }
+        
+        /* 상단바 스타일 */
+        .navbar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+        }
+        
+        /* 상단바 링크 스타일 */
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 왼쪽 사이드바 -->
+    <div class="sidebar">
+        <h2>Sidebar</h2>
+        <ul>
+            <li><a href="#">메뉴 1</a></li>
+            <li><a href="#">메뉴 2</a></li>
+            <li><a href="#">메뉴 3</a></li>
+        </ul>
+    </div>
+    
+    <!-- 상단바 -->
+    <div class="navbar">
+        <a href="#">홈</a>
+        <a href="#">페이지 1</a>
+        <a href="#">페이지 2</a>
+        <a href="#">페이지 3</a>
+    </div>
+    
+    <!-- 나머지 콘텐츠 -->
+    <div>
+        <h1>메인 콘텐츠</h1>
+        <!-- 콘텐츠 내용 -->
+    </div>
+</body>
+</html>

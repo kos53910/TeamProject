@@ -1,0 +1,155 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+a {
+	color: DimGrey;
+	text-decoration: none;
+}
+
+ul li {
+	list-style-type: none;
+}
+
+#body {
+	width: 100%;
+	height: 100vh;
+}
+
+.navWrap {
+	width: 250px;
+	border: 1px solid #e8e8e8;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	cursor: pointer;
+}
+
+.side_img {
+	padding: 21px;
+	font-size: 17px;
+}
+
+.nav-logo {
+	width: 100%;
+	height: 50px;
+	display: flex;
+	align-items: center;
+}
+
+.nav-logo img {
+	width: 50%;
+	height: 20px;
+	margin-left: 50px;
+}
+
+.nav-profile {
+	width: 100%;
+	height: 70px;
+	display: flex;
+	align-items: center;
+	border-top: 1px solid #e8e8e8;
+	cursor: pointer;
+}
+
+.nav-profile img {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	margin: 0px 10px 0px 15px;
+}
+
+.nav-menuWrap>ul>li {
+	position: relative;
+	width: 100%;
+}
+
+.nav-menuWrap {
+	width: 95%;
+	border-top: 1px solid #e8e8e8;
+	color: black;
+	position: relative;
+}
+
+.nav-menuWrap .top-menu {
+	display: block;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	height: 30px;
+	padding: 5px 10px;
+}
+
+.nav-menuWrap .top-menu img {
+	width: 20px;
+	margin-right: 6px;
+}
+
+.nav-menuWrap .toggle-menu {
+	width: 95%;
+	float: right;
+	display: none;
+	position: relative;
+}
+
+.nav-menuWrap .toggle-menu a {
+	margin: 3px 0;
+	width: 100%;
+	height: 30px;
+	display: flex;
+	align-items: center;
+	border-radius: 5px;
+}
+
+.nav-menuWrap .toggle-menu a:hover {
+	background-color: #e8e8e8;
+}
+
+.nav-menuWrap .toggle-menu img {
+	width: 20px;
+	margin-right: 6px;
+}
+
+.active {
+	display: block !important;
+}
+
+.toggle-arrow {
+	width: 15px;
+	height: 15px;
+	background-image: url(../goats_icon/left.png);
+	background-size: cover;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.active-arrow {
+	background-image: url(../goats_icon/under.png) !important;
+}
+
+.arrow {
+	background-image: url(../goats_icon/left.png);
+	background-position: 135px;
+	background-size: 10px 10px;
+	background-repeat: no-repeat;
+	width: 100%;
+}
+
+.top-menu {
+	margin: 10px 0px;
+}
+
+.top-menu-active {
+	background-color: LightBlue;
+}
+
+.weather3 {
+	position:absolute;
+	bottom:0
+	
+}

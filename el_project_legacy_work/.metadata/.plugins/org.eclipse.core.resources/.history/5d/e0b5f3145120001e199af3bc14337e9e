@@ -1,0 +1,131 @@
+package com.gt.s.kos.contract.controller;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.gt.s.common.ChabunUtil;
+import com.gt.s.common.CommonUtils;
+import com.gt.s.common.DateFormatUtil;
+import com.gt.s.common.FileUploadUtil;
+import com.gt.s.common.chabun.service.GtChabunService;
+import com.gt.s.kos.contract.service.GtContractService;
+import com.gt.s.kos.contract.vo.GtContractVO;
+
+@Controller
+public class GtContractController {
+	
+	private String chabun;
+	
+	Logger log = LogManager.getLogger(GtContractController.class);
+	
+	@Autowired(required = false)
+	private GtContractService gtContractService;
+	
+	@Autowired(required = false)
+	private GtChabunService gtChabunService;
+	
+	// InsertForm
+	@GetMapping("gtContractInsertForm") 
+	public String gtContractInsertForm() {
+		
+		return "contract/contractInsertForm";
+	}
+	
+	// Insert
+	@GetMapping("contractInsert")
+	@ResponseBody
+	public String contractInsert(Model m, GtContractVO gcvo, HttpServletRequest req) {
+		
+		this.chabun = null;
+		this.chabun = gcvo.getGcnum();
+		gcvo.setGcfile("-");
+		gcvo.setWriter("작성자");
+		gcvo.setGenum("작성자");
+		log.info(gcvo.getGcnum());
+		log.info(gcvo.getGcsubject());
+		log.info(gcvo.getGcsalplace());
+		log.info(gcvo.getGcpurchase());
+		log.info(gcvo.getGccontent());
+		String conform1 = ""; 
+		String[] conform = req.getParameterValues("gcconform");
+		if(conform != null) {
+			for(int i=0; i<conform.length; i++) {
+				conform1 += conform[i] + ",";
+			}
+			gcvo.setGcconform(conform1);
+		}
+		log.info(gcvo.getGcconform());
+		log.info(gcvo.getGcsalitem());
+		log.info(gcvo.getGcsalquantity());
+		log.info(gcvo.getGcsalamount());
+		log.info(gcvo.getGcpuritem());
+		log.info(gcvo.getGcpuramount());
+		log.info(gcvo.getGcattach());
+		log.info(gcvo.getGcsign());
+		log.info(gcvo.getWriter());
+		log.info(gcvo.getReference());
+		log.info(gcvo.getApprover());
+		log.info(gcvo.getDept());
+		
+		int nCnt = gtContractService.gtContractInsert(gcvo); // 이렇게 해도 되나?
+		
+		String str = "";
+		
+			if (nCnt > 0) {
+				
+				str = "OK";
+			}else {
+				str = "NO";
+			}
+		
+		return str;
+	}
+	
+	// Chabun
+	@GetMapping("getGtContractChabun")
+	@ResponseBody
+	public String getGtDraftChabun() {
+			
+		String gcnum = ChabunUtil.BIZ_GUBUN_CO.concat(DateFormatUtil.ymdFormats("D")).concat(gtChabunService.getGtContractChabun().getGcnum());
+		
+		return gcnum;
+		}
+	
+	// InsertFile
+	@PostMapping("contractInsertFile")
+	public String gtContractInsertFile(HttpServletRequest req) {
+		log.info("여기는 contractInsertFile");
+		
+		FileUploadUtil fu = new ImgUploadUtil(CommonUtils.CO_IMG_UPLOAD_PATH, CommonUtils.CO_IMG_FILE_SIZE, CommonUtils.CO_EN_CODE);
+		
+		boolean bool = fu.imgfileUpload(req);
+		log.info("ddd"+ bool);
+		
+		GtContractVO gcvo = new GtContractVO();
+	
+		
+		gcvo.setGcnum(this.chabun);
+		gcvo.setGcfile(fu.getFileName("gcfile"));
+		
+		
+		log.info("여기한번 봐보자 >>>> :  " + gcvo.getGcnum());
+		
+		int nCnt = gtContractService.gtContractInsertFile(gcvo);
+		if (nCnt > 0) {
+			
+			return "contract/contractInsert";
+			
+		}else {
+			return "contract/fail";
+		}
+		
+	}
+}

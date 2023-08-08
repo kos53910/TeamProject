@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+          
+<mapper namespace = "com.gt.s.kos.schedule.dao.GtScheduleDAO">
+	
+	
+	<select id="gtScheduleSelectVa" resultType="gtschedulevo" parameterType="gtschedulevo">
+		
+		SELECT 
+			GPNUM, GPPNUM, GPSUBJECT, 
+			WRITER, GPTYPE, GPMEMO, 
+			GPLOCATION, 
+			GPSTART, 
+			GPEND, 
+			DELETEYN, 
+			TO_CHAR(TO_DATE(INSERTDATE), 'YYYY-MM-DD') AS INSERTDATE,
+			TO_CHAR(TO_DATE(UPDATEDATE), 'YYYY-MM-DD') AS UPDATEDATE
+	    FROM GOAT_PLAN
+	    WHERE ROWNUM  <![CDATA[<= ]]> 7  
+	    AND DELETEYN = 'Y'
+	    AND GPSTART <![CDATA[<= ]]> #{gpstart}
+	    AND GPEND <![CDATA[>= ]]> #{gpstart}
+	    AND <![CDATA[GPPNUM LIKE '%' || 'VA' || '%']]>
+	    ORDER BY 8
+	    
+			
+		
+	</select>
+	
+	<select id="gtScheduleSelectBu" resultType="gtschedulevo" parameterType="gtschedulevo">
+		
+		SELECT 
+			GPNUM, GPPNUM, GPSUBJECT, 
+			WRITER, GPTYPE, GPMEMO, 
+			GPLOCATION, 
+			GPSTART, 
+			GPEND, 
+			DELETEYN, 
+			TO_CHAR(TO_DATE(INSERTDATE), 'YYYY-MM-DD') AS INSERTDATE,
+			TO_CHAR(TO_DATE(UPDATEDATE), 'YYYY-MM-DD') AS UPDATEDATE
+	    FROM GOAT_PLAN
+	    WHERE ROWNUM  <![CDATA[<= ]]> 7  
+	    AND DELETEYN = 'Y'
+	    AND GPSTART <![CDATA[<= ]]> #{gpstart}
+	    AND GPEND <![CDATA[>= ]]> #{gpstart}
+	    AND <![CDATA[GPPNUM LIKE '%' || 'BU' || '%']]>
+	    ORDER BY 8
+	    
+			
+		
+	</select>
+	
+</mapper>

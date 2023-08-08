@@ -1,0 +1,19 @@
+package com.gt.s.common;
+
+import java.io.File;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+public abstract class FileUploadUtil {
+
+	private Logger log = LogManager.getLogger(this.getClass());
+	
+	public static String forderUpload(String filename) {
+		
+		File file = new File(CommonUtils.SP_FILE_UPLOAD_PATH + filename);
+		
+		return "";
+	}
+	
+}

@@ -1,0 +1,11 @@
+package com.gt.s.common.chabun.dao;
+
+import com.gt.s.kos.business.vo.GtBusinessVO;
+import com.gt.s.kos.vacation.vo.GtVacationVO;
+
+public interface GtChabunDAO {
+
+	public GtVacationVO getGtVacationChabun();
+	public GtBusinessVO getGtBusinessChabun();
+	public GtSpendVO getGtSpendChabun();
+}

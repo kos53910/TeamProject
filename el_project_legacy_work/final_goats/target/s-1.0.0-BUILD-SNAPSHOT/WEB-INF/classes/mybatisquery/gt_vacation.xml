@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gt.s.kos.vacation.dao.GtVacationDAO">
+
+	<insert id="gtVacationInsert" parameterType="gtvacationvo">
+	
+		INSERT INTO GOAT_VACATION(GVNUM, GVTYPE, GVREASONS, GVSTARTDATE, 
+									GVENDDATE, GVSUBJECT, GVMEMO , 
+									INSERTDATE, UPDATEDATE, DELETEYN, GENUM,
+									WRITER, GEHP, REFERENCE, APPROVER, 
+									DEPT, PROVAL, COUNT, DECIANOTHER
+									)
+						VALUES(
+						#{gvnum, jdbcType=VARCHAR},
+						#{gvtype, jdbcType=VARCHAR},
+						#{gvreasons, jdbcType=VARCHAR},
+						#{gvstartdate, jdbcType=VARCHAR},
+						#{gvenddate, jdbcType=VARCHAR},
+						#{gvsubject, jdbcType=VARCHAR},
+						#{gvmemo, jdbcType=VARCHAR},
+						SYSDATE,
+						SYSDATE.
+						'Y',
+						#{genum, jdbcType=VARCHAR},
+						#{writer, jdbcType=VARCHAR},
+						#{gehp, jdbcType=VARCHAR},
+						#{reference, jdbcType=VARCHAR},
+						#{approver, jdbcType=VARCHAR},
+						#{rept, jdbcType=VARCHAR},
+						#{proval, jdbcType=VARCHAR},
+						#{count, jdbcType=VARCHAR}
+						#{edcianother, jdbcType=VARCHAR}
+						)
+	</insert>
+	
+</mapper>

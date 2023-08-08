@@ -1,0 +1,22 @@
+package com.gt.s.kos.vacation.dao;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.gt.s.kos.vacation.vo.GtVacationVO;
+
+@Repository
+public class GtVacationDAOImpl implements GtVacationDAO {
+	Logger log = LogManager.getLogger(this.getClass());
+	
+	private SqlSessionTemplate sqlSession;
+	
+	@Override
+	public int gtVacationInsert(GtVacationVO vvo) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("gtVacationInsert", vvo);
+	}
+
+}

@@ -1,0 +1,11 @@
+package a.b.c.gt.kos.login.dao;
+
+import java.util.List;
+
+import a.b.c.gt.kos.employee.vo.GtEmployeeVO;
+
+public interface GtLoginDAO {
+	
+	public List<GtEmployeeVO> logincheck(GtEmployeeVO evo);
+
+}

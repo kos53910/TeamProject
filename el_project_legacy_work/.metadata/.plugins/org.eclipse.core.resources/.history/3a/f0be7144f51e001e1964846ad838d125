@@ -1,0 +1,13 @@
+package com.gt.s.common;
+
+public class Test {
+
+	public static void main(String[] args) {
+		long x = 1;
+		long y = (x - (x/2));
+		for (;;) {
+			y = y + y;
+			System.out.println(y);
+		}
+	}
+}

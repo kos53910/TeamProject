@@ -1,0 +1,18 @@
+package com.gt.s.common;
+
+public class Test {
+
+	public static void main(String[] args) {
+		double x = 1;
+		double y = (x - (1/2));
+		double z = 0;
+		double a = 0;
+		for (int i=0;;i++) {
+			if(i > 0) {
+				y = (y - (y/2));
+			}
+			z = z + y;
+			System.out.println(z);
+		}
+	}
+}

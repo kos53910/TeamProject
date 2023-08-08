@@ -1,0 +1,19 @@
+package a.b.c.gt.kos.spend.service;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import a.b.c.gt.kos.spend.dao.GtSpendDAO;
+
+@Service
+@Transactional
+public class GtSpendServiceImpl implements GtSpendService {
+
+	Logger log = LogManager.getLogger(this.getClass());
+	
+	@Autowired(required = false)
+	private GtSpendDAO gtSpendDAO;
+}

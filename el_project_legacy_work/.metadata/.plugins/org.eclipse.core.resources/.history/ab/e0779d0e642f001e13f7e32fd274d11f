@@ -1,0 +1,160 @@
+<%@page import="com.gt.s.common.CommonUtils"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.gt.s.kos.spend.vo.GtSpendVO" %>
+<%
+	int[] cost_ = (int[])request.getAttribute("cost_");
+	DecimalFormat df = new DecimalFormat("###,###");
+	List<GtSpendVO> list_ = (List<GtSpendVO>)request.getAttribute("list_");
+%>
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>실비 관리</title>
+    <link rel="stylesheet" href="resources/css/projecttactualcost.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="resources/js/common.js"></script>
+    <script>
+		$(document).ready(function () {
+			var d = new Date();
+			var s = d.getFullYear().toString() + "-" + numpad((d.getMonth()+1).toString()) + "-" + numpad(d.getDate().toString());
+			$("#graph_img").prop({
+				"src":"resources/Spendgraph/"+s+".png"
+			});
+		}); // end of ready
+    </script>
+    <style>
+      body {
+        margin: 0 auto;
+      }
+      
+      #rightcon {
+        width: 100%;
+      }
+
+      #table1, #table2 {
+        width: 100%;
+        border-collapse: collapse;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      tr td {
+        border: 1px solid gray;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      .container2 {
+        display: flex;
+      }
+
+      .container {
+      margin: 0;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 951px;
+        width: 100%;
+      }
+      .under-side{
+      	overflow : scroll;
+      }
+      
+    </style>
+  </head>
+  <body style="width:100%">
+    <div class="container2" style="margin: 0; width:100%;">
+      <div>
+        <jsp:include page="../main/mainSide-bar.jsp" />
+      </div>
+      <div style="margin: 0; padding: 0; width:100%;">
+        <jsp:include page="../main/Top-bar.jsp"></jsp:include>
+        <div class="container" id="rightcon">
+
+           <div class="out-div" style="width:100%;">
+           <h3 style="margin:0px;" align="left" id="prosubject">실비 조회</h3>
+           <hr id="hr-margin">
+           
+           <div id="div-maincost">
+            <div class="sideWrap">
+               <div class="top-side">
+                  <div class="top-inner left-side">
+                  <table id="table1">
+                  	<tr> 
+                  		<td>구분</td>
+                  		<td>합계</td>
+                  	</tr>
+                  	<%
+                  		for(int i=0; i<cost_.length; i++) {
+                  			String s = CommonUtils.s[i];
+                  			String cost = df.format(cost_[i]);
+                  	%>
+                  	<tr> <td><%=s %></td> <td class="cost"><%=cost %> 원</td> </tr>
+                  	<%
+                  		}
+                  	%>
+                  </table>
+					</div>
+                  <div class="top-inner right-side">
+                  	<img id="graph_img" src="">
+                  </div>
+               </div>
+               <div class="under-side">
+               	<table id="table2">
+               		<tr> 
+               			<td><center>날짜</center></td>
+               			<td><center>사원</center></td>
+               			<td><center>구분</center></td>
+               			<td><center>거래처</center></td>
+               			<td><center>제목</center></td>
+               			<td><center>적요</center></td>
+               			<td><center>수량</center></td>
+               			<td><center>단가</center></td>
+               			<td><center>금액</center></td>
+               			<td><center>결제방법</center></td>
+               			<td><center>프로젝트</center></td>
+               		</tr>
+               		<%
+               			for(int i=0; i<list_.size(); i++) {
+    	       				GtSpendVO svo = null;
+    	       				svo = new GtSpendVO();
+    	       				svo = list_.get(i);
+    	       				String cost = df.format(svo.getGscost());
+    	       				String tCost = df.format(svo.getTotalcost());
+               		%>
+               		<tr> 
+               		<td><center><%=svo.getGsdate() %></center></td>
+               		<td><center><%=svo.getWriter() %></center></td>
+               		<td><center><%=svo.getGsgubun() %></center></td>
+               		<td><center><%=svo.getGsaccount() %></center></td>
+               		<td><center><%=svo.getGssubject() %></center></td>
+               		<td><center><%=svo.getGsinfo() %></center></td>
+               		<td class="cost"><%=svo.getGscount() %></td>
+               		<td class="cost"><%=cost %></td>
+               		<td class="cost"><%=tCost %></td>
+               		<td><center>법인카드</center></td>
+               		<td><center><%=svo.getGpnum() %></center></td> 
+               		</tr>
+               		<%
+               			}
+               		%>
+               	</table>
+               </div>
+            </div>
+           </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+

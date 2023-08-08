@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+          
+<mapper namespace="com.gt.s.kos.employee.dao.GtEmployeeDAO">
+	
+	<select id="genumcheck" parameterType="gtemployeevo" resultType="gtemployeevo">
+		SELECT 	
+		        A.GENUM 	GENUM
+		FROM 	GOAT_EMPLOYEE A
+		WHERE 	A.GEID = #{geid}
+	</select>
+	
+	<select id="goatempidcheck" parameterType="gtemployeevo" resultType="gtemployeevo">
+		SELECT 	
+		        A.GENAME 	GENAME
+		FROM 	GOAT_EMPLOYEE A
+		WHERE 	A.GENUM = #{genum}	
+	</select>
+
+	<select id="goatsEmployeeSelect" parameterType="gtemployeevo" resultType="gtemployeevo">
+		
+		SELECT A.GENAME, A.GEDEPT, A.TITLE FROM GOAT_EMPLOYEE A WHERE A.DELETEYN = 'Y' AND A.GEDEPT = #{gedept}  
+		
+	</select>
+	
+	<select id="gtEmployeeIdcheck" parameterType="gtemployeevo" resultType="gtemployeevo">
+		SELECT A.GEID 
+		FROM GOAT_EMPLOYEE A
+		WHERE GEID = #{geid}
+	</select>
+	
+	<insert id="gtEmployeeInsert" parameterType="gtemployeevo">
+		INSERT INTO GOAT_EMPLOYEE ( GENUM
+								,GENAME 
+								,GEID
+								,GEPW
+								,GEGENDER
+								,GEBIRTH
+								,GEHP
+								,GEEMAIL
+								,GEZONE
+								,GEROAD
+								,GEROADDETAIL
+								,GEJIBUN
+								,DELETEYN
+								,INSERTDATE
+								,UPDATEDATE
+								,GEDEPT
+								,TITLE
+								,SALARY)
+								VALUES(
+								#{genum}
+								,#{gename}
+								,#{geid}
+								,#{gepw}
+								,#{gegender}
+								,TO_CHAR(TO_DATE(#{gebirth}), 'yyMMdd')
+								,#{gehp}
+								,#{geemail}
+								,#{gezone}
+								,#{geroad}
+								,#{geroaddetail}
+								,#{gejibun}
+								,'Y'
+								,TO_CHAR(TO_DATE(SYSDATE), 'YYYY-MM-DD') 
+								,TO_CHAR(TO_DATE(SYSDATE), 'YYYY-MM-DD') 
+								,#{gedept}
+								,#{title}
+								,#{salary}
+								)
+	
+	</insert>
+	<update id="gtEmployeeFileInsert" parameterType="gtemployeevo">
+			UPDATE GOAT_EMPLOYEE 
+			<choose>
+				<when test="gephoto == null">
+				SET GEPHOTO = '-'
+				</when>
+				<otherwise>
+				SET GEPHOTO = #{gephoto}
+			</otherwise>
+			</choose> 
+			WHERE GENUM = #{genum} 
+	
+	</update>
+	
+	<select id="gtEmployeeDecianotherSelect" parameterType="gtemployeevo" resultType="gtemployeevo">
+	
+			SELECT A.GENAME AS GENAME
+			,A.GEDEPT AS GEDEPT
+			,A.TITLE AS TITLE
+			FROM GOAT_EMPLOYEE A WHERE A.DELETEYN = 'Y' 
+			AND A.GEDEPT IN (#{gedept}, '대표이사')  
+			AND A.TITLE IN ('이사', '대표이사', '차장')
+	
+	</select>
+	
+	
+</mapper>

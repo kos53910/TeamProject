@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.gt.s.kos.resignation.dao.GtResignationDAO">
+	
+      <insert id="gtResignationInsert" parameterType="gtresignationvo">
+         
+            INSERT INTO GOAT_RESIGNATION 
+               (
+                GRNUM
+               ,GRSTARTDATE
+               ,GRENDDATE
+               ,GRSUBJECT
+               ,GRMEMO
+               ,INSERTDATE
+               ,UPDATEDATE
+               ,DELETEYN            
+               ,GENUM
+               ,WRITER
+               ,REFERENCE
+               ,APPROVER
+               ,DEPT
+               ,PROVAL
+               ,COUNT
+               ) 
+         VALUES
+               (
+                #{grnum}         
+               ,#{grstartdate}
+               ,#{grenddate}
+               ,#{grsubject}
+               ,#{grmemo}
+               ,SYSDATE
+               ,SYSDATE
+               ,'Y'
+               ,#{genum}
+               ,#{writer}
+               ,#{reference}
+               ,#{approver}
+               ,#{dept}
+               ,#{proval}
+               ,#{count}         
+               )         
+      </insert>
+		
+		<update id="gtResignationInsertFile" parameterType="gtresignationvo">
+			
+			UPDATE 		GOAT_RESIGNATION
+			SET 		GRFILE = #{grfile}
+			WHERE 		1=1
+			AND 		GRNUM = #{grnum}
+			
+		</update>
+		
+		<select id="gtResignationAppSelectAll" resultType="gtapprovallinevo" parameterType="gtapprovallinevo">
+		
+			SELECT GRNUM	APPNUM, GRSTARTDATE, GRENDDATE, 
+			GRSUBJECT	SUBJECT, GRMEMO, GRFILE, 
+			TO_CHAR(INSERTDATE, 'YYYY-MM-DD')	"DATE", 
+			TO_CHAR(UPDATEDATE, 'YYYY-MM-DD')	UPDATEDATE, 
+			DELETEYN, GENUM, WRITER, 
+			REFERENCE, APPROVER, DEPT, 
+			PROVAL, COUNT
+			FROM GOAT_RESIGNATION
+			WHERE DELETEYN = 'Y'
+        <if test="app=='app'">
+            <![CDATA[AND APPROVER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>   
+        </if>
+        <if test="app=='napp'">
+            <![CDATA[AND COUNT < 0]]>     
+            <![CDATA[AND WRITER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>    
+        </if>
+        <if test="app=='prog'">
+            <![CDATA[AND WRITER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>        
+        </if>
+        <if test="app=='ref'">
+            <![CDATA[AND REFERENCE LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="s_appnum!=''">
+            <![CDATA[AND GRNUM LIKE '%' || #{s_appnum, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="subject!=''">
+            <![CDATA[AND GRSUBJECT LIKE '%' || #{subject, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="s_writer!=''">
+            <![CDATA[AND WRITER LIKE '%' || #{s_writer, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="formname!=''">
+            <![CDATA[AND GRNUM LIKE '%' || #{appnum, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="appstartdate!=''">
+            <![CDATA[AND INSERTDATE >= #{appstartdate, jdbcType=VARCHAR}]]>         
+        </if>
+        <if test="appenddate!=''">
+            <![CDATA[AND INSERTDATE <= #{appenddate, jdbcType=VARCHAR}]]>         
+        </if>
+			ORDER BY 1
+		</select>
+		
+		<select id="gtResignationSelect" parameterType="gtresignationvo" resultType="gtresignationvo">
+		
+			SELECT 
+					 A.GRNUM 		GRNUM
+					,TO_CHAR(A.GRSTARTDATE, 'YYYY-MM-DD') 	GRSTARTDATE
+					,TO_CHAR(A.GRENDDATE, 'YYYY-MM-DD') 	GRENDDATE
+					,A.GRSUBJECT 	GRSUBJECT
+					,A.GRMEMO 		GRMEMO
+					,TO_CHAR(A.INSERTDATE, 'YYYY-MM-DD') 	INSERTDATE
+					,TO_CHAR(A.UPDATEDATE, 'YYYY-MM-DD') 	UPDATEDATE
+					,A.GENUM 		GENUM
+					,A.WRITER 		WRITER
+					,A.REFERENCE 	REFERENCE
+					,A.APPROVER 	APPROVER
+					,A.DEPT 		DEPT
+					,A.PROVAL 		PROVAL
+					,A.COUNT 		COUNT
+			FROM  	GOAT_RESIGNATION A
+			WHERE 	1=1
+			AND 	DELETEYN = 'Y'
+			AND 	GRNUM = #{grnum}
+		</select>
+
+	</mapper>

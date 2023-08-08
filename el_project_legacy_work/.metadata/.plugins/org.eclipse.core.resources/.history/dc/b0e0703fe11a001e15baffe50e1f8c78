@@ -1,0 +1,348 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css"
+		rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+	
+					document.getElementById("date").innerText = new Date()
+							.toISOString().slice(0, 10);
+	
+					// 상신
+					$(document).on("click", "#sbtn", function() {
+	
+						var a = $('.ql-editor').html();
+	
+						var b = $("#quill_html").val(a);
+	
+						alert(b.val());
+	
+						$("#draftFormAll").attr({
+							"method" : "GET",
+							"action" : "draftInsert.gos"
+						}).submit();
+	
+					});
+	
+					$.ajax({
+						url : "gtVacationChanbun.gos",
+						type : "GET",
+						success : function(res) {
+	
+							var gva_num = res;
+	
+							alert(typeof (gva_num));
+							$("#gva_num1").text(gva_num);
+							$("#gva_num").val(gva_num);
+						},
+						error : function(e) {
+							alert("gtVacationChanbun");
+							console.log(e.responseText)
+						}
+					})
+					$.ajax({
+	
+						url : "goatsEmployeeSelect.gos",
+						data : {
+							dept : "개발1팀"
+						},
+						success : function(res) {
+							console.log(res);
+							selectDept(res);
+						},
+						error : function(e) {
+							console.log(e.responseText);
+						}
+	
+					});
+	
+					function selectDept(dept) {
+	
+						var a = dept.split('/');
+						console.log(a);
+						var select = "";
+						for (var i = 0; i < a.length - 1; i++) {
+	
+							var b = a[i].replaceAll(",", "/")
+							var selectOption = "<option value=" + b + ">" + b
+									+ "</option>"
+							select += selectOption;
+						}
+						console.log(select);
+	
+						$("#selectOption").append(select);
+	
+					};
+	
+					// 기간 계산 
+					$("#gv_enddate").change(function(){
+						
+						let sd = document.querySelector("#gv_startdate").value;
+						let ed = document.querySelector("#gv_enddate").value;
+	
+						sd = new Date(sd);
+						ed = new Date(ed);
+						
+						if(ed <= sd){
+							alert("날짜를 확인해주십쇼");
+							$("#gv_enddate").val("");
+							
+							return false;
+						}
+	
+						alert(sd);
+						alert(ed);
+	
+						dd = ed - sd;
+						
+						let datem = 24 * 60 * 60 * 1000;
+						
+						let date = dd / datem + "일";
+	
+						// document.getElementById("time").innerText =  date;
+						
+						$("#time").text(date);
+						
+					});
+					
+				});
+	
+	
+	</script>
+	
+	<style type="text/css">
+	.button-container {
+		text-align: right;
+	}
+	
+	.initial-size {
+		min-height: 200px;
+	}
+	
+	th {
+		background-color: #f2f2f2;
+	}
+	
+	table {
+		border-collapse: collapse;
+		width: 1033px;
+	}
+	
+	th {
+		border: 1px solid black;
+		padding: 8px;
+		text-align: center;
+	}
+	
+	td {
+		border: 1px solid black;
+		padding: 8px;
+	}
+	
+	div {
+		width: 1033px;
+	}
+	</style>
+	</head>
+	<body>
+		<form>
+			<div class="button-container">
+				<button type="button" id="gbtn">결재선지정</button>
+				<button type="button" id="sbtn">상신</button>
+				<button type="button" id="cbtn">취소</button>
+	
+			</div>
+			<div>
+				<h2 align="center">휴가 신청서</h2>
+			</div>
+			<br>
+			<table id="gv_form">
+				<tr align="center">
+					<th width="120px">문서번호</th>
+					<td width="230px" name="gva_num" id="gva_num1"></td>
+					<th width="120px">보안구분</th>
+					<td width="230px">비공개</td>
+					<th width="120px">보존연한</th>
+					<td width="230px">5년</td>
+				</tr>
+				<tr align="center">
+					<th width="100px">작성자</th>
+					<td width="230px%" name="ge_name" / name="dept">
+					<th width="100px">작성일자</th>
+					<td width="230px" id="date"></td>
+					<th width="120px">대결자</th>
+					<td width="230px"><select id="selectOption"></select></td>
+					<!-- 작성일자 -->
+				</tr>
+			</table>
+			<br>
+			<table id="table1">
+				<tr>
+					<th width="19px">순서</th>
+					<th width="83px">구분</th>
+					<th width="14px">결재자</th>
+					<th width="14px">부서</th>
+					<th width="14px">상태</th>
+					<th width="14px">결재일</th>
+					<th width="14px">결재의견</th>
+				</tr>
+				<tr align="center">
+					<td>1</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr align="center">
+					<td>2</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr align="center">
+					<td>3</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr align="center">
+					<td>4</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr align="center">
+					<td>5</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</table>
+			<br>
+			<table id="cham1">
+				<tr>
+					<th width="120px">참 조</th>
+					<td id="gdr_reference"></td>
+				</tr>
+			</table>
+			<br>
+			<table>
+				<tr align="left">
+					<th width="120px">제 목</th>
+					<td><input type="text" name="gv_subject" size="100px"
+						style="width: 820px"></td>
+				</tr>
+			</table>
+			<br>
+			<table>
+				<tr align="left">
+					<th width="120px">일 시</th>
+					<td width="346px" colspan="3"><input type="date"
+						name="gv_startdate" id="gv_startdate" max="2060-12-31"
+						min="1950-01-01"> ~ <input type="date"
+						name="gv_enddate" id="gv_enddate" max="2060-12-31" min="1950-01-01"
+						></td>
+	
+				</tr>
+				<tr>
+					<th width="120px">기 간</th>
+					<td width="640px" id="time"></td>
+					<th width="110px">구 분</th>
+					<td align="center"><select name="gv_type">
+							<option value="연차">연차</option>
+							<option value="반차">반차</option>
+							<option value="월차">월차</option>
+					</select></td>
+				</tr>
+			</table>
+			<table>
+				<br>
+				<tr>
+					<th width="120px">사 유</th>
+					<td colspan="3"><input type="text" name="gv_reasons"
+						size="100%" style="width: 820px"></td>
+				</tr>
+				<tr>
+					<th width="120px">연 락 처</th>
+					<td><input type="text" name="ge_hp01" size="2"
+						placeholder="0000" readonly /> - <input type="text" name="ge_hp02"
+						size="2" placeholder="1234" readonly /> - <input type="text"
+						name="ge_hp03" size="2" placeholder="5678 " readonly /></td>
+				</tr>
+				<br>
+			</table>
+			<table>
+				<th width="120px">비고</th>
+				<br>
+			</table>
+			<div id="editor" class="initial-size"></div>
+			<input type="hidden" id="quill_html" name="gv_memo">
+			<script>
+				var quill = new Quill('#editor', {
+				// Quill 설정 옵션
+				});
+	
+				// 작성 영역 클릭 시 이벤트 처리
+				var editorContainer = document.querySelector('#editor');
+				editorContainer.addEventListener('click', function() {
+					quill.focus(); // 작성 영역으로 포커스 이동
+				});
+	
+				var toolbarOptions = [ [ 'bold', 'italic', 'underline', 'strike' ],
+						[ 'link', 'image' ], [ {
+							'list' : 'ordered'
+						}, {
+							'list' : 'bullet'
+						} ], [ {
+							'header' : [ 1, 2 ]
+						} ] ];
+	
+				var quill = new Quill('#editor', {
+					modules : {
+						toolbar : toolbarOptions
+					},
+					theme : 'snow'
+				});
+	
+				function myFunction() {
+					alert("gd");
+				}
+			</script>
+		</form>
+		<div>
+			<input type="hidden" name="gva_num" id="gva_num" value="">
+		</div>
+		<br>
+		<form id="gv_file_form">
+			<table>
+				<tr>
+					<th width="120px">첨부파일</th>
+					<td><input type="file" name="gv_flie" size="100%"></td>
+				</tr>
+			</table>
+		</form>
+		<br>
+	</body>
+</html>

@@ -1,0 +1,139 @@
+<!-- 
+	추가 작업
+	 -검색 기능 활성화
+	 -엑셀버튼 활성화
+	 -항목설정 활성화
+-->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page import='com.gt.s.kos.draft.vo.GtDraftVO'%>
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Vacation SelectAll</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<style type="text/css">
+	
+/* 	전체화면 배치 */
+	.container_i02{
+		display: flex;
+	}
+/* 	메인화면 설정 */
+	.container_i02 > div:nth-child(2){
+		width: 100%;
+	}
+/* 	이미지 설정 */
+	.content_i02 > img{
+		width: 15px;
+		height: 15px;
+	}
+/* 	VacationSelectAll 화면 */
+	.basic_i02 {
+		margin: 0 auto;
+		width: 100%;
+	}
+/* 	블럭 설정 */
+	.wrapper_i02:nth-child(1) {
+		display: flex;
+		justify-content: space-between;
+	}
+	.wrapper_i02 > div:nth-child(2){
+		display:flex;
+		justify-content: space-between;
+	}
+/* 	테이블 설정 */
+	.basic_i02 table {
+		width: 100%;
+	}
+/* 	테이블 선 설정 */
+	.basic_i02 table,tr,td {
+		border: 1px solid #aaa;
+		border-space:0;
+		border-collapse:collapse;
+		text-align:center;
+	}
+/* 	테이블 특정td 설정 */
+	.basic_i02 td:nth-child(3), td:nth-child(9) {
+		width: 15%;
+	}
+	.Va_Table_Sa tr:nth-child(odd){
+		background-color:#a4a4a4;
+	}
+	
+	</style>
+</head>
+
+<body>
+	<div class="container_i02">
+		<div>
+			<jsp:include page="../main/mainSide-bar.jsp" />
+		</div>
+		<div>
+			<jsp:include page="../main/Top-bar.jsp"></jsp:include>
+			<br>
+			<!-- SelectAll 부분 -->
+			<div class="basic_i02">
+				<div class="wrapper_i02">
+					<div class="content_i02">
+						<span>전체휴가현황</span>
+					</div>
+					<div class="content_i01">
+						<span style="color:blue">Home</span> / 휴가 / 전체휴가현황
+					</div>
+				</div>
+				<div class="wrapper_i02">
+					<div class="content_i02">
+						<img src="\resources\goats_icon\vacation.png" alt="img"><span>전체휴가현황</span>
+					</div>
+					<div class="content_i02">
+						<div>
+							<span><small>검색 : </small></span> <input type="text">
+						</div>
+					</div>
+				</div>
+				<div  class="wrapper_i02">
+					<table class="Va_Table_Sa">
+						<tr>
+							<td>순번</td>
+							<td>연도</td>
+							<td>소속</td>
+							<td>사번</td>
+							<td>이름</td>
+							<td>적치일수</td>
+							<td>사용일수</td>
+							<td>잔여일수</td>
+							<td>사용률</td>
+						</tr>
+						<c:if test="${fn:length(aList) > 0}">
+							<c:forEach var="item" items="${aList}" varStatus="status">
+							<fmt:parseNumber var="days" type="number" value="${item.gvdays}"/>
+								<tr>
+									<td>${status.count}</td>
+									<td>${item.insertdate}</td>
+									<td>${fn:split(item.writer, ' ')[0]}</td>
+									<td>${item.genum}</td>
+									<td>${fn:split(item.writer, ' ')[1]}</td>
+									<td>15.00</td>
+									<td><fmt:formatNumber value="${days}" pattern="0.00"/></td>
+									<td><fmt:formatNumber value="${15-days}" pattern="0.00"/></td>
+									<td><fmt:formatNumber value="${days/15*100}" pattern="0.00"/>%</td>
+								</tr>
+								<c:set var="nCnt" value="${nCnt+1}"/>
+							</c:forEach>
+						</c:if>
+			
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

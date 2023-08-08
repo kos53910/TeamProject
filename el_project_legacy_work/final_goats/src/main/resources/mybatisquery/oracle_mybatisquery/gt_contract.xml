@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+          
+<mapper namespace="com.gt.s.kos.contract.dao.GtContractDAO">
+
+	<insert id="gtContractInsert" parameterType="gtcontractvo">
+	
+		INSERT INTO GOAT_CONTRACT(
+									 gcnum         <!-- 1 --> 
+									,gcsubject     <!-- 2 --> 
+									,gcsalplace    <!-- 3 --> 
+									,gcpurchase    <!-- 4 --> 
+									,gccontent     <!-- 5 --> 
+									,gcconform     <!-- 6 --> 
+									,gcsalitem     <!-- 7 --> 
+									,gcsalquantity <!-- 8 --> 
+									,gcsalamount   <!-- 9 --> 
+									,gcpuritem     <!-- 10 -->
+									,gcpuramount   <!-- 11 -->
+									,gcattach      <!-- 12 -->
+									,gcsign        <!-- 13 -->
+									,gcfile        <!-- 14 -->
+									,insertdate    <!-- 15 -->
+									,updatedate    <!-- 16 -->
+									,deleteyn      <!-- 17 -->
+									,genum         <!-- 18 -->
+									,writer        <!-- 19 -->
+									,reference     <!-- 20 -->
+									,approver      <!-- 21 -->
+									,dept          <!-- 22 -->
+									,proval        <!-- 23 -->      
+						      <!-- 24 -->        
+									 )
+									 VALUES
+									 (
+									 #{gcnum, jdbcType=VARCHAR}              <!-- 1 --> 
+									,#{gcsubject, jdbcType=VARCHAR}           <!-- 2 --> 
+									,#{gcsalplace, jdbcType=VARCHAR}          <!-- 3 --> 
+									,#{gcpurchase, jdbcType=VARCHAR}         <!-- 4 --> 
+									,#{gccontent, jdbcType=VARCHAR}           <!-- 5 --> 
+									,#{gcconform, jdbcType=VARCHAR}           <!-- 6 --> 
+									,#{gcsalitem, jdbcType=VARCHAR}           <!-- 7 --> 
+									,#{gcsalquantity, jdbcType=VARCHAR}       <!-- 8 --> 
+									,#{gcsalamount, jdbcType=VARCHAR}         <!-- 9 --> 
+									,#{gcpuritem, jdbcType=VARCHAR}           <!-- 10 -->
+									,#{gcpuramount, jdbcType=VARCHAR}        <!-- 11 -->
+									,#{gcattach, jdbcType=VARCHAR}            <!-- 12 -->
+									,#{gcsign, jdbcType=VARCHAR}              <!-- 13 -->
+									,#{gcfile, jdbcType=VARCHAR}             <!-- 14 -->
+									,TO_CHAR(TO_DATE(SYSDATE), 'YYYY-MM-DD')  <!-- 15 -->
+									,TO_CHAR(TO_DATE(SYSDATE), 'YYYY-MM-DD')  <!-- 16 -->
+									,'Y'		   							  <!-- 17 -->
+									,#{genum, jdbcType=VARCHAR}       		  <!-- 18 -->
+									,#{writer, jdbcType=VARCHAR}		      <!-- 19 -->
+									,#{reference, jdbcType=VARCHAR}		      <!-- 20 -->
+									,#{approver, jdbcType=VARCHAR}		      <!-- 21 -->
+									,#{dept, jdbcType=VARCHAR}		          <!-- 22 -->
+									,#{proval, jdbcType=VARCHAR}		      <!-- 23 -->
+									          <!-- 24 -->
+									)                                                    
+									
+	</insert>
+	
+			<update id="gtContractInsertFile" parameterType="gtcontractvo">
+			UPDATE GOAT_CONTRACT
+			<choose>
+				<when test="gcfile == null">
+				SET GCFILE = '-'
+				</when>
+				<otherwise>
+				SET GCFILE = #{gcfile}
+				</otherwise>
+				</choose> 
+				WHERE GCNUM = #{gcnum} 
+			</update>
+			
+	<select id="gtContractAppSelectAll" resultType="gtapprovallinevo" parameterType="gtapprovallinevo">
+	
+		SELECT
+		     GCNUM        APPNUM
+		    ,GCSUBJECT    SUBJECT 
+		    ,GCSALPLACE     
+		    ,GCPURCHASE    
+		    ,GCCONTENT     
+		    ,GCCONFORM     
+		    ,GCSALITEM     
+		    ,GCSALQUANTITY 
+		    ,GCSALAMOUNT   
+		    ,GCPURITEM     
+		    ,GCPURAMOUNT   
+		    ,GCATTACH      
+		    ,GCSIGN        
+		    ,GCFILE        
+		    ,TO_CHAR(INSERTDATE, 'YYYY-MM-DD') "DATE"
+		    ,TO_CHAR(UPDATEDATE, 'YYYY-MM-DD') UPDATEDATE   
+		    ,DELETEYN     
+		    ,GENUM        
+		    ,WRITER        
+		    ,REFERENCE  
+		    ,APPROVER     
+		    ,DEPT         
+		    ,PROVAL       
+		    ,COUNT
+		FROM GOAT_CONTRACT
+		WHERE DELETEYN ='Y'
+        <if test="app=='app'">
+            <![CDATA[AND APPROVER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>   
+        </if>
+        <if test="app=='napp'">
+            <![CDATA[AND COUNT < 0]]>     
+            <![CDATA[AND WRITER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>    
+        </if>
+        <if test="app=='prog'">
+            <![CDATA[AND WRITER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>        
+        </if>
+        <if test="app=='ref'">
+            <![CDATA[AND REFERENCE LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="s_appnum!=''">
+            <![CDATA[AND GCNUM LIKE '%' || #{s_appnum, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="subject!=''">
+            <![CDATA[AND GCSUBJECT LIKE '%' || #{subject, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="s_writer!=''">
+            <![CDATA[AND WRITER LIKE '%' || #{s_writer, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="formname!=''">
+            <![CDATA[AND GCNUM LIKE '%' || #{appnum, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="appstartdate!=''">
+            <![CDATA[AND INSERTDATE >= #{appstartdate, jdbcType=VARCHAR}]]>         
+        </if>
+        <if test="appenddate!=''">
+            <![CDATA[AND INSERTDATE <= #{appenddate, jdbcType=VARCHAR}]]>         
+        </if>
+		ORDER BY 1
+	
+	</select>
+		
+	<select id="gtContractSelect" parameterType="gtcontractvo" resultType="gtcontractvo">
+	
+		SELECT
+		     GCNUM       
+		    ,GCSUBJECT   
+		    ,GCSALPLACE     
+		    ,GCPURCHASE    
+		    ,GCCONTENT     
+		    ,GCCONFORM     
+		    ,GCSALITEM     
+		    ,GCSALQUANTITY 
+		    ,GCSALAMOUNT   
+		    ,GCPURITEM     
+		    ,GCPURAMOUNT   
+		    ,GCATTACH      
+		    ,GCSIGN        
+		    ,GCFILE        
+		    ,TO_CHAR(INSERTDATE, 'YYYY-MM-DD') AS INSERTDATE
+		    ,TO_CHAR(UPDATEDATE, 'YYYY-MM-DD')
+		    ,DELETEYN     
+		    ,GENUM        
+		    ,WRITER        
+		    ,REFERENCE  
+		    ,APPROVER     
+		    ,DEPT         
+		    ,PROVAL       
+		    ,COUNT
+		FROM GOAT_CONTRACT
+		WHERE DELETEYN ='Y'
+		AND GCNUM = #{gcnum}
+	
+	</select>
+</mapper>		                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    

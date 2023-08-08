@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+	<mapper namespace="com.gt.s.kos.project.dao.GtProjectDAO">
+		
+		<insert id="gtProjectInsert" parameterType="gtprojectvo">
+			INSERT INTO GOAT_PROJECT (   GPNUM
+										,GPNAME
+										,GPGUBUN
+										,GPSTARTDATE
+										,GPENDDATE
+										,GPCONTR
+										,GPCONTRYN
+										,GPCSTARTDATE
+										,GPCENDDATE
+										,GPINFO
+										,GPTIC
+										,GPTICMAN
+										,GPCONTYPE
+										,GPEST
+										,GPESTMOUNT
+										,GPNOTE
+										,GPPCONTYPE
+										,GPPNUM
+										,GPPNAME
+										,GPPRANK
+										,GPPSTARTDATE
+										,GPPENDDATE
+										,GPFILE
+										,INSERTDATE
+										,UPDATEDATE
+										,DELETEYN
+										 )
+										VALUES(
+										 #{gpnum} <!-- 1 -->
+										,#{gpname} <!-- 2 -->
+										,#{gpgubun} <!-- 3 -->
+										,#{gpstartdate} <!-- 4 -->
+										,#{gpenddate}  <!-- 5 -->
+										,#{gpcontr}  <!-- 6 -->
+										,#{gpcontryn}  <!-- 7 -->
+										,#{gpcstartdate}  <!-- 8 -->
+										,#{gpcenddate} <!-- 9 -->
+										,#{gpinfo} <!-- 10 -->
+										,#{gptic}  <!-- 11 -->
+										,#{gpticman} <!-- 12 -->	
+										,#{gpcontype} <!-- 13 -->
+										,#{gpest}  <!-- 14 -->
+										,#{gpestmount}  <!-- 15 -->
+										,#{gpnote} <!-- 16 -->
+										,#{gppcontype} <!-- 17 -->
+										,#{gppnum, jdbcType=VARCHAR} <!-- 18 -->
+										,#{gppname, jdbcType=VARCHAR} <!-- 18 -->
+										,#{gpprank, jdbcType=VARCHAR} <!-- 18 -->
+										,#{gppstartdate} <!-- 18 -->
+										,#{gppenddate} <!-- 18 -->
+										,#{gpfile, jdbcType=VARCHAR} <!-- 18 -->
+										,TO_CHAR(TO_DATE(SYSDATE), 'YYYY-MM-DD') <!-- 20 -->
+										,TO_CHAR(TO_DATE(SYSDATE), 'YYYY-MM-DD') <!-- 21 -->
+										,'Y' <!-- 19 -->
+										)
+		</insert>
+		
+		<select id="gtProjectSelectAll" resultType="gtprojectvo">
+			SELECT 						 GPNUM
+										,GPNAME
+										,GPGUBUN
+										,TO_CHAR(TO_DATE(GPSTARTDATE), 'YYYY-MM-DD') AS GPSTARTDATE
+										,TO_CHAR(TO_DATE(GPENDDATE), 'YYYY-MM-DD') AS GPENDDATE
+										,GPCONTR
+										,GPCONTRYN
+										,TO_CHAR(TO_DATE(GPCSTARTDATE), 'YYYY-MM-DD') AS GPCSTARTDATE
+										,TO_CHAR(TO_DATE(GPCENDDATE), 'YYYY-MM-DD') AS GPCENDDATE
+										,GPINFO
+										,GPTIC
+										,GPTICMAN
+										,GPCONTYPE
+										,GPEST
+										,GPESTMOUNT
+										,GPNOTE
+										,GPPCONTYPE
+										,GPPNUM
+										,GPPNAME
+										,GPPRANK
+										,GPPSTARTDATE
+										,GPPENDDATE
+										,GPFILE
+										,TO_CHAR(TO_DATE(INSERTDATE), 'YYYY-MM-DD') AS INSERTDATE
+										,TO_CHAR(TO_DATE(UPDATEDATE), 'YYYY-MM-DD') AS UPDATEDATE
+										,DELETEYN 
+										FROM GOAT_PROJECT
+		
+		</select>
+		
+		
+		<select id="gtEmployeeSelectAll" parameterType="gtemployeevo" resultType="gtemployeevo" >
+		
+		SELECT A.GENUM, A.GENAME, A.TITLE, A.GEDEPT FROM GOAT_EMPLOYEE A WHERE A.DELETEYN = 'Y' 
+		AND GENAME NOT IN ('이준규','admin') <![CDATA[AND GENAME LIKE  '%' || '${gename}' || '%']]> 
+		ORDER BY GEDEPT
+		
+	
+	</select>
+	
+	<select id="gtEmployeeSelect2" parameterType="gtemployeevo" resultType="gtemployeevo" >
+		
+		SELECT A.GENUM, A.GENAME, A.TITLE, A.GEDEPT FROM GOAT_EMPLOYEE A WHERE A.DELETEYN = 'Y' 
+		AND GENAME NOT IN ('이준규','admin') <![CDATA[AND GENAME LIKE  '%' || '${gename}' || '%']]> 
+		ORDER BY GEDEPT
+		
+	
+	</select>
+	
+	<update id="gtProjectInsertFile" parameterType="gtprojectvo">
+		UPDATE GOAT_PROJECT
+			<choose>
+				<when test="gpfile == null">
+				SET GPFILE = '-'
+				</when>
+				<otherwise>
+				SET GPFILE = #{gpfile}
+				</otherwise>
+			</choose>
+		WHERE GPNUM = #{gpnum}
+		
+	</update>
+	
+	<select id="gtProjectsubject" resultType="gtprojectvo" parameterType="gtprojectvo">
+	
+		SELECT GPNAME
+		FROM GOAT_PROJECT
+		WHERE GPNUM = #{gpnum, jdbcType=VARCHAR}
+	</select>
+	<select id="gtProjectSelect" parameterType="gtprojectvo" resultType="gtprojectvo" >
+		
+		SELECT 							GPNUM
+										,GPNAME
+										,GPGUBUN
+										,TO_CHAR(TO_DATE(GPSTARTDATE), 'YYYY-MM-DD') AS GPSTARTDATE
+										,TO_CHAR(TO_DATE(GPENDDATE), 'YYYY-MM-DD') AS GPENDDATE
+										,GPCONTR
+										,GPCONTRYN
+										,TO_CHAR(TO_DATE(GPCSTARTDATE), 'YYYY-MM-DD') AS GPCSTARTDATE
+										,TO_CHAR(TO_DATE(GPCENDDATE), 'YYYY-MM-DD') AS GPCENDDATE
+										,GPINFO
+										,GPTIC
+										,GPTICMAN
+										,GPCONTYPE
+										,GPEST
+										,GPESTMOUNT
+										,GPNOTE
+										,GPPCONTYPE
+										,GPPNUM
+										,GPPNAME
+										,GPPRANK
+										,GPPSTARTDATE
+										,GPPENDDATE
+										,GPFILE
+										,TO_CHAR(TO_DATE(INSERTDATE), 'YYYY-MM-DD') AS INSERTDATE
+										,TO_CHAR(TO_DATE(UPDATEDATE), 'YYYY-MM-DD') AS UPDATEDATE
+										,DELETEYN
+		FROM GOAT_PROJECT WHERE GPNUM = #{gpnum, jdbcType=VARCHAR}
+		
+	</select>
+	
+	</mapper>

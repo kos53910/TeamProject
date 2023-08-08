@@ -1,0 +1,242 @@
+2023-07-05
+-------------------------------------
+
+React : CRA : Creat-React-App
+----------------------------------
+
+babel
+SPA
+webpack 
+JSX
+	React.createElement(IngredientsList, {list:[.....]});
+
+	<IngredientsList list={[....]} />
+
+
+Creat-React-App 만들기 
+----------------------------------
+
+1. react_cra 폴더 만들기 
+
+2. nmp init 하기 
+C:\00.KOSMO129\51.react\react_cra>npm init -y  >>>> package.json 생성됨
+
+{
+  "name": "react_cra",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+
+3. create-react-app 설치하기 
+C:\00.KOSMO129\51.react\react_cra>npm install create-react-app -g --save
+
+
+4. CRA 로 App 만들기  
+C:\00.KOSMO129\51.react\react_cra>create-react-app client
+============================================= 택1
+C:\00.KOSMO129\51.react\react_cra>mkdir client
+C:\00.KOSMO129\51.react\react_cra>cd client
+C:\00.KOSMO129\51.react\react_cra\client>create-react-app .
+
+5. 실행하기 
+C:\00.KOSMO129\51.react\react_cra>cd client
+
+C:\00.KOSMO129\51.react\react_cra\client>npm start
+
+
+http://localhost:3000/ 자동으로 react 초기 페이지 나옴 
+
+
+
+
+react 에서 사용할 ES6 자바스크립트 문법
+===============================================
+
+1. const
+
+2. let 
+
+3. template string : `(백틱)
+
+4. module 
+	ES6
+		export
+		export default
+
+		import xxx from './화일이름' >>>>> 리액트
+
+	CommonJS 
+		exports
+		module.exports
+		
+		require('화일이름'); >>>>> node.js
+
+5. arrow function
+	(파라미터1, 파라미터2.. n) => {}
+
+	호이스팅 : hoisting
+
+6. spread operator
+	...변수명
+	first, finish
+	...rest
+
+7. Asynchronous  : like ajax
+	fetch() ~ then()   : 한세트
+	async / await  : 한세트
+		async () =>  await 함수()
+	new Promise() 
+		pending
+		fulfilled
+		rejected
+		settled
+
+
+========================================================
+cmd 실행 결과
+
+
+C:\00.KOSMO129\51.react\react_cra>npm init -y
+Wrote to C:\00.KOSMO129\51.react\react_cra\package.json:
+
+{
+  "name": "react_cra",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
+
+
+
+C:\00.KOSMO129\51.react\react_cra>npm install create-react-app -g --save
+npm WARN deprecated tar@2.2.2: This version of tar is no longer supported, and will not receive security updates. Please upgrade asap.
+
+added 67 packages in 3s
+
+5 packages are looking for funding
+  run `npm fund` for details
+
+C:\00.KOSMO129\51.react\react_cra>create-react-app client
+
+Creating a new React app in C:\00.KOSMO129\51.react\react_cra\client.
+
+Installing packages. This might take a couple of minutes.
+Installing react, react-dom, and react-scripts with cra-template...
+
+
+added 1415 packages in 1m
+
+226 packages are looking for funding
+  run `npm fund` for details
+Git repo not initialized Error: Command failed: git --version
+    at checkExecSyncError (node:child_process:885:11)
+    at execSync (node:child_process:957:15)
+    at tryGitInit (C:\00.KOSMO129\51.react\react_cra\client\node_modules\react-scripts\scripts\init.js:46:5)
+    at module.exports (C:\00.KOSMO129\51.react\react_cra\client\node_modules\react-scripts\scripts\init.js:276:7)
+    at [eval]:3:14
+    at Script.runInThisContext (node:vm:129:12)
+    at Object.runInThisContext (node:vm:307:38)
+    at node:internal/process/execution:79:19
+    at [eval]-wrapper:6:22 {
+  status: 1,
+  signal: null,
+  output: [ null, null, null ],
+  pid: 11912,
+  stdout: null,
+  stderr: null
+}
+
+Installing template dependencies using npm...
+
+added 74 packages, and changed 1 package in 8s
+
+235 packages are looking for funding
+  run `npm fund` for details
+Removing template package using npm...
+
+
+removed 1 package, and audited 1489 packages in 4s
+
+235 packages are looking for funding
+  run `npm fund` for details
+
+40 vulnerabilities (34 moderate, 6 high)
+
+To address issues that do not require attention, run:
+  npm audit fix
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+
+Success! Created client at C:\00.KOSMO129\51.react\react_cra\client
+Inside that directory, you can run several commands:
+
+  npm start
+    Starts the development server.
+
+  npm run build
+    Bundles the app into static files for production.
+
+  npm test
+    Starts the test runner.
+
+  npm run eject
+    Removes this tool and copies build dependencies, configuration files
+    and scripts into the app directory. If you do this, you can’t go back!
+
+We suggest that you begin by typing:
+
+  cd client
+  npm start
+
+Happy hacking!
+
+C:\00.KOSMO129\51.react\react_cra>cd client
+
+C:\00.KOSMO129\51.react\react_cra\client>npm start
+
+> client@0.1.0 start
+> react-scripts start
+
+(node:10620) [DEP_WEBPACK_DEV_SERVER_ON_AFTER_SETUP_MIDDLEWARE] DeprecationWarning: 'onAfterSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+(node:10620) [DEP_WEBPACK_DEV_SERVER_ON_BEFORE_SETUP_MIDDLEWARE] DeprecationWarning: 'onBeforeSetupMiddleware' option is deprecated. Please use the 'setupMiddlewares' option.
+Starting the development server...
+
+One of your dependencies, babel-preset-react-app, is importing the
+"@babel/plugin-proposal-private-property-in-object" package without
+declaring it in its dependencies. This is currently working because
+"@babel/plugin-proposal-private-property-in-object" is already in your
+node_modules folder for unrelated reasons, but it may break at any time.
+
+babel-preset-react-app is part of the create-react-app project, which
+is not maintianed anymore. It is thus unlikely that this bug will
+ever be fixed. Add "@babel/plugin-proposal-private-property-in-object" to
+your devDependencies to work around this error. This will make this message
+go away.
+Compiled successfully!
+
+You can now view client in the browser.
+
+  Local:            http://localhost:3000
+  On Your Network:  http://192.168.0.52:3000
+
+Note that the development build is not optimized.
+To create a production build, use npm run build.
+
+webpack compiled successfully

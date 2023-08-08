@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.gt.s.kos.plan.dao.GtPlanDAO">
+
+	<insert id="gtPlanInsert" parameterType="gtplanvo">
+	  INSERT INTO GOAT_PLAN (
+	    GPNUM, GPSUBJECT, GPPNUM, 
+	    WRITER, GPTYPE, GPMEMO, 
+	    GPLOCATION, GPSTART, GPEND, 
+	    DELETEYN, INSERTDATE, UPDATEDATE
+	  ) VALUES (
+	    #{gpnum, jdbcType=VARCHAR}, #{gpsubject, jdbcType=VARCHAR}, #{gppnum, jdbcType=VARCHAR}, 
+	    #{writer, jdbcType=VARCHAR}, #{gptype, jdbcType=VARCHAR}, #{gpmemo, jdbcType=VARCHAR}, 
+	    #{gplocation, jdbcType=VARCHAR}, #{gpstart, jdbcType=VARCHAR}, #{gpend, jdbcType=VARCHAR}, 
+	    'Y', SYSDATE, SYSDATE
+	  )
+	</insert>
+
+</mapper>

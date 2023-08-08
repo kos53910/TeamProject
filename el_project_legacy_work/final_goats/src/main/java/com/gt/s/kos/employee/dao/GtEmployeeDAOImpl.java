@@ -1,0 +1,104 @@
+package com.gt.s.kos.employee.dao;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
+
+import com.gt.s.kos.employee.vo.GtEmployeeVO;
+
+@Repository
+public class GtEmployeeDAOImpl implements GtEmployeeDAO {
+	
+	@Autowired(required = false)
+ 
+	private SqlSessionTemplate sqlSession;
+
+	@Override
+	public GtEmployeeVO genumcheck(GtEmployeeVO evo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("genumcheck", evo);
+	}
+
+	@Override
+	public GtEmployeeVO goatempidcheck(GtEmployeeVO evo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("goatempidcheck", evo);
+	}
+	
+	@Override
+	public List<GtEmployeeVO> goatsEmployeeSelect(GtEmployeeVO evo) {
+		// TODO Auto-generated method stub
+		System.out.println("goatsEmployeeSelect impl 들어옴 >>> :");
+		
+		return sqlSession.selectList("goatsEmployeeSelect", evo);
+	}
+
+	@Override
+	public List<GtEmployeeVO> gtEmployeeIdcheck(GtEmployeeVO evo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("gtEmployeeIdcheck", evo);
+	}
+
+	@Override
+	public int gtEmployeeInsert(GtEmployeeVO evo) {
+		// TODO Auto-generated method stub
+		return sqlSession.insert("gtEmployeeInsert", evo);
+	}
+
+	@Override
+	public int gtEmployeeFileInsert(GtEmployeeVO evo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("gtEmployeeFileInsert",evo);
+	}
+
+	@Override
+	public List<GtEmployeeVO> gtEmployeeDecianotherSelect(GtEmployeeVO evo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("gtEmployeeDecianotherSelect", evo);
+	}
+
+	@Override
+	public GtEmployeeVO gecheck(GtEmployeeVO evo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("gecheck");
+	}
+
+	@Override
+	public GtEmployeeVO emailcheck(GtEmployeeVO evo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("emailcheck", evo);
+	}
+	@Override
+	public List<GtEmployeeVO> gtpwCheck(GtEmployeeVO evo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("gtpwCheck", evo);
+	}
+
+	@Override
+	public int gtpwupdateCheck(GtEmployeeVO evo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("gtpwupdateCheck", evo);
+	}
+
+	@Override
+	public int gtinfupdate(GtEmployeeVO evo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("gtinfupdate", evo);
+	}
+
+	@Override
+	public List<GtEmployeeVO> gtEmployeeSelect(GtEmployeeVO evo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList("gtEmployeeSelect", evo);
+	}
+
+	@Override
+	public int gtEmployeeUpdate(GtEmployeeVO evo) {
+		// TODO Auto-generated method stub
+		return sqlSession.update("gtEmployeeUpdate", evo);
+	}
+}

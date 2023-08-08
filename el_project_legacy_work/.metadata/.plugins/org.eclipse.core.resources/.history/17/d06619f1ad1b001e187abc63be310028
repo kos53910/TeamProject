@@ -1,0 +1,5 @@
+package com.gt.s.kos.spend.dao;
+
+public interface GtSpendDAO {
+
+}

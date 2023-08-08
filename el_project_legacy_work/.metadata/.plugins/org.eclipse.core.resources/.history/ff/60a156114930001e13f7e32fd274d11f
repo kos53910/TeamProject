@@ -1,0 +1,226 @@
+<%@page import="com.gt.s.kos.business.vo.GtBusinessVO"%>
+<%@page import="com.gt.s.kos.project.vo.GtProjectVO"%>
+<%@page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+
+<%
+	Object obj = request.getAttribute("aListBU");
+	List<GtBusinessVO> aList = (List<GtBusinessVO>) obj;
+	Object obj1 = request.getAttribute("_buvo");
+	GtBusinessVO _buvo = (GtBusinessVO)obj1;
+	Object obj2 = request.getAttribute("aListPRB");
+	List<GtProjectVO> aListPR = (List<GtProjectVO>) obj2;
+
+	
+	
+%>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+        <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript">
+		
+			$(document).ready(function(){
+	
+				var keyword = "";
+				var searchfilter = "";
+				
+				keyword = "<%= _buvo.getKeyword()%>";
+				searchfilter = "<%= _buvo.getSearchfilter()%>";
+		
+				
+				if(searchfilter == null || searchfilter == "" || searchfilter == "null"){
+					$("#searchfilter").val("-").prop("selected",true);
+		
+				}else{
+					$("#searchfilter").val("<%= _buvo.getSearchfilter()%>").prop("selected",true);
+					
+				}
+				
+				if(keyword == null || keyword == "" || keyword == "null"){
+					$("#keyword").val("")
+		
+				}else{
+					$("#keyword").val("<%=_buvo.getKeyword()%>")
+				}
+					
+				$(document).on('click', '#search_btn', function(){
+					
+					$("#business_selectall").attr({
+						"action":"gtBusinessSelectAll.gos",
+						"method":"GET"
+					}).submit();
+					
+				});
+					
+			});
+
+		</script>
+        <style type="text/css">     
+            
+             .container2 {
+		        display: flex;
+		      }
+            
+            .buselwrapper {                           
+                margin: 0px auto;                
+                 background-color: white; 
+               	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                width: 100%;
+                height:100%;
+                
+            }
+            .content {
+
+                margin: auto 15px;
+				border: solid 1px;
+				
+            }
+            .section {
+         /*       background-color: aquamarine;*/
+                margin: 0;
+            }
+            .article {
+/*                 background-color: beige; */
+                margin: 1px;
+            }
+            
+            /* 1번째 .content의 2번째 .section에 적용 */
+            .section:nth-of-type(2) {
+                display: flex;
+            }
+            
+            .section:nth-of-type(1) {
+                display: flex;
+            }
+            
+            /* 1~2의 .article 적용 */
+            .article:nth-of-type(-n+2) {
+                width:50%;
+            }
+            /* 2번째 .article 적용 */
+            .article:nth-of-type(2) {
+                text-align: right;
+                margin-bottom: 10px;
+            }
+
+            /* 마지막에서 1번째 .content */
+            .content:nth-last-of-type(1) {
+                text-align: right;
+            }
+            
+            .buselect {
+            	margin-bottom: 5px;
+            	text-align:left;
+            
+            }
+            .bus_btn{
+            	border:none;
+             	border-radius:5px; 
+            	background-color:gray;
+            	color:white;
+            	
+            }
+            
+            .buselect_menu_icon{
+            	width:15px;
+            	height:22px;
+            }
+            
+            .content.paging{
+            	margin:10px auto;
+            	padding:10px;
+            	border:none;
+             }
+             
+            .bus_tab {
+			        width: 100%;
+			        border-collapse: collapse;
+			        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			        background-color: whitesmoke;
+			      }
+			
+			      .bus_ttr .bus_ttd {
+			        border: 1px solid white;
+			      }
+            
+        </style>
+	</head>
+    <body>
+    <div class="container2" style="margin: 0; height:100%;">
+     <div style="height:100%">
+        <jsp:include page="../main/mainSide-bar.jsp" />
+      </div>
+      <div style="margin: 0; padding: 0; width:100%; height:100%;">
+        <jsp:include page="../main/Top-bar.jsp"></jsp:include>
+        
+        <hr style="margin-bottom:0px;">
+        <form id="business_selectall">
+        <div class="buselwrapper" style="text-align:center">
+         	<div style="height:10px;"></div> 
+            <div class="content" style="border: 0px;">
+                <div class="section">
+                	<img src="resources/goats_icon/menu_button.png" alt="img" class="buselect_menu_icon">&nbsp;
+                    <div class="buselect">조&nbsp;회</div>
+                </div>
+                <hr style="margin: 5px auto;">
+                <div class="section">
+                    <div class="article" style="text-align:left;">
+                        <select id="searchfilter" name="searchfilter">
+                        	<option value="-">-</option>
+                            <option value="01">작성자</option>
+                            <option value="02">프로젝트명</option>
+                            <option value="03">출장명</option>
+                        </select>
+                    </div>
+                    <div class="article">
+                        <span>검색 :</span>
+                        <input type="text" id="keyword" name="keyword" style="text-align:right;">
+                        <input type="button" value="검색" class="bus_btn" id="search_btn">
+                    </div>                    
+                </div>                
+            </div>
+            <div class="content" style="border-radius:5px; border:white; overflow:scroll;">
+                <table class="bus_tab">
+                    <!-- js로 오름, 내림 처리 -->
+                    <tr class="bus_ttr">
+                        <td class="bus_ttd">순서</td>
+                        <td class="bus_ttd">작성자</td>
+                        <td class="bus_ttd">프로젝트명</td>
+                        <td class="bus_ttd">출장명</td>
+                        <td class="bus_ttd">시작일시</td>
+                        <td class="bus_ttd">종료일시</td>
+                   </tr>
+                   		<% for (int i = 0; i < aList.size(); i++){
+                   			
+//                    			pagesize = Integer.parseInt(paging.getPagesize());
+//                    			groupsize = Integer.parseInt(paging.getGroupsize());
+//                    			curpage = Integer.parseInt(paging.getCurpage());
+//                    			totalcount = Integer.parseInt(paging.getTotalcount());
+						%>
+		             <tr class="bus_ttr">
+		             	<td class="bus_ttd"><%= i + 1 %></td>
+						<td class="bus_ttd"><%=aList.get(i).getWriter()%></td>
+						<td class="bus_ttd"><%=aList.get(i).getGpnum()%></td>
+						<td class="bus_ttd"><%=aList.get(i).getGbtname()%></td>
+						<td class="bus_ttd"><%=aList.get(i).getGbtstart()%></td>
+						<td class="bus_ttd"><%=aList.get(i).getGbtend() %></td>
+					</tr>
+					<%} %>
+                </table>
+            </div>
+            <div class="content paging">
+            </div>                
+        </div>
+        </form>
+        </div>
+        </div>
+    </body>
+</html>
+
+
+

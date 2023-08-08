@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gt.s.kos.draft.dao.GtDraftDAO">
+	
+	<insert id="gtDraftInsert" parameterType="gtdraftvo">
+		
+		INSERT INTO GOAT_DRAFT(
+								 GDRNUM
+								,GDRSUBJECT
+								,GDRMEMO
+								,GDRFILE
+								,GDRSIGN
+								,GDRCONTRACT
+								,DELETEYN
+								,INSERTDATE
+								,UPDATEDATE
+								,GENUM
+								,WRITER
+								,REFERENCE
+								,APPROVER
+								,DEPT
+								,PROVAL
+							  )
+						 VALUES(
+								 #{gdrnum, jdbcType=VARCHAR}
+								,#{gdrsubject, jdbcType=VARCHAR}
+								,#{gdrmemo, jdbcType=VARCHAR}
+								,#{gdrfile, jdbcType=VARCHAR}
+								,#{gdrsign, jdbcType=VARCHAR}
+								,#{gdrcontract, jdbcType=VARCHAR}
+								,'Y'
+								,TO_CHAR(TO_DATE(SYSDATE), 'YYYY-MM-DD') 
+								,TO_CHAR(TO_DATE(SYSDATE), 'YYYY-MM-DD') 
+								,#{genum, jdbcType=VARCHAR}
+								,#{writer, jdbcType=VARCHAR}
+								,#{reference, jdbcType=VARCHAR}
+								,#{approver, jdbcType=VARCHAR}
+								,#{dept, jdbcType=VARCHAR}
+								,#{proval, jdbcType=VARCHAR}				 
+						 		)
+							
+	</insert>
+	
+	<update id="gtDraftInsertFile" parameterType="gtdraftvo">
+	
+		UPDATE GOAT_DRAFT
+			<choose>
+				<when test="gdrfile == null">
+				SET GDRFILE = '-'
+				</when>
+				<otherwise>
+				SET GDRFILE = #{gdrfile}
+			</otherwise>
+			</choose> 
+			WHERE GDRNUM = #{gdrnum} 
+			
+	</update>
+	
+	<select id="draftAppSelectAll" resultType="gtapprovallinevo" parameterType="gtapprovallinevo">
+	
+		SELECT GDRNUM	APPNUM, GDRSUBJECT	SUBJECT, 
+		GDRMEMO, GDRFILE, GDRSIGN, 
+		GDRCONTRACT, DELETEYN, 
+		TO_CHAR(INSERTDATE, 'YYYY-MM-DD')	"DATE", 
+		TO_CHAR(UPDATEDATE, 'YYYY-MM-DD')	UPDATEDATE, 
+		GENUM, WRITER, REFERENCE, 
+		APPROVER, DEPT, 
+		PROVAL, COUNT
+		FROM GOAT_DRAFT
+		WHERE DELETEYN = 'Y'
+        <if test="app=='app'">
+            <![CDATA[AND APPROVER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>   
+        </if>
+        <if test="app=='napp'">
+            <![CDATA[AND COUNT < 0]]>     
+            <![CDATA[AND WRITER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>    
+        </if>
+        <if test="app=='prog'">
+            <![CDATA[AND WRITER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>        
+        </if>
+        <if test="app=='ref'">
+            <![CDATA[AND REFERENCE LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="s_appnum!=''">
+            <![CDATA[AND GDRNUM LIKE '%' || #{s_appnum, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="subject!=''">
+            <![CDATA[AND GDRSUBJECT LIKE '%' || #{subject, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="s_writer!=''">
+            <![CDATA[AND WRITER LIKE '%' || #{s_writer, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="formname!=''">
+            <![CDATA[AND GDRNUM LIKE '%' || #{appnum, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="appstartdate!=''">
+            <![CDATA[AND INSERTDATE >= #{appstartdate, jdbcType=VARCHAR}]]>         
+        </if>
+        <if test="appenddate!=''">
+            <![CDATA[AND INSERTDATE <= #{appenddate, jdbcType=VARCHAR}]]>         
+        </if>
+		ORDER BY 1
+	</select>
+	
+	<select id="gtDraftSelect" parameterType="gtdraftvo" resultType="gtdraftvo">
+	
+	SELECT	 A.GDRNUM							AS GDRNUM
+			,A.GDRSUBJECT						AS GDRSUBJECT
+			,A.GDRMEMO							AS GDRMEMO
+			,A.GDRFILE							AS GDRFILE
+			,A.GDRSIGN							AS GDRSIGN
+		    ,A.GDRCONTRACT						AS GDRCONTRACT
+		    ,A.DELETEYN							AS DELETEYN
+		    ,TO_CHAR(TO_DATE(A.INSERTDATE))		AS INSERTDATE
+		    ,TO_CHAR(TO_DATE(A.UPDATEDATE))		AS UPDATEDATE
+			,A.GENUM							AS GENUM
+			,A.WRITER							AS WRITER
+			,A.REFERENCE						AS REFERENCE
+			,A.APPROVER							AS APPROVER
+			,A.DEPT								AS DEPT
+			,A.PROVAL							AS PROVAL
+			,A.COUNT							AS COUNT
+	FROM 	GOAT_DRAFT A
+	WHERE 	A.DELETEYN = 'Y'
+	AND 	A.GDRNUM = #{gdrnum}
+	</select>
+	
+</mapper>

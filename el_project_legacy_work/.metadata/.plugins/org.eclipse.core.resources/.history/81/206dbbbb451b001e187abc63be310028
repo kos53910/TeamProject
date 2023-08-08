@@ -1,0 +1,44 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript">
+		function asd(){
+			window.open("gtVacationInsertForm.gos", "popup", "width=1033,height=800,left=300,top=10,scrollbars=no,toolbars=no,location=no");
+		}
+		
+		$(document).ready(function(){
+			$("#b").click(function(){
+				window.open("spendInsertForm.gos", "popup", "width=1033,height=800,left=300,top=10,scrollbars=no,toolbars=no,location=no");
+			});
+			
+			
+			
+			
+			
+			
+			$("#logout").click(function(){
+				location.href="/final_goats/logout.gos";
+			});
+			
+		});
+		
+		
+			
+	</script>
+	</head>
+	<body>
+		<input type="button" id="asd" onclick="asd()" value="asd"><br><br>
+		<input type="button" id="b" value="지출결의서"><br><br>
+		<input type="button" id="c" value="main"><br><br>
+		
+		
+		<input type="button" id="logout" value="로그아웃">
+		
+		
+	</body>
+</html>

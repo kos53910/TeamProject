@@ -1,0 +1,14 @@
+package com.gt.s.kos.test.Controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class GtTestController {
+
+	@GetMapping(value = "testfunction")
+	public String Testfunction() {
+		
+		return "123";
+	}
+}

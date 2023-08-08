@@ -1,0 +1,5 @@
+
+7월 05, 2023 12:31:17.650 NEW SESSION
+7월 05, 2023 12:31:17.650 [15216:22220:0705/123117.639:ERROR:connection_factory_impl.cc(471)] ConnectionHandler failed with net error: -2
+7월 05, 2023 13:32:30.715 [11460:17608:0705/133230.715:ERROR:connection_factory_impl.cc(471)] ConnectionHandler failed with net error: -2
+7월 05, 2023 14:13:14.411 [11460:17608:0705/141314.411:ERROR:connection_factory_impl.cc(471)] ConnectionHandler failed with net error: -2

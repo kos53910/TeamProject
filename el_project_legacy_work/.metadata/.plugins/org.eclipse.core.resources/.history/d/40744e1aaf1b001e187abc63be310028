@@ -1,0 +1,8 @@
+package com.gt.s.kos.spend.service;
+import com.gt.s.kos.spend.vo.GtSpendVO;
+
+public interface GtSpendService {
+	
+	public int gtBusinessInsert(GtSpendVO svo);
+	public int gtBusinessInsertFile(GtSpendVO svo);
+}

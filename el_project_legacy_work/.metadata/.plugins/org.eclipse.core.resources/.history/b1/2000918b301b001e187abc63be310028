@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+          
+<mapper namespace="com.gt.s.kos.employee.dao.GtEmployeeDAO">
+	
+	<select id="genumcheck" parameterType="gtemployeevo" resultType="gtemployeevo">
+		SELECT 	
+		        A.GENUM 	GENUM
+		FROM 	GOAT_EMPLOYEE A
+		WHERE 	A.GEID = #{geid}
+	</select>
+	
+	<select id="goatempidcheck" parameterType="gtemployeevo" resultType="gtemployeevo">
+		SELECT 	
+		        A.GENAME 	GENAME
+		FROM 	GOAT_EMPLOYEE A
+		WHERE 	A.GENUM = #{genum}	
+	</select>
+
+	<select id="goatsEmployeeSelect" parameterType="gtemployeevo" resultType="gtemployeevo">
+		
+		SELECT A.GENAME, A.GEDEPT, A.TITLE FROM GOAT_EMPLOYEE A WHERE A.DELETEYN = 'Y' AND A.GEDEPT = #{gedept}  
+		
+	</select>
+	
+</mapper>

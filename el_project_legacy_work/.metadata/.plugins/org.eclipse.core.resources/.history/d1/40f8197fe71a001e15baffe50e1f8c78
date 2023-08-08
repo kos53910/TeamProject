@@ -1,0 +1,18 @@
+package com.gt.s.common;
+
+public abstract class CommonUtils {
+	
+	public static final String BU_IMG_UPLOAD_PATH = "C:\\00.KOSMO129\\30.web\\el_project_work\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\final_goats\\fileupload\\business";
+	public static final int BU_IMG_FILE_SIZE = 10*1024*1024;
+	public static final String BU_EN_CODE = "UTF-8";
+	
+	
+	public static final String VACATION_IMG_UPLOAD_PATH = "C:\\00.KOSMO129\\30.web\\el_project_legacy_work\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\final_goats\\fileupload\\vacation";
+	public static final int VACATION_IMG_FILE_SIZE = 10*1024*1024;
+	public static final String VACATION_EN_CODE = "UTF-8";
+	
+	public static final int VACATION_PAGE_SIZE = 3;
+	public static final int VACATION_GROUP_SIZE = 3;
+	public static final int VACATION_CUR_PAGE = 1;
+	public static final int VACATION_TOTAL_COUNT = 0;
+}

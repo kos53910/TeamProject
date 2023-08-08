@@ -1,0 +1,17 @@
+package com.gt.s.common.chabun.service;
+
+import com.gt.s.kos.business.vo.GtBusinessVO;
+import com.gt.s.kos.project.vo.GtProjectVO;
+import com.gt.s.kos.spend.vo.GtSpendVO;
+import com.gt.s.kos.vacation.vo.GtVacationVO;
+
+public interface GtChabunService {
+
+	public GtVacationVO getGtVacationChabun();
+	public GtBusinessVO getGtBusinessChabun();
+	public GtSpendVO getGtSpendChabun();
+	public GtProjectVO getGtProjectChabun();
+	public GtResignationVO getGtResignationChabun();
+	public GtEmployeeVO getGtEmployeeChabun();
+
+}

@@ -1,0 +1,15 @@
+package com.gt.s.kos.spend.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.gt.s.kos.business.vo.GtBusinessVO;
+import com.gt.s.kos.spend.dao.GtSpendDAO;
+
+public interface GtSpendService {
+	
+	@Autowired(required = false)
+	private GtSpendDAO gtSpendDAO;
+	
+	public int gtBusinessInsert(GtBusinessVO buvo);
+	public int gtBusinessInsertFile(GtBusinessVO buvo);
+}

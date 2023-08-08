@@ -1,0 +1,23 @@
+package com.gt.s.common;
+
+public abstract class CodeUtil {
+	
+	private static final String[] TITLE = {"사원", "대리", "과장", "차장", "이사", "대표이사"};
+	private static final String[] TITLE_NUM = {"1", "2", "3", "4", "5", "6"};
+	
+	public static String title_gubun(String s) {
+		
+		for(int i=0; i<TITLE.length; i++) {
+			if(s == TITLE[i]) {
+				return TITLE_NUM[i];
+			}
+		}
+		return "null";
+	}
+	
+	public static void main(String[] args) {
+		
+		String s = title_gubun("과장");
+		System.out.println(s);
+	}
+}

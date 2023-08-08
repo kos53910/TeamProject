@@ -1,0 +1,88 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+		
+		<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+		
+		<script type="text/javascript">
+		
+			
+		
+		</script>
+			
+		
+		<style type="text/css">
+			/* 기본 레이아웃 */
+			.wrapper {
+				background-color: darkgrey;
+				margin: 0 auto;
+				margin-top: 20px;
+				display: grid;
+				width: 1000px;
+				grid-template-columns: 250px auto;
+				grid-template-rows: 60px 750px 30px;
+				grid-template-areas: "sidebar header" "sidebar content" "sidebar footer";
+				gap: 1px;
+			} 
+			 
+			.header {
+				grid-area: header;
+				margin-left: 2px;
+			}
+			
+			.sidebar {
+				grid-area: sidebar;
+			}
+			
+			.content {
+				grid-area: content;
+				display: grid;
+				grid-template-columns: 1fr 4fr;
+				height: 100%;
+				gap: 1px;
+				margin: 2PX;
+			}
+			
+	 		.section {
+				display: flex;
+				flex-direction: column;
+				row-gap: 3px; */
+			} 
+			
+			.article {
+				height: 100px;
+				margin: 1px;
+			} 
+		</style> 
+	</head>
+	
+	<body>
+		<div class="wrapper">
+			<h2>마이 페이지</h2>
+<!-- 			<div class="sidebar"></div> -->
+			<div class="header">
+				<jsp:include page="../main/Top-bar.jsp"></jsp:include> 
+			</div>
+			<div class="sidebar">
+				<jsp:include page="../main/mainSide-bar.jsp"></jsp:include>  
+			</div>
+			<div class="content">
+				<div class="section">
+					<jsp:include page="../mypage/mypageemp.jsp"></jsp:include> 
+				</div>
+				<div class="section">
+					<div class="article">
+						<jsp:include page="../mypage/mypageinf.jsp"></jsp:include> 
+					</div>
+				</div>
+			</div>	
+		</div>
+	</body>
+</html>

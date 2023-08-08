@@ -1,0 +1,56 @@
+package com.gt.s.common;
+
+import java.io.File;
+import java.util.ArrayList;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.springframework.web.multipart.MultipartFile;
+
+public abstract class FileUploadUtil {
+
+	static Logger log = LogManager.getLogger(this.getClass());
+	
+	public static String forderMaking(String filename) {
+		String fileload = CommonUtils.SP_FILE_UPLOAD_PATH+ "//" + filename;
+		File file = new File(fileload);
+		
+		if(file.mkdir() == true) {
+			System.out.println("디렉토리 생성 성공");
+		}else {
+			System.out.println("디렉토리 생성 실패");
+		}
+		
+		return fileload;
+	}
+	
+	public static boolean fileupload(String num, ArrayList<MultipartFile> files) {
+		
+		boolean b = false;
+		
+        String uploadPath = FileUploadUtil.forderMaking(num);
+        
+        ArrayList<String> FileNameList = new ArrayList<String>();
+        for(MultipartFile file : files) {
+            String FileName = file.getOriginalFilename();
+            FileNameList.add(FileName);
+            // 5. 파일 생성
+            File file1 = new File(uploadPath + "//" + FileName);
+            // 6. 서버로 전송
+            try {
+				file.transferTo(file1);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				log.info("파일 저장시 에러 >>> : " + e.getMessage());
+			}
+        }
+        
+	}
+	
+	public static void main(String[] args) {
+		forderMaking("SP202307070001");
+	}
+	
+	
+	
+}

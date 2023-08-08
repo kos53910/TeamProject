@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gt.s.kos.vacation.dao.GtVacationDAO">
+
+	<insert id="gtVacationInsert" parameterType="gtvacationvo">
+	
+		INSERT INTO GOAT_VACATION(GVNUM, GVTYPE, GVREASONS, GVSTARTDATE, 
+									GVENDDATE, GVSUBJECT, GVMEMO , GVDAYS,	 
+									INSERTDATE, UPDATEDATE, DELETEYN, GENUM,
+									WRITER, GEHP, REFERENCE, APPROVER, 
+									DEPT, PROVAL, DECIANOTHER
+									)
+						VALUES(
+						#{gvnum, jdbcType=VARCHAR},
+						#{gvtype, jdbcType=VARCHAR},
+						#{gvreasons, jdbcType=VARCHAR},
+						#{gvstartdate, jdbcType=VARCHAR},
+						#{gvenddate, jdbcType=VARCHAR},
+						#{gvsubject, jdbcType=VARCHAR},
+						#{gvmemo, jdbcType=VARCHAR},
+						#{gvdays, jdbcType=VARCHAR},
+						SYSDATE,
+						SYSDATE,
+						'Y',
+						#{genum, jdbcType=VARCHAR},
+						#{writer, jdbcType=VARCHAR},
+						#{gehp, jdbcType=VARCHAR},
+						#{reference, jdbcType=VARCHAR},
+						#{approver, jdbcType=VARCHAR},
+						#{dept, jdbcType=VARCHAR},
+						#{proval, jdbcType=VARCHAR},
+						#{decianother, jdbcType=VARCHAR}
+						)
+	</insert> 
+	
+	<update id="gtVacationInsertFile" parameterType="gtvacationvo">
+		UPDATE GOAT_VACATION
+		<choose>
+			<when test="gvfile == null">
+				SET GVFILE = '-'
+			</when>
+			<otherwise>
+				SET GVFILE = #{gvfile}
+			</otherwise>
+		</choose>	
+		WHERE GVNUM = #{gvnum}
+		
+	</update>
+	
+	<select id="gtVacationAppSelectAll" resultType="gtapprovallinevo" parameterType="gtapprovallinevo">
+		SELECT 
+			GVNUM	APPNUM, GVTYPE, GVREASONS, 
+			GVSTARTDATE, GVENDDATE, GVSUBJECT	SUBJECT, 
+			GVMEMO, GVDAYS, 
+			TO_CHAR(INSERTDATE, 'YYYY-MM-DD')	"DATE", 
+			TO_CHAR(UPDATEDATE, 'YYYY-MM-DD')	UPDATEDATE, 
+			DELETEYN, GENUM, GEHP, 
+			APPROVER, DEPT, REFERENCE, 
+			DECIANOTHER, COUNT, WRITER
+		FROM GOAT_VACATION
+		WHERE DELETEYN = 'Y'
+        <if test="app=='app'">
+            <![CDATA[AND APPROVER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>   
+        </if>
+        <if test="app=='napp'">
+            <![CDATA[AND COUNT < 0]]>     
+            <![CDATA[AND WRITER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>    
+        </if>
+        <if test="app=='prog'">
+            <![CDATA[AND WRITER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>        
+        </if>
+        <if test="app=='ref'">
+            <![CDATA[AND REFERENCE LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="s_appnum!=''">
+            <![CDATA[AND GVNUM LIKE '%' || #{s_appnum, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="subject!=''">
+            <![CDATA[AND GVSUBJECT LIKE '%' || #{subject, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="s_writer!=''">
+            <![CDATA[AND WRITER LIKE '%' || #{s_writer, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="formname!=''">
+            <![CDATA[AND GVNUM LIKE '%' || #{appnum, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="appstartdate!=''">
+            <![CDATA[AND INSERTDATE >= #{appstartdate, jdbcType=VARCHAR}]]>         
+        </if>
+        <if test="appenddate!=''">
+            <![CDATA[AND INSERTDATE <= #{appenddate, jdbcType=VARCHAR}]]>         
+        </if>
+		ORDER BY 1
+	</select>
+	
+	<select  id="gtDeciVacationSelect" parameterType="gtapprovallinevo" resultType="gtapprovallinevo">
+	
+		SELECT 
+			WRITER
+		FROM GOAT_VACATION
+		WHERE DELETEYN = 'Y'
+		<![CDATA[AND DECIANOTHER LIKE '%' || #{gename} || '%']]>
+		<![CDATA[AND TO_CHAR(GVSTARTDATE, 'YYYY-MM-DD') <= TO_CHAR(SYSDATE, 'YYYY-MM-DD')]]>
+		<![CDATA[AND TO_CHAR(SYSDATE, 'YYYY-MM-DD') <= TO_CHAR(GVENDDATE, 'YYYY-MM-DD')]]>
+	
+	</select>
+	
+	<select id="gtVacationSelect" parameterType="gtvacationvo" resultType="gtvacationvo">
+		SELECT A.GVNUM 			AS GVNUM
+			  ,A.GVTYPE 		AS GVTYPE
+			  ,A.GENUM			AS GENUM
+		      ,A.WRITER			AS WRITER 
+		      ,A.DECIANOTHER    AS DECIANOTHER
+		      ,A.APPROVER       AS APPROVER
+		      ,A.DEPT			AS DEPT
+		      ,A.PROVAL			AS PROVAL
+		      ,A.COUNT			AS COUNT
+		      ,A.REFERENCE		AS REFERENCE
+		      ,A.GVSUBJECT		AS GVSUBJECT
+		      ,A.GVREASONS		AS GVREASONS
+		      ,A.GEHP			AS GEHP
+			  ,TO_CHAR(A.INSERTDATE, 'YYYY-MM-DD')  AS INSERTDATE
+			  ,TO_CHAR(A.GVSTARTDATE, 'YYYY-MM-DD') AS GVSTARTDATE
+			  ,TO_CHAR(A.GVENDDATE, 'YYYY-MM-DD')   AS GVENDDATE
+			  ,A.GVDAYS	   		AS GVDAYS
+			  ,A.GVMEMO			AS GVMEMO
+	
+				FROM GOAT_VACATION A
+				WHERE DELETEYN = 'Y'
+				AND   GVNUM = #{gvnum}
+				ORDER BY GVNUM
+	
+	</select>
+	<select id="gtVacationSelect_" parameterType="gtvacationvo" resultType="gtvacationvo">
+		
+			SELECT 
+					 A.GVNUM 		GVNUM
+					,A.GVTYPE 		GVTYPE
+					,TO_CHAR(A.GVSTARTDATE, 'YYYY-MM-DD') GVSTARTDATE
+					,TO_CHAR(A.GVENDDATE, 'YYYY-MM-DD') GVENDDATE
+					,A.GVSUBJECT 	GVSUBJECT
+					,A.GVMEMO 		GVMEMO
+					,A.GVDAYS 		GVDAYS
+					,A.GENUM 		GENUM
+					,A.WRITER 		WRITER
+					,TO_CHAR(A.INSERTDATE, 'YYYY-MM-DD') INSERTDATE
+					,A.COUNT 		COUNT
+					,A.APPROVER		APPROVER
+			
+			FROM 	 GOAT_VACATION A
+			WHERE 	 1=1
+			AND 	 DELETEYN = 'Y'
+			AND		 GENUM = #{genum, jdbcType=VARCHAR}
+			ORDER BY 1 DESC
+	
+	</select>
+	<select id="gtVacationSelectAll"  resultType="gtvacationvo">
+	
+	
+		SELECT  A.GVNUM 	GVNUM,
+				TO_CHAR(A.INSERTDATE, 'YYYY') INSERTDATE,
+				A.WRITER 	WRITER,
+				A.GVDAYS 	GVDAYS, 
+				A.GENUM 	GENUM, 
+				A.APPROVER 	APPROVER,
+				A.COUNT 	COUNT 
+		FROM 	GOAT_VACATION A
+		WHERE  	1=1
+		AND 	DELETEYN = 'Y'
+		AND 	COUNT > 0
+		ORDER BY GENUM
+
+
+	</select>	
+	
+</mapper>

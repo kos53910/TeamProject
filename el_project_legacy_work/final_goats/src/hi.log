@@ -1,0 +1,8 @@
+
+SQL*Loader: Release 11.2.0.1.0 - Production on 화 7월 25 13:04:39 2023
+
+Copyright (c) 1982, 2009, Oracle and/or its affiliates.  All rights reserved.
+
+SQL*Loader-500: 파일 (hi.ctl)을 열 수 없습니다
+SQL*Loader-553: 파일을 찾을 수 없습니다
+SQL*Loader-509: 시스템 오류: 지정된 파일을 찾을 수 없습니다.

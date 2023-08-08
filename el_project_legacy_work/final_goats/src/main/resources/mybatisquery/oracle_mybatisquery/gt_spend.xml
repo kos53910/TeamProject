@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+          
+<mapper namespace="com.gt.s.kos.spend.dao.GtSpendDAO">
+	<insert id="gtSpendInsert" parameterType="gtspendvo">
+		INSERT INTO GOAT_SPEND(
+			 GSNUM, GSSUBJECT, GPNUM
+			,GSDATE, GSGUBUN, GSACCOUNT
+			,GSINFO, GSCOUNT, GSCOST
+			,GSFILE, DELETEYN, INSERTDATE
+			,UPDATEDATE, GENUM, WRITER
+			,REFERENCE, APPROVER, DEPT
+			,PROVAL)
+			VALUES(  #{gsnum, jdbcType=VARCHAR}, #{gssubject, jdbcType=VARCHAR}, #{gpnum, jdbcType=VARCHAR}
+					,TO_DATE(#{gsdate, jdbcType=VARCHAR}), #{gsgubun, jdbcType=VARCHAR}, #{gsaccount, jdbcType=VARCHAR}
+					,#{gsinfo, jdbcType=VARCHAR}, #{gscount, jdbcType=VARCHAR}, #{gscost, jdbcType=VARCHAR}
+					,#{gsfile, jdbcType=VARCHAR}, 'Y', SYSDATE
+					,SYSDATE, #{genum, jdbcType=VARCHAR}, #{writer, jdbcType=VARCHAR}
+					,#{reference, jdbcType=VARCHAR}, #{approver, jdbcType=VARCHAR}, #{dept, jdbcType=VARCHAR}
+					,#{proval, jdbcType=VARCHAR})
+	</insert>
+	
+	<update id="gtSpendInsertFile" parameterType="gtspendvo">
+		UPDATE GOAT_SPEND
+			<choose>
+				<when test="gsfile == null">
+				SET GSFILE = '-'
+				</when>
+				<otherwise>
+				SET GSFILE = #{gsfile}
+				</otherwise>
+			</choose>
+		WHERE GSNUM = #{gsnum}
+	</update>
+
+	<select id="gtSpendSelectAll" resultType="gtspendvo">
+	
+		SELECT 
+			GSNUM, GSSUBJECT, GPNUM, 
+			TO_CHAR(GSDATE, 'YYYY-MM-DD') GSDATE, GSGUBUN, GSACCOUNT, 
+			GSINFO, GSCOUNT, GSCOST, 
+			GSFILE, DELETEYN, TO_CHAR(INSERTDATE, 'YYYY-MM-DD') INSERTDATE, 
+			TO_CHAR(UPDATEDATE, 'YYYY-MM-DD') UPDATEDATE, GENUM, WRITER, 
+			REFERENCE, APPROVER, DEPT, 
+			PROVAL, COUNT
+		FROM GOAT_SPEND
+		WHERE DELETEYN = 'Y'
+	</select>
+	
+	<select id="gtSpendAppSelectAll" resultType="gtapprovallinevo" parameterType="gtapprovallinevo">
+	
+		SELECT 
+			GSNUM	APPNUM, GSSUBJECT	SUBJECT, GPNUM, 
+			TO_CHAR(GSDATE, 'YYYY-MM-DD') GSDATE, GSGUBUN, GSACCOUNT, 
+			GSINFO, GSCOUNT, GSCOST, 
+			GSFILE, DELETEYN, TO_CHAR(INSERTDATE, 'YYYY-MM-DD') "DATE", 
+			TO_CHAR(UPDATEDATE, 'YYYY-MM-DD') UPDATEDATE, GENUM, WRITER, 
+			REFERENCE, APPROVER, DEPT, 
+			PROVAL, COUNT
+		FROM GOAT_SPEND
+		WHERE DELETEYN = 'Y'
+        <if test="app=='app'">
+            <![CDATA[AND APPROVER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>   
+        </if>
+        <if test="app=='napp'">
+            <![CDATA[AND COUNT < 0]]>     
+            <![CDATA[AND WRITER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>    
+        </if>
+        <if test="app=='prog'">
+            <![CDATA[AND WRITER LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>        
+        </if>
+        <if test="app=='ref'">
+            <![CDATA[AND REFERENCE LIKE '%' || #{gename, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="s_appnum!=''">
+            <![CDATA[AND GSNUM LIKE '%' || #{s_appnum, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="subject!=''">
+            <![CDATA[AND GSSUBJECT LIKE '%' || #{subject, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="s_writer!=''">
+            <![CDATA[AND WRITER LIKE '%' || #{s_writer, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="formname!=''">
+            <![CDATA[AND GSNUM LIKE '%' || #{appnum, jdbcType=VARCHAR} || '%']]>         
+        </if>
+        <if test="appstartdate!=''">
+            <![CDATA[AND INSERTDATE >= #{appstartdate, jdbcType=VARCHAR}]]>         
+        </if>
+        <if test="appenddate!=''">
+            <![CDATA[AND INSERTDATE <= #{appenddate, jdbcType=VARCHAR}]]>         
+        </if>
+
+		ORDER BY 1
+	</select>
+	
+	<select id="gtSpendSelect" parameterType="gtspendvo" resultType="gtspendvo">
+	
+		SELECT 			
+			 GSNUM, GSSUBJECT, GPNUM
+			,TO_CHAR(GSDATE, 'YYYY-MM-DD')	GSDATE
+			,GSGUBUN, GSACCOUNT
+			,GSINFO, GSCOUNT, GSCOST
+			,GSFILE, DELETEYN
+			,TO_CHAR(INSERTDATE, 'YYYY-MM-DD') INSERTDATE
+			,TO_CHAR(UPDATEDATE, 'YYYY-MM-DD') UPDATEDATE
+			, GENUM, WRITER
+			,REFERENCE, APPROVER, DEPT
+			,PROVAL, COUNT
+		FROM GOAT_SPEND
+		WHERE DELETEYN = 'Y'
+		AND GSNUM = #{gsnum}
+	</select>
+</mapper>

@@ -1,0 +1,8 @@
+.div1{
+	background : rgb(162, 0, 255);
+	border : 1px solid red;
+	width : 300px;
+	height : 200px;
+	margin : 100px auto;
+
+}

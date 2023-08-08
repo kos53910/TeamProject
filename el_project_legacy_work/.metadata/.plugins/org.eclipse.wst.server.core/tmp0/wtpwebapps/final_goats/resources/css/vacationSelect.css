@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+.container_i01 {
+	display: flex;
+}
+/* 	메인화면 설정 */
+.container_i01>div:nth-child(2) {
+	width: 100%;
+}
+/* 	이미지 설정 */
+.wrapper_i01 img {
+	width: 15px;
+	height: 15px;
+}
+/* 	VacationSelectAll 화면 */
+.basic_i01 {
+	margin: 0 auto;
+	width: 1300px;
+}
+/* 	블럭 설정 */
+.wrapper_i01:nth-child(1) {
+	display: flex;
+	justify-content: space-between;
+}
+
+.wrapper_i01>div:nth-child(2) {
+	display: flex;
+	justify-content: space-between;
+}
+/* 	테이블 설정 */
+.basic_i01 table {
+	width: 100%;
+}
+/* 	테이블 선 설정 */
+.basic_i01 table, tr, td {
+	border: 1px solid #aaa;
+	border-collapse: collapse;
+	text-align: center;
+}
+/* 	테이블 특정td 설정 */
+.basic_i01 td:nth-child(3), td:nth-child(9) {
+	width: 15%;
+}
+
+.Va_Table_S tr:nth-child(even) {
+	background-color: #f0f0f0;
+}

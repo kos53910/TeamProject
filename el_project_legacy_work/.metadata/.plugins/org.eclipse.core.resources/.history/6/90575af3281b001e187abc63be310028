@@ -1,0 +1,32 @@
+package com.gt.s.common.chabun.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.gt.s.common.chabun.dao.GtChabunDAO;
+import com.gt.s.kos.business.vo.GtBusinessVO;
+import com.gt.s.kos.vacation.vo.GtVacationVO;
+
+
+@Service
+@Transactional
+public class GtChabunServiceImpl implements GtChabunService {
+
+	@Autowired(required = false)
+	private GtChabunDAO gtChabunDAO;
+	
+	@Override
+	public GtVacationVO getGtVacationChabun() {
+		// TODO Auto-generated method stub
+		return gtChabunDAO.getGtVacationChabun();
+	}
+
+	@Override
+	public GtBusinessVO getGtBusinessChabun() {
+		// TODO Auto-generated method stub
+		return gtChabunDAO.getGtBusinessChabun();
+	}
+
+	
+}

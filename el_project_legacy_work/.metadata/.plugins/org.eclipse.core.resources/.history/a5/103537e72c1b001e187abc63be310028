@@ -1,0 +1,35 @@
+package com.gt.s.common.chabun.dao;
+
+import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.gt.s.kos.business.vo.GtBusinessVO;
+import com.gt.s.kos.vacation.vo.GtVacationVO;
+
+
+@Repository
+public class GtChabunDAOImpl implements GtChabunDAO {
+
+	@Autowired(required = false)
+	private SqlSessionTemplate sqlSession;
+	
+	@Override
+	public GtVacationVO getGtVacationChabun() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getGtVacationChabun");
+	}
+
+	@Override
+	public GtBusinessVO getGtBusinessChabun() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getGtBusinessChabun");
+	}
+
+	@Override
+	public GtBusinessVO getGtSpendChabun() {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne("getGtSpendChabun");
+	}
+
+}

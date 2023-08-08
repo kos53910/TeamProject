@@ -1,0 +1,1078 @@
+=====================================
+클래스 설계
+=====================================
+공통
+------------------------------------
+com.gt.s.common
+	abstract ChabunUtil
+		public static final String BIZ_GUBUN_EM;
+		public static final String BIZ_GUBUN_BO;
+		public static final String BIZ_GUBUN_SC;
+		public static final String BIZ_GUBUN_PR;
+		public static final String BIZ_GUBUN_BU;
+		public static final String BIZ_GUBUN_VA;
+		public static final String BIZ_GUBUN_ED;
+		public static final String BIZ_GUBUN_DE;
+		public static final String BIZ_GUBUN_LO;
+		public static final String BIZ_GUBUN_SP;
+		public static final String BIZ_GUBUN_DR;
+		public static final String BIZ_GUBUN_RE;
+		public static final String BIZ_GUBUN_GE;
+		public static final String BIZ_GUBUN_CO;
+		public static final String BIZ_GUBUN_AC;
+
+	abstract DateFormatUtil
+		public static String ymdFormat(){}
+		public static String ymFormat(){}
+		public static String yFormat(){}
+		public static String ymdFormats(String ymdFlag){}
+		public static String documentFormat(){}
+
+	abstract CommonUtils
+		public static final String SP_FILE_UPLOAD_PATH;
+		public static final String BU_FILE_UPLOAD_PATH;
+		public static final String RE_FILE_UPLOAD_PATH;
+		public static final String VA_FILE_UPLOAD_PATH;
+		public static final String DR_FILE_UPLOAD_PATH;
+		public static final String GE_FILE_UPLOAD_PATH;
+		public static final String CO_FILE_UPLOAD_PATH;
+		public static final String PO_FILE_UPLOAD_PATH;
+		public static final String SP_IMG_UPLOAD_PATH;
+		public static final int SP_IMG_FILE_SIZE;
+		public static final String SP_EN_CODE;
+		public static final String BU_IMG_UPLOAD_PATH;
+		public static final int BU_IMG_FILE_SIZE;
+		public static final String BU_EN_CODE;
+		public static final String RE_IMG_UPLOAD_PATH;
+		public static final int RE_IMG_FILE_SIZE;
+		public static final String RE_EN_CODE;
+		public static final String VA_IMG_UPLOAD_PATH;
+		public static final int VA_IMG_FILE_SIZE;
+		public static final String VA_EN_CODE;
+		public static final String DR_IMG_UPLOAD_PATH;
+		public static final int DR_IMG_FILE_SIZE;
+		public static final String DR_EN_CODE;
+		public static final String GE_IMG_UPLOAD_PATH;
+		public static final int GE_IMG_FILE_SIZE;
+		public static final String GE_EN_CODE;
+		public static final String CO_IMG_UPLOAD_PATH;
+		public static final int CO_IMG_FILE_SIZE;
+		public static final String CO_EN_CODE;
+		public static final int VACATION_PAGE_SIZE;
+		public static final int VACATION_GROUP_SIZE;
+		public static final int VACATION_CUR_PAGE;
+		public static final int VACATION_TOTAL_COUNT;
+		public static final String[] s;
+		public static final int ACCOUNT_PAGE_SIZE;
+		public static final int ACCOUNT_GROUP_SIZE;
+		public static final int ACCOUNT_CUR_PAGE;
+		public static final int ACCOUNT_TOTAL_COUNT;
+
+	CodeUtil
+		private static final String[] TITLE;
+		private static final String[] TITLE_NUM;
+		public static final String[] gender_value;
+		public static final String[] hp_value;
+		public static String title_gubun(String s){}
+		public static String gender(String s){}
+		public static String hp(String s){}
+		public static String edsmcheck(String app, int count){}
+		public static String edsmjeoncheck(String app, int count){}
+		public static String formname(String s){}
+		public static String tablename(String appnum){}
+		public static String numname(String appnum){}
+		public static String subjectname(String appnum){}
+		public static int jeoncountup(String sessionname, String app, int count){}
+		public static void googlemail(String num, String subject,String writer, String date, String email){}
+		public static void nappGoogleEmail( String num, String subject, String date, String email){}
+	
+	FileUploadUtil
+		public static String forderMaking(String path, String num){}
+		public static String fileupload(ArrayList<MultipartFile> files, String num, String path){}
+		public static boolean filedownload(HttpServletResponse s, HttpServletRequest q, String num, String file, String path){}
+
+	FileRename implements FileRenamePolicy
+		public File rename(File sf){}
+
+	ImgUploadUtil
+		private String imgfilePaths;
+		private int imgfileSize;
+		private String encodeType;
+		private MultipartRequest mr;
+		public boolean imgfileUpload(HttpServletRequest req){}
+		private boolean imgfileUpload(HttpServletRequest req, String filepath){}
+		public String getParameter(String s){}
+		public String[] getParameterValues(String s){}
+		public String getFileName(String f) {}
+		public ArrayList<String> getFileNames(){}
+
+	K_Session
+		private static final String K_SESSION_ID;
+		public void killSession(final HttpServletRequest hReq){}
+		public boolean setSession(final HttpServletRequest hReq, final String userID){}
+		public String getSession(final HttpServletRequest hReq){}
+	
+	abstract KosConnectivity
+		public static final String JDBC_ORACLE_DRIVER;
+		public static final String JDBC_ORACLE_URL;
+		public static final String JDBC_ORACLE_USER'
+		public static final String JDBC_ORACLE_PWD;
+		public static Connection getConnection(){}
+		public static void conClose(Connection conn, PreparedStatement pstmt){}
+		public static void conClose(Connection conn, PreparedStatement pstmt, ResultSet rsRs){}
+
+	NumUtill
+		public static String comma(String s){}
+		public static String comma_replace(String s){}
+
+	TestValidation
+		public static boolean testValidation(String sV){}
+
+com.gt.s.common.chabun.dao
+	GtChabunDAO
+		public GtVacationVO getGtVacationChabun();
+		public GtBusinessVO getGtBusinessChabun();
+		public GtSpendVO getGtSpendChabun();
+		public GtProjectVO getGtProjectChabun();
+		public GtResignationVO getGtResignationChabun();
+		public GtEmployeeVO getGtEmployeeChabun();
+		public GtDraftVO getGtDraftChabun();
+		public GtContractVO getGtContractChabun();
+		public GtPlanVO getGtPlanChabun();
+		public GtAccountVO getGtAccountChabun();
+
+	GtChabunDAOImpl implements GtChabunDAO
+		public GtVacationVO getGtVacationChabun(){}
+		public GtBusinessVO getGtBusinessChabun(){}
+		public GtSpendVO getGtSpendChabun(){}
+		public GtProjectVO getGtProjectChabun(){}
+		public GtResignationVO getGtResignationChabun(){}
+		public GtEmployeeVO getGtEmployeeChabun(){}
+		public GtDraftVO getGtDraftChabun(){}
+		public GtContractVO getGtContractChabun(){}
+		public GtPlanVO getGtPlanChabun(){}
+		public GtAccountVO getGtAccountChabun(){}
+
+com.gt.s.common.chabun.service
+	GtChabunService
+		public GtVacationVO getGtVacationChabun();
+		public GtBusinessVO getGtBusinessChabun();
+		public GtSpendVO getGtSpendChabun();
+		public GtProjectVO getGtProjectChabun();
+		public GtResignationVO getGtResignationChabun();
+		public GtEmployeeVO getGtEmployeeChabun();
+		public GtDraftVO getGtDraftChabun();
+		public GtContractVO getGtContractChabun();
+		public GtAccountVO getGtAccountChabun();
+		public GtPlanVO getGtPlanChabun();
+
+	GtChabunServiceImpl implements GtChabunService
+		public GtVacationVO getGtVacationChabun(){}
+		public GtBusinessVO getGtBusinessChabun(){}
+		public GtSpendVO getGtSpendChabun(){}
+		public GtProjectVO getGtProjectChabun(){}
+		public GtResignationVO getGtResignationChabun(){}
+		public GtEmployeeVO getGtEmployeeChabun(){}
+		public GtDraftVO getGtDraftChabun(){}
+		public GtContractVO getGtContractChabun(){}
+		public GtAccountVO getGtAccountChabun(){}
+		public GtPlanVO getGtPlanChabun(){}
+
+com.gt.s.common.mail
+	GoogleMailSender
+		public void googleMailSender(String mailSubject, String resiveMail, String sendMsg, String writer) {}
+
+=====================================
+일반
+------------------------------------
+
+com.gt.s.kos.account
+	GtAccountController
+		public String gtAccountInsertForm(HttpServletRequest q, GtEmployeeVO evo, GtAccountVO gvo, Model m){}
+		public String gtAccountInsert(GtAccountVO gvo){}
+		public String gtAccountChabun(){}
+		public String gtAccountSelectAll(GtAccountVO gvo, Model m){}
+
+	GtAccountDAO
+		public int gtAccountInsert(GtAccountVO gvo);
+		public List<GtAccountVO> gtAccountSelectAll(GtAccountVO gvo);
+		public List<GtAccountVO> gtAccountSelect(GtAccountVO gvo);
+	GtAccountDAOImpl
+		private SqlSessionTemplate sqlSession;
+		public int gtAccountInsert(GtAccountVO gvo){}
+		public List<GtAccountVO> gtAccountSelectAll(GtAccountVO gvo){}
+		public List<GtAccountVO> gtAccountSelect(GtAccountVO gvo){}
+
+	GtAccountService
+		public int gtAccountInsert(GtAccountVO gvo);
+		public List<GtAccountVO> gtAccountSelectAll(GtAccountVO gvo);
+		public List<GtAccountVO> gtAccountSelect(GtAccountVO gvo);
+	GtAccountServiceImpl
+		private GtAccountDAO gtAccountDAO;
+		public int gtAccountInsert(GtAccountVO gvo){}
+		public List<GtAccountVO> gtAccountSelectAll(GtAccountVO gvo){}
+		public List<GtAccountVO> gtAccountSelect(GtAccountVO gvo){}
+
+	GtAccountVO
+		private String ganum;
+		private String ganame;
+		private String gasnum;
+		private String gabusinesstype;
+		private String gaevent;
+		private String gazone;
+		private String gaload;
+		private String galoaddetale;
+		private String gahp;
+		private String gafax;
+		private String gafoundation;
+		private String startdate;
+		private String enddate;
+		private String gagubun;
+		private String gainfo;
+		private String insertdate;
+		private String updatedate;
+		private String deleteyn;
+		private String pageSize;
+		private String groupSize;
+		private String curPage;
+		private String totalCount;
+
+
+com.gt.s.kos.approvalline
+	GtApprovalLineController
+		public String goatApprovallineSelectAll(GtApprovalLineVO gvo, Model model){}
+		public String gtsidebarcheck(HttpServletRequest q, GtApprovalLineVO avo){}
+		public String edsmcountup(GtApprovalLineVO avo, HttpServletRequest q){}
+		public String edsmjeoncountup(GtApprovalLineVO avo, HttpServletRequest q){}
+		public String deciapp(GtApprovalLineVO avo, HttpServletRequest q) throws Exception{}
+		public String gtDelete(GtApprovalLineVO avo){}
+		public String gtnappcountdown(GtApprovalLineVO avo, HttpServletRequest q) throws UnsupportedEncodingException{}
+
+	GtApprovallineDAO
+		public List<GtApprovalLineVO> goatApprovalOCSelectAll();
+		public List<GtApprovalLineVO> goatApprovalMemberSelectAll();
+		public List<GtApprovalLineVO> goatApprovalSelect(GtApprovalLineVO avo);
+		public int goatcountup(GtApprovalLineVO avo);
+		public int gtJeonCountUp(GtApprovalLineVO avo);
+		public List<GtApprovalLineVO> gtemailSelect(GtApprovalLineVO avo);
+		public int gtDeciCountUp(GtApprovalLineVO avo);
+		public int gtDelete(GtApprovalLineVO avo);
+		public int gtNappCountDown(GtApprovalLineVO avo);
+	GtApprovallineDAOImpl
+		private SqlSessionTemplate sqlSession;
+		public List<GtApprovalLineVO> goatApprovalOCSelectAll(){}
+		public List<GtApprovalLineVO> goatApprovalSelect(GtApprovalLineVO avo){}
+		public List<GtApprovalLineVO> goatApprovalMemberSelectAll(){}
+		public int goatcountup(GtApprovalLineVO avo){}
+		public List<GtApprovalLineVO> gtemailSelect(GtApprovalLineVO avo){}
+		public int gtJeonCountUp(GtApprovalLineVO avo){}
+		public int gtDeciCountUp(GtApprovalLineVO avo){}
+		public int gtDelete(GtApprovalLineVO avo){}
+		public int gtNappCountDown(GtApprovalLineVO avo){}
+
+	GtApprovallineService
+		public List<GtApprovalLineVO> goatApprovalOCSelectAll();
+		public List<GtApprovalLineVO> goatApprovalMemberSelectAll();
+		public List<GtApprovalLineVO> goatApprovalSelect(GtApprovalLineVO avo);
+		public int goatcountup(GtApprovalLineVO avo);
+		public int gtJeonCountUp(GtApprovalLineVO avo);
+		public List<GtApprovalLineVO> gtemailSelect(GtApprovalLineVO avo);
+		public int gtDeciCountUp(GtApprovalLineVO avo);
+		public int gtDelete(GtApprovalLineVO avo);
+		public int gtNappCountDown(GtApprovalLineVO avo);
+	GtApprovallineServiceImpl
+		private GtApprovallineDAO gtApprovallineDAO;
+		public List<GtApprovalLineVO> goatApprovalOCSelectAll(){}
+		public List<GtApprovalLineVO> goatApprovalSelect(GtApprovalLineVO avo){}
+		public List<GtApprovalLineVO> goatApprovalMemberSelectAll(){}
+		public int goatcountup(GtApprovalLineVO avo){}
+		public List<GtApprovalLineVO> gtemailSelect(GtApprovalLineVO avo){}
+		public int gtJeonCountUp(GtApprovalLineVO avo){}
+		public int gtDeciCountUp(GtApprovalLineVO avo){}
+		public int gtDelete(GtApprovalLineVO avo){}
+		public int gtNappCountDown(GtApprovalLineVO avo){}
+
+	GtApprovalLineVO
+		private String gename;
+		private String appnum;
+		private String s_appnum;
+		private String subject;
+		private String writer;
+		private String s_writer;
+		private String date;
+		private String approver;
+		private String count;
+		private String tablename;
+		private String numname;
+		private String apryn;
+		private String app;
+		private String subjectname;
+		private String insertdate;
+		private String deciwriter;
+		private String formname;
+		private String appstartdate;
+		private String appenddate;
+
+com.gt.s.kos.business
+
+	GtBusinessController
+		public String gtBusinessInsertForm(HttpServletRequest req, Model m, GtEmployeeVO evo){}
+		public String gtBusinessInsert(GtBusinessVO buvo, Model m, HttpServletRequest req){}
+		public String gtBusinessChanbun(){}
+		public String gtBusinessInsertFile(@RequestParam("gbtfile") ArrayList<MultipartFile> files){}
+		public String gtBusinessSelectAll(HttpServletRequest req, Model m, GtBusinessVO buvo){}
+		public String gtBusinessSelect(HttpServletRequest req, Model m, GtApprovalLineVO avo){}
+		public String gtBusinessUpdate(HttpServletRequest req, Model model, GtBusinessVO buvo){}
+		public String fileDownloadList(HttpServletRequest q){}
+		public void fileDownload(@RequestParam String file, @RequestParam String num, HttpServletRequest q, HttpServletResponse s){}
+
+	GtBusinessDAO
+		public int gtBusinessInsert(GtBusinessVO buvo);
+		public int gtBusinessInsertFile(GtBusinessVO buvo);
+		public List<GtApprovalLineVO> gtBusinessAppSelectAll(GtApprovalLineVO avo);
+		public List<GtApprovalLineVO> gtBusinessRefSelectAll(GtApprovalLineVO avo);
+		public List<GtBusinessVO> gtBusinessSelectAll(GtBusinessVO buvo);
+		public List<GtBusinessVO> gtBusinessSelect(GtBusinessVO buvo);
+		public int gtBusinessUpdate(GtBusinessVO buvo);
+		public List<GtApprovalLineVO> gtDeciBusinessSelect(GtApprovalLineVO avo);
+	GtBusinessDAOImpl
+		private SqlSessionTemplate sqlSession;
+		public int gtBusinessInsert(GtBusinessVO buvo){}
+		public int gtBusinessInsertFile(GtBusinessVO buvo){}
+		public List<GtApprovalLineVO> gtBusinessAppSelectAll(GtApprovalLineVO avo){}
+		public List<GtBusinessVO> gtBusinessSelect(GtBusinessVO buvo){}
+		public int gtBusinessUpdate(GtBusinessVO buvo){}
+		public List<GtBusinessVO> gtBusinessSelectAll(GtBusinessVO buvo){}
+		public List<GtApprovalLineVO> gtBusinessRefSelectAll(GtApprovalLineVO avo){}
+		public List<GtApprovalLineVO> gtDeciBusinessSelect(GtApprovalLineVO avo){}
+
+	GtBusinessService
+		public int gtBusinessInsert(GtBusinessVO buvo);
+		public int gtBusinessInsertFile(GtBusinessVO buvo);
+		public List<GtApprovalLineVO> gtBusinessAppSelectAll(GtApprovalLineVO avo);
+		public List<GtApprovalLineVO> gtBusinessRefSelectAll(GtApprovalLineVO avo);
+		public List<GtBusinessVO> gtBusinessSelectAll(GtBusinessVO buvo);
+		public List<GtBusinessVO> gtBusinessSelect(GtBusinessVO buvo);
+		public int gtBusinessUpdate(GtBusinessVO buvo);
+		public List<GtApprovalLineVO> gtDeciBusinessSelect(GtApprovalLineVO avo);
+	GtBusinessServiceImpl
+		private GtBusinessDAO gtBusinessDAO;
+		public int gtBusinessInsert(GtBusinessVO buvo){}
+		public int gtBusinessInsertFile(GtBusinessVO buvo){}
+		public List<GtApprovalLineVO> gtBusinessAppSelectAll(GtApprovalLineVO avo){}
+		public List<GtBusinessVO> gtBusinessSelect(GtBusinessVO buvo){}
+		public int gtBusinessUpdate(GtBusinessVO buvo){}
+		public List<GtBusinessVO> gtBusinessSelectAll(GtBusinessVO buvo){}
+		public List<GtApprovalLineVO> gtBusinessRefSelectAll(GtApprovalLineVO avo){}
+		public List<GtApprovalLineVO> gtDeciBusinessSelect(GtApprovalLineVO avo){}
+
+	GtBusinessVO
+		private String gbtnum;
+		private String gbtname;
+		private String gpnum;
+		private String gbtprice1;
+		private String gbtprice2;
+		private String gbtprice3;
+		private String gbtprice4;
+		private String gbtprice5;
+		private String gbttotalprice;
+		private String gbtfile;
+		private String gbtstart;
+		private String gbtend;
+		private String deleteyn;
+		private String insertdate;
+		private String updatedate;
+		private String dept;
+		private String genum;
+		private String writer;
+		private String reference;
+		private String approver;
+		private String proval;
+		private String count;
+		private String decianother;
+		private String pagesize;
+		private String totalcount;
+		private String curpage;
+		private String groupsize;
+		private String keyword;
+		private String searchfilter;
+		
+com.gt.s.kos.contract
+
+	GtContractController
+		public String gtContractInsertForm(Model m, GtEmployeeVO evo, HttpServletRequest req, GtContractVO cvo){}
+		public String contractInsert(Model m, GtContractVO gcvo, HttpServletRequest req){}
+		public String getGtDraftChabun(){}
+		public String contractInsertFile(@RequestParam("gdrfile") ArrayList<MultipartFile> files){}
+		public String gtContractSelect(GtApprovalLineVO avo, Model m, HttpServletRequest q){}
+		public String gtContractFileDownloadlist(HttpServletRequest q){}
+		public void gtContractFileDownload(@RequestParam String file, @RequestParam String num, HttpServletResponse s, HttpServletRequest q){}
+		public String gtContractFileupload(@RequestParam("gcfile") ArrayList<MultipartFile> files){}
+		public String fileDownloadList(HttpServletRequest q){}
+		public void fileDownload(@RequestParam String file, @RequestParam String num, HttpServletResponse s, HttpServletRequest q){}
+
+	GtContractDAO
+		public int gtContractInsert(GtContractVO cvo);
+		public int gtContractInsertFile(GtContractVO cvo);
+		public List<GtContractVO> gtContractSelectAll(GtContractVO cvo);
+		public List<GtApprovalLineVO> gtContractAppSelectAll(GtApprovalLineVO avo);
+		public List<GtApprovalLineVO> gtContractRefSelectAll(GtApprovalLineVO avo);
+		public List<GtContractVO> gtContractSelect(GtContractVO cvo);
+	GtContractDAOImpl
+		private SqlSessionTemplate sqlSession;
+		public int gtContractInsert(GtContractVO cvo)
+		public int gtContractInsertFile(GtContractVO cvo)
+		public List<GtContractVO> gtContractSelectAll(GtContractVO cvo)
+		public List<GtApprovalLineVO> gtContractAppSelectAll(GtApprovalLineVO avo)
+		public List<GtApprovalLineVO> gtContractRefSelectAll(GtApprovalLineVO avo)
+		public List<GtContractVO> gtContractSelect(GtContractVO cvo)
+
+	GtContractService
+		public int gtContractInsert(GtContractVO cvo);
+		public int gtContractInsertFile(GtContractVO cvo);
+		public List<GtContractVO> gtContractSelectAll(GtContractVO cvo);
+		public List<GtApprovalLineVO> gtContractAppSelectAll(GtApprovalLineVO avo);
+		public List<GtApprovalLineVO> gtContractRefSelectAll(GtApprovalLineVO avo);
+		public List<GtContractVO> gtContractSelect(GtContractVO cvo);
+	GtContractServiceImpl
+		private GtContractDAO gtContractDAO;
+		public int gtContractInsert(GtContractVO cvo)
+		public int gtContractInsertFile(GtContractVO cvo)
+		public List<GtContractVO> gtContractSelectAll(GtContractVO cvo)
+		public List<GtApprovalLineVO> gtContractAppSelectAll(GtApprovalLineVO avo)
+		public List<GtApprovalLineVO> gtContractRefSelectAll(GtApprovalLineVO avo)
+		public List<GtContractVO> gtContractSelect(GtContractVO cvo)
+
+	GtContractVO
+		private String gcnum;
+		private String gcsubject;
+		private String gcsalplace;
+		private String gcpurchase;
+		private String gccontent;
+		private String gcconform;
+		private String gcsalitem;
+		private String gcsalquantity;
+		private String gcsalamount;
+		private String gcpuritem;
+		private String gcpuramount;
+		private String gcattach;
+		private String gcsign;
+		private String gcfile;
+		private String insertdate;
+		private String updatedate;
+		private String deleteyn;
+		private String genum;
+		private String writer;
+		private String reference;
+		private String approver;
+		private String dept;
+		private String proval;
+		private String count;
+
+com.gt.s.kos.dept
+
+	GtDeptController
+		public String goatsDeptSelectAll(GtDeptVO dvo, Model model){}
+
+	GtDeptDAO
+		public List<GtDeptVO> goatsDeptSelectAll();
+	GtDeptDAOImpl
+		private SqlSession sqlSession;
+		public List<GtDeptVO> goatsDeptSelectAll(){}
+
+	GtDeptService
+		public List<GtDeptVO> goatsDeptSelectAll();
+	GtDeptServiceImpl
+		private GtDeptDAO gtDeptDAO;
+		public List<GtDeptVO> goatsDeptSelectAll(){}
+
+	GtDeptVO
+		private String deptno;
+		private String deptname;
+		private String insertdate;
+		private String updatedate;
+		private String deleteyn;
+
+com.gt.s.kos.document.controller
+	GtDocumentController
+		public String mainDraft(){}
+		public String document_approve(HttpServletRequest q, GtApprovalLineVO avo, Model m){}
+		public String document_com(HttpServletRequest q, GtApprovalLineVO avo, Model m){}
+		public String document_napp(HttpServletRequest q, GtApprovalLineVO avo, Model m){}
+		public String document_prog(HttpServletRequest q, GtApprovalLineVO avo, Model m){}
+		public String document_ref(HttpServletRequest q, GtApprovalLineVO avo, Model m){}
+
+com.gt.s.kos.draft
+
+	GtDraftController
+		public String draftInsertForm(HttpServletRequest q, GtEmployeeVO evo, GtDraftVO gvo, Model m){}
+		public String draftInsert(Model m, GtDraftVO gvo, HttpServletRequest req){}
+		public String gtDraftChanbun(){}
+		public String gtDraftInsertFile(@RequestParam("gdrfile") ArrayList<MultipartFile> files){}
+		public String gtDraftSelect(GtApprovalLineVO gavo, Model m, HttpServletRequest req){}
+		public String fileDownloadList(HttpServletRequest q){}
+		public void fileDownload(@RequestParam String file, @RequestParam String num, HttpServletResponse s, HttpServletRequest q){}
+
+	GtDraftDAO
+		public int gtDraftInsert(GtDraftVO gdvo);
+		public int gtDraftInsertFile(GtDraftVO gdvo);
+		public List<GtDraftVO> gtDraftSelect(GtDraftVO gdvo);
+		public List<GtApprovalLineVO> draftAppSelectAll(GtApprovalLineVO avo);
+		public List<GtApprovalLineVO> draftRefSelectAll(GtApprovalLineVO avo);
+		public List<GtDraftVO> gtDraftSelectAll(GtDraftVO gdvo);
+		public int gtDraftUpdate(GtDraftVO gdvo);
+	GtDraftDAOImpl
+		private SqlSessionTemplate sqlSession;
+		public int gtDraftInsert(GtDraftVO gdvo){}
+		public int gtDraftInsertFile(GtDraftVO gdvo){}
+		public List<GtDraftVO> gtDraftSelect(GtDraftVO gdvo){}
+		public List<GtDraftVO> gtDraftSelectAll(GtDraftVO gdvo){}
+		public int gtDraftUpdate(GtDraftVO gdvo){}
+		public List<GtApprovalLineVO> draftAppSelectAll(GtApprovalLineVO avo){}
+		public List<GtApprovalLineVO> draftRefSelectAll(GtApprovalLineVO avo){}
+
+	GtDraftService
+		public int gtDraftInsert(GtDraftVO gdvo);
+		public int gtDraftInsertFile(GtDraftVO gdvo);
+		public List<GtDraftVO> gtDraftSelect(GtDraftVO gdvo);
+		public List<GtApprovalLineVO> draftAppSelectAll(GtApprovalLineVO avo);
+		public List<GtApprovalLineVO> draftRefSelectAll(GtApprovalLineVO avo);
+		public List<GtDraftVO> gtDraftSelectAll(GtDraftVO gdvo);
+		public int gtDraftUpdate(GtDraftVO gdvo);
+	GtDraftServiceImpl
+		private GtDraftDAO gtDraftDAO;
+		public int gtDraftInsert(GtDraftVO gdvo){}
+		public int gtDraftInsertFile(GtDraftVO gdvo){}
+		public List<GtDraftVO> gtDraftSelect(GtDraftVO gdvo){}
+		public List<GtDraftVO> gtDraftSelectAll(GtDraftVO gdvo){}
+		public int gtDraftUpdate(GtDraftVO gdvo){}
+		public List<GtApprovalLineVO> draftAppSelectAll(GtApprovalLineVO avo){}
+		public List<GtApprovalLineVO> draftRefSelectAll(GtApprovalLineVO avo){}
+
+	GtDraftVO
+		private String gdrnum;
+		private String gdrsubject;
+		private String gdrmemo;
+		private String gdrfile;
+		private String gdrsign;
+		private String gdrcontract;
+		private String deleteyn;
+		private String insertdate;
+		private String updatedate;
+		private String genum;
+		private String writer;
+		private String reference;
+		private String approver;
+		private String dept;
+		private String proval;
+		private String count;
+
+com.gt.s.kos.employee
+
+	GtEmployeeController
+		public String goatsEmployeeSelect(@RequestParam("dept")String dept, GtEmployeeVO evo){}
+		public String gtEmployeeInsertForm(){}
+		public String gtEmployeeIdcheck(GtEmployeeVO evo){}
+		public String getGtEmployeeChabun(GtEmployeeVO evo){}
+		public String gtEmployeeInsert(GtEmployeeVO evo, HttpServletRequest req, Model m){}
+		public String gtEmployeeFileInsert(HttpServletRequest req){}
+		public String gtEmployeeDecianotherSelect(@RequestParam("dept")String dept,@RequestParam("genum")String genum, GtEmployeeVO evo){}
+
+	GtEmployeeDAO
+		public GtEmployeeVO genumcheck(GtEmployeeVO evo);
+		public GtEmployeeVO goatempidcheck(GtEmployeeVO evo);
+		public List<GtEmployeeVO> goatsEmployeeSelect(GtEmployeeVO evo);
+		public List<GtEmployeeVO> gtEmployeeIdcheck(GtEmployeeVO evo);
+		public int gtEmployeeInsert(GtEmployeeVO evo);
+		public int gtEmployeeFileInsert(GtEmployeeVO evo);
+		public List<GtEmployeeVO> gtEmployeeDecianotherSelect(GtEmployeeVO evo);
+		public GtEmployeeVO gecheck(GtEmployeeVO evo);
+		public GtEmployeeVO emailcheck(GtEmployeeVO evo);
+		public List<GtEmployeeVO> gtpwCheck(GtEmployeeVO evo);
+		public int gtpwupdateCheck(GtEmployeeVO evo);
+		public int gtinfupdate(GtEmployeeVO evo);
+
+	GtEmployeeDAOImpl
+		private SqlSessionTemplate sqlSession;
+		public GtEmployeeVO genumcheck(GtEmployeeVO evo){}
+		public GtEmployeeVO goatempidcheck(GtEmployeeVO evo){}
+		public List<GtEmployeeVO> goatsEmployeeSelect(GtEmployeeVO evo){}
+		public List<GtEmployeeVO> gtEmployeeIdcheck(GtEmployeeVO evo){}
+		public int gtEmployeeInsert(GtEmployeeVO evo){}
+		public int gtEmployeeFileInsert(GtEmployeeVO evo){}
+		public List<GtEmployeeVO> gtEmployeeDecianotherSelect(GtEmployeeVO evo){}
+		public GtEmployeeVO gecheck(GtEmployeeVO evo){}
+		public GtEmployeeVO emailcheck(GtEmployeeVO evo){}
+		public List<GtEmployeeVO> gtpwCheck(GtEmployeeVO evo){}
+		public int gtpwupdateCheck(GtEmployeeVO evo){}
+		public int gtinfupdate(GtEmployeeVO evo){}
+
+	GtEmployeeService
+		public GtEmployeeVO genumcheck(GtEmployeeVO evo);
+		public GtEmployeeVO goatempidcheck(GtEmployeeVO evo);
+		public List<GtEmployeeVO> goatsEmployeeSelect(GtEmployeeVO evo);
+		public List<GtEmployeeVO> gtEmployeeIdcheck(GtEmployeeVO evo);
+		public int gtEmployeeInsert(GtEmployeeVO evo);
+		public int gtEmployeeFileInsert(GtEmployeeVO evo);
+		public List<GtEmployeeVO> gtEmployeeDecianotherSelect(GtEmployeeVO evo);
+		public GtEmployeeVO gecheck(GtEmployeeVO evo);
+		public GtEmployeeVO emailcheck(GtEmployeeVO evo);
+		public List<GtEmployeeVO> gtpwCheck(GtEmployeeVO evo);
+		public int gtpwupdateCheck(GtEmployeeVO evo);
+		public int gtinfupdate(GtEmployeeVO evo);
+	GtEmployeeServiceImpl
+		private GtEmployeeDAO gtEmployeeDAO;
+		public GtEmployeeVO genumcheck(GtEmployeeVO evo){}
+		public GtEmployeeVO goatempidcheck(GtEmployeeVO evo){}
+		public List<GtEmployeeVO> goatsEmployeeSelect(GtEmployeeVO evo){}
+		public List<GtEmployeeVO> gtEmployeeIdcheck(GtEmployeeVO evo){}
+		public int gtEmployeeInsert(GtEmployeeVO evo){}
+		public int gtEmployeeFileInsert(GtEmployeeVO evo){}
+		public List<GtEmployeeVO> gtEmployeeDecianotherSelect(GtEmployeeVO evo){}
+		public GtEmployeeVO gecheck(GtEmployeeVO evo){}
+		public GtEmployeeVO emailcheck(GtEmployeeVO evo){}
+		public List<GtEmployeeVO> gtpwCheck(GtEmployeeVO evo){}
+		public int gtpwupdateCheck(GtEmployeeVO evo){}
+		public int gtinfupdate(GtEmployeeVO evo){}
+
+	GtEmployeeVO
+		private String genum;
+		private String gename;
+		private String geid;
+		private String gepw;
+		private String gegender;
+		private String gebirth;
+		private String gehp;
+		private String geemail;
+		private String gezone;
+		private String geroad;
+		private String geroaddetail;
+		private String gejibun;
+		private String gephoto;
+		private String deleteyn;
+		private String insertdate;
+		private String updatedate;
+		private String gedept;
+		private String title;
+		private String notiyn;
+		private String apryn;
+		private String salary;
+
+com.gt.s.kos.flask.controller
+	public ModelAndView flask_test(){}
+
+com.gt.s.kos.login
+
+	GtLoginController
+		public String loginForm(){}
+		public String loginx(){}
+		public String login(GtEmployeeVO evo, HttpServletRequest q, Model m){}
+		public String logincheck(HttpServletRequest q, GtEmployeeVO evo){}
+		public String logout(HttpServletRequest q){}
+
+	GtLoginDAO
+		public List<GtEmployeeVO> logincheck(GtEmployeeVO evo);
+	GtLoginDAOImpl
+		private SqlSession sqlSession;
+		public List<GtEmployeeVO> logincheck(GtEmployeeVO evo){}
+
+	GtLoginService
+		public List<GtEmployeeVO> logincheck(GtEmployeeVO evo);
+	GtLoginServiceImpl
+		private GtLoginDAO gtLoginDAO;
+		public List<GtEmployeeVO> logincheck(GtEmployeeVO evo){}
+
+	GtLoginVO
+
+com.gt.s.kos.mypage.controller
+	GtMypageController
+		public String gtMypageSelect(HttpServletRequest req, Model m, GtEmployeeVO evo){}
+		public String gtinfupdate(HttpServletRequest req, Model m, GtEmployeeVO evo){}
+		public String gtpwCheck(HttpServletRequest req, Model m, GtEmployeeVO evo){}
+		public String pwCheck(HttpServletRequest req, GtEmployeeVO evo){}
+		public String mainMap(){}
+
+com.gt.s.kos.organization
+
+	GtOrganizationController
+		public String gtOrganizationSelectAll(HttpServletRequest req, Model model, GtEmployeeVO evo){}
+		public Map<String, Object> gtOrganizationSelectAll2(HttpServletRequest req, Model m, GtEmployeeVO evo){}
+
+	GtOrganizationDAO
+		public List<GtEmployeeVO> gtOrganizationSelectAll(GtEmployeeVO evo);
+	GtOrganizationDAOImpl
+		private SqlSessionTemplate sqlSession;
+		public List<GtEmployeeVO> gtOrganizationSelectAll(GtEmployeeVO evo){}
+
+	GtOrganizationService
+		public List<GtEmployeeVO> gtOrganizationSelectAll(GtEmployeeVO evo);
+	GtOrganizationServiceImpl
+		private GtOrganizationDAO gtOrganizationDAO;
+		public List<GtEmployeeVO> gtOrganizationSelectAll(GtEmployeeVO evo){}
+
+	GtOrganizationVO
+		private String genum;
+		private String gename;
+		private String gedept;
+		private String title;
+		private String geid;
+		private String geemail;
+		private String gehp;
+
+com.gt.s.kos.plan
+
+	GtPlanDAO.java
+		public int gtPlanInsert(GtPlanVO pvo);
+	GtPlanDAOImpl.java
+		private SqlSessionTemplate sqlSession;
+		public int gtPlanInsert(GtPlanVO pvo){}
+
+	GtPlanService.java
+		public int gtPlanInsert(GtPlanVO pvo);
+	GtPlanServiceImpl.java
+		private GtPlanDAO gtPlanDAO;
+		public int gtPlanInsert(GtPlanVO pvo){}
+
+	GtPlanVO
+		private String gpnum;
+		private String gpsubject;
+		private String gppnum;
+		private String writer;
+		private String gptype;
+		private String gpmemo;
+		private String gplocation;
+		private String gpstart;
+		private String gpend;
+		private String deleteyn;
+		private String insertdate;
+		private String updatedate;
+
+com.gt.s.kos.project
+
+	GtProjectController
+		public String gtProjectSelectAll(Model m, HttpServletRequest req, GtProjectVO gvo){}
+		public String gtProjectInsert(Model m, GtProjectVO pvo, HttpServletRequest req){}
+		public String gtProjectInsertForm(Model m){}
+		public String gtProjectsearchman(Model m,HttpServletRequest req){}
+		public String gtProjectsearchman2(Model m,HttpServletRequest req, GtEmployeeVO evo){}
+		public String gtProjectFileupload(@RequestParam("gpfile") ArrayList<MultipartFile> files){}
+		public String gtAccountSelectForm(Model m,HttpServletRequest req, GtAccountVO gvo){}
+		public String AccountSelectForm(){}
+		public String projectactualcost(Model m){}
+
+	GtProjectDAO
+		public int gtProjectInsert(GtProjectVO pvo);
+		public List<GtProjectVO> gtProjectSelectAll();
+		public List<GtEmployeeVO> gtEmployeeSelectAll();
+		public List<GtEmployeeVO> gtEmployeeSelect2(GtEmployeeVO evo);
+		public int gtProjectInsertFile(GtProjectVO pvo);
+	GtProjectDAOImpl
+		private SqlSession sqlSession;
+		public int gtProjectInsert(GtProjectVO pvo){}
+		public List<GtProjectVO> gtProjectSelectAll(){}
+		public List<GtEmployeeVO> gtEmployeeSelectAll(){}
+		public List<GtEmployeeVO> gtEmployeeSelect2(GtEmployeeVO evo){}
+		public int gtProjectInsertFile(GtProjectVO pvo){}
+
+	GtProjectService
+		public int gtProjectInsert(GtProjectVO pvo);
+		public List<GtProjectVO> gtProjectSelectAll();
+		public List<GtEmployeeVO> gtEmployeeSelectAll();
+		public List<GtEmployeeVO> gtEmployeeSelect2(GtEmployeeVO evo);
+		public int gtProjectInsertFile(GtProjectVO pvo);
+	GtProjectServiceImpl
+		private GtProjectDAO gtProjectDAO;
+		public int gtProjectInsert(GtProjectVO pvo){}
+		public List<GtProjectVO> gtProjectSelectAll(){}
+		public List<GtEmployeeVO> gtEmployeeSelectAll(){}
+		public List<GtEmployeeVO> gtEmployeeSelect2(GtEmployeeVO evo){}
+		public int gtProjectInsertFile(GtProjectVO pvo){}
+
+	GtProjectVO
+		private String gpnum;
+		private String gpname;
+		private String gpgubun;
+		private String gpstartdate;
+		private String gpenddate;
+		private String gpcontr;
+		private String gpcontryn;
+		private String gpcstartdate;
+		private String gpcenddate;
+		private String gpinfo;
+		private String gptic;
+		private String gpticman;
+		private String gpcontype;
+		private String gpest;
+		private String gpestmount;
+		private String gpnote;
+		private String gppcontype;
+		private String gppnum;
+		private String gppname;
+		private String gpprank;
+		private String gppstartdate;
+		private String gppenddate;
+		private String gppgong;
+		private String gpppurpose;
+		private String gpfile;
+		private String insertdate;
+		private String updatedate;
+		private String deleteyn;
+
+com.gt.s.kos.resignation
+
+	GtResignationController
+		public String resignationInsertForm(HttpServletRequest req, GtEmployeeVO gevo, Model model){}
+		public String gtResignationChanbun(){}
+		public String resignationInsert(GtResignationVO rvo){}
+		public String gtResignationInsertFile(HttpServletRequest req){}
+		public String gtResignaitonSelect(GtApprovalLineVO avo, Model m, HttpServletRequest q){}
+		public String fileDownloadList(HttpServletRequest q){}
+		public void fileDownload(@RequestParam String file, @RequestParam String num, HttpServletResponse s, HttpServletRequest q){}
+
+	GtResignationDAO
+		public int gtResignationInsert(GtResignationVO rvo);	
+		public int gtResignationInsertFile(GtResignationVO rvo);
+		public List<GtResignationVO> gtResignationSelectAll();
+		public List<GtApprovalLineVO> gtResignationAppSelectAll(GtApprovalLineVO avo);
+		public List<GtApprovalLineVO> gtResignationRefSelectAll(GtApprovalLineVO avo);
+		public List<GtResignationVO> gtResignationSelect(GtResignationVO rvo);
+	GtResignationDAOImpl
+		private SqlSession sqlSession;
+		public int gtResignationInsert(GtResignationVO rvo){}
+		public int gtResignationInsertFile(GtResignationVO rvo){}
+		public List<GtResignationVO> gtResignationSelectAll(){}
+		public List<GtApprovalLineVO> gtResignationAppSelectAll(GtApprovalLineVO avo){}
+		public List<GtApprovalLineVO> gtResignationRefSelectAll(GtApprovalLineVO avo){}
+		public List<GtResignationVO> gtResignationSelect(GtResignationVO rvo){}
+
+	GtResignationService
+		public int gtResignationInsert(GtResignationVO rvo);	
+		public int gtResignationInsertFile(GtResignationVO rvo);
+		public List<GtResignationVO> gtResignationSelectAll();
+		public List<GtApprovalLineVO> gtResignationAppSelectAll(GtApprovalLineVO avo);
+		public List<GtApprovalLineVO> gtResignationRefSelectAll(GtApprovalLineVO avo);
+		public List<GtResignationVO> gtResignationSelect(GtResignationVO rvo);
+	GtResignationServiceImpl
+		private GtResignationDAO gtResignationDAO;
+		public int gtResignationInsert(GtResignationVO rvo){}
+		public int gtResignationInsertFile(GtResignationVO rvo){}
+		public List<GtResignationVO> gtResignationSelectAll(){}
+		public List<GtApprovalLineVO> gtResignationAppSelectAll(GtApprovalLineVO avo){}
+		public List<GtApprovalLineVO> gtResignationRefSelectAll(GtApprovalLineVO avo){}
+		public List<GtResignationVO> gtResignationSelect(GtResignationVO rvo){}
+
+	GtResignationVO
+		private String grnum;
+		private String grstartdate;
+		private String grenddate;
+		private String grsubject;
+		private String grmemo;
+		private String grfile;
+		private String insertdate;
+		private String updatedate;
+		private String deleteyn;
+		private String genum;
+		private String writer;
+		private String reference;
+		private String approver;
+		private String dept;
+		private String proval;
+		private String count;
+com.gt.s.kos.schedule
+
+	GtScheduleController
+		public String gtScheduleSelect(HttpServletRequest req, Model m, GtScheduleVO svo){}
+
+	GtScheduleDAO
+		public List<GtScheduleVO> gtScheduleSelectAll(GtScheduleVO svo);
+		public List<GtScheduleVO> gtScheduleSelectVa(GtScheduleVO svo);
+		public List<GtScheduleVO> gtScheduleSelectBu(GtScheduleVO svo);
+	GtScheduleDAOImpl
+		private SqlSession sqlSession;
+		public List<GtScheduleVO> gtScheduleSelectAll(GtScheduleVO svo){}
+		public List<GtScheduleVO> gtScheduleSelectVa(GtScheduleVO svo){}
+		public List<GtScheduleVO> gtScheduleSelectBu(GtScheduleVO svo){}
+
+	GtScheduleService
+		public List<GtScheduleVO> gtScheduleSelectAll(GtScheduleVO svo);
+		public List<GtScheduleVO> gtScheduleSelectVa(GtScheduleVO svo);
+		public List<GtScheduleVO> gtScheduleSelectBu(GtScheduleVO svo);
+	GtScheduleServiceImpl
+		private GtScheduleDAO gtScheduleDAO;
+		public List<GtScheduleVO> gtScheduleSelectAll(GtScheduleVO svo){}
+		public List<GtScheduleVO> gtScheduleSelectVa(GtScheduleVO svo){}
+		public List<GtScheduleVO> gtScheduleSelectBu(GtScheduleVO svo){}
+
+	GtScheduleVO
+		private String gpnum;
+		private String gpsubject;
+		private String gppnum;
+		private String writer;
+		private String gptype;
+		private String gpmemo;
+		private String gplocation;
+		private String gpstart;
+		private String gpend;
+		private String deleteyn;
+		private String insertdate;
+		private String updatedate;
+
+com.gt.s.kos.spend
+
+	GtSpendController
+
+	GtSpendDAO
+		public int gtSpendInsert(GtSpendVO svo);
+		public int gtSpendInsertFile(GtSpendVO svo);
+		public List<GtSpendVO> gtSpendSelectAll();
+		public List<GtApprovalLineVO> gtSpendAppSelectAll(GtApprovalLineVO avo);
+		public List<GtApprovalLineVO> gtSpendRefSelectAll(GtApprovalLineVO avo);
+	GtSpendDAOImpl
+		private SqlSessionTemplate sqlSession;
+		public int gtSpendInsert(GtSpendVO svo)
+		public int gtSpendInsertFile(GtSpendVO svo){}
+		public List<GtSpendVO> gtSpendSelectAll(){}
+		public List<GtApprovalLineVO> gtSpendAppSelectAll(GtApprovalLineVO avo){}
+		public List<GtApprovalLineVO> gtSpendRefSelectAll(GtApprovalLineVO avo){}
+		public List<GtSpendVO> gtSpendSelect(GtSpendVO svo){}
+
+	GtSpendService
+		public int gtSpendInsert(GtSpendVO svo);
+		public int gtSpendInsertFile(GtSpendVO svo);
+		public List<GtSpendVO> gtSpendSelectAll();
+		public List<GtApprovalLineVO> gtSpendAppSelectAll(GtApprovalLineVO avo);
+		public List<GtApprovalLineVO> gtSpendRefSelectAll(GtApprovalLineVO avo);
+		public List<GtSpendVO> gtSpendSelect(GtSpendVO svo);
+	GtSpendServiceImpl
+		private GtSpendDAO gtSpendDAO;
+		public int gtSpendInsert(GtSpendVO svo)
+		public int gtSpendInsertFile(GtSpendVO svo){}
+		public List<GtSpendVO> gtSpendSelectAll(){}
+		public List<GtApprovalLineVO> gtSpendAppSelectAll(GtApprovalLineVO avo){}
+		public List<GtApprovalLineVO> gtSpendRefSelectAll(GtApprovalLineVO avo){}
+		public List<GtSpendVO> gtSpendSelect(GtSpendVO svo){}
+
+	GtSpendVO
+	private String gsnum;
+	private String gssubject;
+	private String gpnum;
+	private String gsdate;
+	private String gsgubun;
+	private String gsaccount;
+	private String gsinfo;
+	private String gscount;
+	private String gscost;
+	private String gsfile;
+	private String deleteyn;
+	private String insertdate;
+	private String updatedate;
+	private String genum;
+	private String writer;
+	private String reference;
+	private String approver;
+	private String dept;
+	private String proval;
+	private String count;
+	private String totalcost;
+	private String startdate;
+	private String enddate;
+
+
+com.gt.s.kos.vacation
+
+	GtVacationController
+		public String gtVacationInsertFile(@RequestParam("gvfile") ArrayList<MultipartFile> files){}
+		public String gtVacationSelect(HttpServletRequest req, Model m, GtApprovalLineVO avo){}
+		public String fileDownloadList(HttpServletRequest q){}
+		public void fileDownload(@RequestParam String file, @RequestParam String num, HttpServletResponse s, HttpServletRequest q){}
+		public String gtVacationUpdate(HttpServletRequest req, Model m, GtVacationVO vvo){}
+		public String gtVacationDelete(HttpServletRequest req, GtVacationVO vvo){}
+		public String gtVacationInsert(GtVacationVO vvo, HttpServletRequest req){}
+		public String gtVacationSelectAll(Model model,  GtVacationVO gvvo){}
+		public String gtVacationInsertForm(HttpServletRequest q, GtVacationVO vvo, Model m, GtEmployeeVO evo){}
+		public String gtVacationSelect(HttpServletRequest req, Model model, GtVacationVO gvvo, GtApprovalLineVO avo){}
+
+	GtVacationDAO
+		public int gtVacationInsert(GtVacationVO vvo);
+		public int gtVacationInsertFile(GtVacationVO vvo);
+		public List<GtVacationVO> gtVacationSelectAll(GtVacationVO vvo);
+		public List<GtVacationVO> gtVacationSelect(GtVacationVO vvo);
+		public List<GtVacationVO> gtVacationUpdate(GtVacationVO vvo);
+		public int gtVacationDelete(GtVacationVO vvo);
+		public List<GtApprovalLineVO> gtVacationAppSelectAll(GtApprovalLineVO avo);
+		public List<GtApprovalLineVO> gtVacationRefSelectAll(GtApprovalLineVO avo);
+		public List<GtApprovalLineVO> gtDeciVacationSelect(GtApprovalLineVO avo);
+		public List<GtVacationVO> gtVacationSelect_(GtVacationVO vvo);
+	GtVacationDAOImpl
+		private SqlSessionTemplate sqlSession;
+		public int gtVacationInsert(GtVacationVO gvvo){}
+		public int gtVacationInsertFile(GtVacationVO vvo){}
+		public List<GtVacationVO> gtVacationSelectAll(GtVacationVO vvo){}
+		public List<GtVacationVO> gtVacationSelect(GtVacationVO vvo){}
+		public List<GtVacationVO> gtVacationUpdate(GtVacationVO vvo){}
+		public int gtVacationDelete(GtVacationVO vvo){}
+		public List<GtApprovalLineVO> gtVacationAppSelectAll(GtApprovalLineVO avo){}
+		public List<GtApprovalLineVO> gtVacationRefSelectAll(GtApprovalLineVO avo){}
+		public List<GtApprovalLineVO> gtDeciVacationSelect(GtApprovalLineVO avo){}
+		public List<GtVacationVO> gtVacationSelect_(GtVacationVO vvo){}
+
+	GtVacationService
+		public int gtVacationInsert(GtVacationVO vvo);
+		public int gtVacationInsertFile(GtVacationVO vvo);
+		public List<GtVacationVO> gtVacationSelectAll(GtVacationVO vvo);
+		public List<GtVacationVO> gtVacationSelect(GtVacationVO vvo);
+		public List<GtVacationVO> gtVacationUpdate(GtVacationVO vvo);
+		public int gtVacationDelete(GtVacationVO vvo);
+		public List<GtApprovalLineVO> gtVacationAppSelectAll(GtApprovalLineVO avo);
+		public List<GtApprovalLineVO> gtVacationRefSelectAll(GtApprovalLineVO avo);
+		public List<GtApprovalLineVO> gtDeciVacationSelect(GtApprovalLineVO avo);
+		public List<GtVacationVO> gtVacationSelect_(GtVacationVO vvo);
+	GtVacationServiceImpl
+		private GtVacationDAO gtVacationDAO;
+		public int gtVacationInsert(GtVacationVO gvvo){}
+		public int gtVacationInsertFile(GtVacationVO vvo){}
+		public List<GtVacationVO> gtVacationSelectAll(GtVacationVO vvo){}
+		public List<GtVacationVO> gtVacationSelect(GtVacationVO vvo){}
+		public List<GtVacationVO> gtVacationUpdate(GtVacationVO vvo){}
+		public int gtVacationDelete(GtVacationVO vvo){}
+		public List<GtApprovalLineVO> gtVacationAppSelectAll(GtApprovalLineVO avo){}
+		public List<GtApprovalLineVO> gtVacationRefSelectAll(GtApprovalLineVO avo){}
+		public List<GtApprovalLineVO> gtDeciVacationSelect(GtApprovalLineVO avo){}
+		public List<GtVacationVO> gtVacationSelect_(GtVacationVO vvo){}
+
+	GtVacationVO
+		private String gvnum;
+		private String gvtype;
+		private String gvreasons;
+		private String gvstartdate;
+		private String gvenddate;
+		private String gvsubject;
+		private String gvmemo;
+		private String gvdays;
+		private String gvfile;
+		private String insertdate;
+		private String updatedate;
+		private String deleteyn;
+		private String genum;
+		private String writer;
+		private String gehp;
+		private String reference;
+		private String approver;
+		private String dept;
+		private String proval;
+		private String count;
+		private String decianother;
+		private String pageSize;
+		private String groupSize;
+		private String curPage;
+		private String totalCount;
+		private String sum;
+
+=====================================
+quartz
+------------------------------------
+
+com.gt.s.quartz
+		GtQuartzNews
+			public String gtQuartzNewsMongoDB(){}
+			public String news(){}

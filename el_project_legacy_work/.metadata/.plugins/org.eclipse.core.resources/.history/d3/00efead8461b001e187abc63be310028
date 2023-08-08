@@ -1,0 +1,55 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style>
+			h2 {
+				margin: 0;
+				padding: 10px 0;
+				text-align: center;
+				color: #337ab7;
+			}
+			
+			.topdiv {
+				/* 		margin:0; */
+				padding: 0;
+			}
+			
+			.topdiv {
+				background-color: #fff;
+				box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+				height: 60px;
+				min-width: 100%;
+			}
+		</style>
+	</head>
+	
+	<body>
+		<div class="topdiv">
+			<h2>여기는 상단입니다</h2>
+		</div>
+		<div id="div1">
+			<h2 onclick="location.href='gt_main.gos';">GOAT.S</h2>
+		</div>
+		<div class="container con">
+	
+			<hr />
+			<div id="lidiv">
+				<h5>여기는 이용자</h5>
+				<hr>
+				<ul>
+					<li onclick="location.href='#';">Home</li>
+					<li onclick="location.href='#';">출장/교육</li>
+					<li onclick="location.href='#';">휴가</li>
+					<li onclick="location.href='#';">프로젝트</li>
+					<li onclick="location.href='#';">공지사항</li>
+					<li onclick="location.href='#';">전자결재</li>
+				</ul>
+			</div>
+		</div>
+
+</body>
+</html>

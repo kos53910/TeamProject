@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+          "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+          
+<mapper namespace="com.gt.s.kos.approvalline.dao.GtApprovallineDAO">
+	
+	<select id="logincheck" parameterType="gtemployeevo" resultType="gtemployeevo">
+		SELECT 	
+		        A.GEID 		GEID
+		       ,A.GEPW 		GEPW
+		FROM 	GOAT_EMPLOYEE A
+		WHERE 	A.DELETEYN = 'Y' 	
+		AND    A.GEID = #{geid} 
+		AND    A.GEPW = #{gepw}	
+	</select>
+
+	<update id="goatcountup" parameterType="gtapprovallinevo">
+	
+		UPDATE ${tablename}
+		SET COUNT = COUNT + 1, PROVAL = PROVAL||TO_CHAR(SYSDATE, 'YYYY-MM-DD')||'/'
+		WHERE ${numname} = #{appnum}
+		
+	</update>
+	
+	<select id="gtemailSelect" parameterType="gtapprovallinevo" resultType="gtapprovallinevo">
+	
+		SELECT 			
+			${numname}		APPNUM,
+			${subjectname}	SUBJECT,
+			WRITER			WRITER,
+			TO_CHAR(INSERTDATE, 'YYYY-MM-DD')	INSERTDATE,
+			APPROVER,
+			COUNT
+		FROM ${tablename}
+		WHERE DELETEYN = 'Y'
+		AND ${numname} = #{appnum}
+	</select>
+	
+	<update id="gtJeonCountUp" parameterType="gtapprovallinevo">
+		UPDATE ${tablename}
+		SET COUNT = #{count}, PROVAL = TO_CHAR(SYSDATE, 'YYYY-MM-DD')||'/'
+		WHERE ${numname} = #{appnum}
+	</update>
+	
+	<update id="gtDeciCountUp" parameterType="gtapprovallinevo">
+	
+	UPDATE	${tablename}
+	SET	APPROVER = #{approver},
+		COUNT	 = COUNT + 1,
+		PROVAL	 = PROVAL || TO_CHAR(SYSDATE, 'YYYY-MM-DD')||'/'
+	WHERE	${numname}	=	#{appnum}
+	
+	</update>
+	
+	<update id="gtNappCountDown" parameterType="gtapprovallinevo">
+	
+		UPDATE	${tablename}
+		SET	COUNT	 = COUNT - 10,
+			PROVAL	 = PROVAL || TO_CHAR(SYSDATE, 'YYYY-MM-DD')||'/'
+		WHERE	${numname}	=	#{appnum}
+	
+	</update>
+	
+	<update id="gtDelete" parameterType="gtapprovallinevo">
+	
+		UPDATE ${tablename}
+		SET	DELETEYN = 'N'
+		WHERE ${numname} = #{appnum}
+	
+	</update>
+</mapper>

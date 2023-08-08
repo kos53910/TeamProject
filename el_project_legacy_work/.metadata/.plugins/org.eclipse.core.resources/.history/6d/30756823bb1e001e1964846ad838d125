@@ -1,0 +1,32 @@
+package com.gt.s.common;
+
+import java.io.File;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+public abstract class FileUploadUtil {
+
+	
+	public static String forderMaking(String filename) {
+		String fileload = CommonUtils.SP_FILE_UPLOAD_PATH+ "//" + filename;
+		File file = new File(fileload);
+		
+		if(file.mkdir() == true) {
+			System.out.println("디렉토리 생성 성공");
+		}else {
+			System.out.println("디렉토리 생성 실패");
+		}
+		
+		return fileload;
+	}
+	
+	public static String fileupload() {
+		
+	}
+	
+	public static void main(String[] args) {
+		forderMaking("SP202307070001");
+	}
+	
+}

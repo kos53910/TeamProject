@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+		  
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.gt.s.kos.vacation.vo.GtVacationVO" alias="gtvacationvo"/>	
+				<typeAlias type="com.gt.s.kos.employee.vo.GtEmployeeVO" alias="gtemployeevo"/>
+		<typeAlias type="com.gt.s.kos.dept.vo.GtDeptVO" alias="gtdeptvo"/>
+	</typeAliases>
+</configuration>

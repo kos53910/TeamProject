@@ -1,0 +1,20 @@
+package com.gt.s.kos.main.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@Controller
+public class GtMainController {
+
+	@GetMapping("mainpage")
+	public String main() {
+		
+		return "main/mainpage";
+	}
+	
+	@GetMapping("mainpage_draft")
+	public String mainDraft() {
+		
+		return "main/mainpage_draft";
+	}
+}

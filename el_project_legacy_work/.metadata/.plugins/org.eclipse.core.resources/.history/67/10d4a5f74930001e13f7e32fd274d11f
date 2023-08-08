@@ -1,0 +1,90 @@
+<!-- 
+	추가 작업
+	 -검색 기능 활성화
+	 -엑셀버튼 활성화
+	 -항목설정 활성화
+-->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import='com.gt.s.kos.draft.vo.GtDraftVO' %>
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="resources/css/vacationSelect.css">
+	<title>Document</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<style ></style>
+
+	<style type="text/css">
+
+/* 	전체화면 배치 */
+
+	  
+    </style>
+</head>
+<body>
+	<div class="container_i01">
+		<div>
+			<jsp:include page="../main/mainSide-bar.jsp" />
+		</div>
+     	<div>
+			<jsp:include page="../main/Top-bar.jsp"></jsp:include>
+        <br>
+		<div class="basic_i01">
+			<div class="wrapper_i01">
+				<div class="content_01">
+					<span>휴가현황</span>
+				</div>
+				<div class="content_01"><span>Home</span> / 휴가 / 휴가현황</div>
+			</div>
+				<div class="wrapper_i01">
+					<div>
+						<img src="\resources\goats_icon\vacation.png" alt="img"><span>휴가현황</span>
+					</div>
+					<div>
+						<div>
+							<span><small>검색 : </small></span><input type="text">
+						</div>
+					</div>
+				</div>
+				<div class="wrapper_i01">
+					<table class="Va_Table_S">
+						<tr>
+							<td>구분</td>
+							<td>사번</td>
+							<td>이름</td>
+							<td>신청일</td>
+							<td>휴가시작일</td>
+							<td>휴가종료일</td>
+							<td>휴가일수</td>
+						</tr>
+						<c:if test="${fn:length(aList) > 0}">
+							<c:forEach var="item" items="${aList}">
+								<tr>
+									<td>${item.gvtype}</td>
+									<td>${item.genum}</td>
+									<td>${fn:split(item.writer, ' ')[1]}</td>
+									<td>${item.insertdate}</td>
+									<td>${item.gvstartdate}</td>
+									<td>${item.gvenddate}</td>
+									<td>${item.gvdays}</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+						<tr>
+							<td colspan="7">
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+     </div>
+  </body>
+</html>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+				
+<mapper namespace="com.gt.s.kos.account.dao.GtAccountDAO">
+
+	<insert id="gtAccountInsert" parameterType="gtaccountvo">
+
+		INSERT INTO GOAT_ACCOUNT(
+									 GANUM
+									,GANAME
+									,GASNUM
+									,GABUSINESSTYPE
+									,GAEVENT
+									,GAZONE
+									,GALOAD
+									,GALOADDETALE
+									,GAHP
+									,GAFAX
+									,GAFOUNDATION
+									,STARTDATE
+									,ENDDATE
+									,GAGUBUN
+									,GAINFO
+									,INSERTDATE
+									,UPDATEDATE
+									,DELETEYN
+								)
+						VALUES(
+									 #{ganum, jdbcType=VARCHAR}
+									,#{ganame, jdbcType=VARCHAR}
+									,#{gasnum, jdbcType=VARCHAR}
+									,#{gabusinesstype, jdbcType=VARCHAR}
+									,#{gaevent, jdbcType=VARCHAR}
+									,#{gazone, jdbcType=VARCHAR}
+									,#{gaload, jdbcType=VARCHAR}
+									,#{galoaddetale, jdbcType=VARCHAR}
+									,#{gahp, jdbcType=VARCHAR}
+									,#{gafax, jdbcType=VARCHAR}
+									,#{gafoundation, jdbcType=VARCHAR}
+									,TO_CHAR(TO_DATE(#{startdate}), 'YYYY-MM-DD')
+									,TO_CHAR(TO_DATE(#{enddate}), 'YYYY-MM-DD')
+									,#{gagubun, jdbcType=VARCHAR}
+									,#{gainfo, jdbcType=VARCHAR}
+									,TO_CHAR(TO_DATE(SYSDATE), 'YYYY-MM-DD') 
+									,TO_CHAR(TO_DATE(SYSDATE), 'YYYY-MM-DD') 
+									,'Y'	
+								)
+	
+	</insert>
+
+	<select id="gtAccountSelectAll" resultType="gtaccountvo" parameterType="gtaccountvo">
+	
+		SELECT * FROM  (	
+			   SELECT    A.GANUM							AS GANUM
+						,A.GANAME							AS GANAME
+						,A.GASNUM							AS GASNUM
+						,A.GABUSINESSTYPE					AS GABUSINESSTYPE
+						,A.GAEVENT							AS GAEVENT
+						,A.GAZONE							AS GAZONE
+						,A.GALOAD							AS GALOAD
+						,A.GALOADDETALE						AS GALOADDETALE
+						,A.GAHP								AS GAHP
+						,A.GAFAX							AS GAFAX
+						,A.GAFOUNDATION						AS GAFOUNDATION
+						,A.STARTDATE						AS STARTDATE
+						,A.ENDDATE							AS ENDDATE
+						,A.GAGUBUN							AS GAGUBUN
+						,A.GAINFO							AS GAINFO
+				 	    ,TO_CHAR(TO_DATE(A.INSERTDATE))		AS INSERTDATE
+				 	    ,TO_CHAR(TO_DATE(A.UPDATEDATE))		AS UPDATEDATE
+						,A.DELETEYN							AS DELETEYN
+		   			    <!--  ? : 페이지 사이즈 : pageSize  -->
+		      			,CEIL(ROW_NUMBER() OVER(ORDER BY A.GANUM DESC)/ #{pageSize} ) pageSize
+			   			,COUNT(A.GANUM) OVER() AS totalCount 	      
+				FROM 	GOAT_ACCOUNT A
+			   WHERE 	A.DELETEYN = 'Y'
+			            ORDER BY 1 DESC
+					    <!--  ? : 현재 페이지 : curPage -->
+						) WHERE pageSize = #{curPage}
+						
+	</select>
+	
+	<select id="gtAccountSelectAll2" resultType="gtaccountvo" parameterType="gtaccountvo">
+	
+		SELECT		 A.GANUM							AS GANUM
+					,A.GANAME							AS GANAME
+					,A.GASNUM							AS GASNUM
+					,A.GABUSINESSTYPE					AS GABUSINESSTYPE
+					,A.GAEVENT							AS GAEVENT
+					,A.GAZONE							AS GAZONE
+					,A.GALOAD							AS GALOAD
+					,A.GALOADDETALE						AS GALOADDETALE
+					,A.GAHP								AS GAHP
+					,A.GAFAX							AS GAFAX
+					,A.GAFOUNDATION						AS GAFOUNDATION
+					,A.STARTDATE						AS STARTDATE
+					,A.ENDDATE							AS ENDDATE
+					,A.GAGUBUN							AS GAGUBUN
+					,A.GAINFO							AS GAINFO
+			 	    ,TO_CHAR(TO_DATE(A.INSERTDATE))		AS INSERTDATE
+			 	    ,TO_CHAR(TO_DATE(A.UPDATEDATE))		AS UPDATEDATE
+					,A.DELETEYN							AS DELETEYN
+		FROM		 GOAT_ACCOUNT A
+		WHERE		 A.DELETEYN = 'Y'
+
+	
+	</select>
+	
+	<select id="gtAccountSelect" resultType="gtaccountvo" parameterType="gtaccountvo">
+	
+		SELECT		 A.GANUM										AS GANUM
+					,A.GANAME										AS GANAME
+					,A.GASNUM										AS GASNUM
+					,A.GABUSINESSTYPE								AS GABUSINESSTYPE
+					,A.GAEVENT										AS GAEVENT
+					,A.GAZONE										AS GAZONE
+					,A.GALOAD										AS GALOAD
+					,A.GALOADDETALE									AS GALOADDETALE
+					,A.GAHP											AS GAHP
+					,A.GAFAX										AS GAFAX
+					,TO_CHAR(TO_DATE(A.GAFOUNDATION),'YYYY-MM-DD')	AS GAFOUNDATION
+					,TO_CHAR(TO_DATE(A.STARTDATE),'YYYY-MM-DD')		AS STARTDATE
+					,TO_CHAR(TO_DATE(A.ENDDATE),  'YYYY-MM-DD')		AS ENDDATE
+					,A.GAGUBUN										AS GAGUBUN
+					,A.GAINFO										AS GAINFO
+			 	    ,TO_CHAR(TO_DATE(A.INSERTDATE))					AS INSERTDATE
+			 	    ,TO_CHAR(TO_DATE(A.UPDATEDATE))					AS UPDATEDATE
+					,A.DELETEYN										AS DELETEYN
+		FROM		 GOAT_ACCOUNT A
+		WHERE		 A.DELETEYN = 'Y'
+		<![CDATA[AND A.GANAME LIKE  '%' || '${ganame}' || '%']]> 
+
+	
+	</select>
+</mapper>

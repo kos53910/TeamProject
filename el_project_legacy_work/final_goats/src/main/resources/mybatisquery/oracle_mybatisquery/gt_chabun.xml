@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.gt.s.common.chabun.dao.GtChabunDAO">
+	
+		<select id="getGtVacationChabun" resultType="gtvacationvo">
+			SELECT LPAD(NVL(MAX(SUBSTR(GVNUM , -4)), 0) + 1, 4, '0') AS GVNUM
+			FROM GOAT_VACATION 
+		</select>
+
+		<select id="getGtBusinessChabun" resultType="gtbusinessvo">
+			SELECT LPAD(NVL(MAX(SUBSTR(GBTNUM , -4)), 0) + 1, 4, '0') AS GBTNUM
+			FROM GOAT_BUSINESSTRIP 
+		</select>
+
+		<select id="getGtSpendChabun" resultType="gtspendvo">
+			SELECT LPAD(NVL(MAX(SUBSTR(GSNUM , -4)), 0) + 1, 4, '0') AS GSNUM
+			FROM GOAT_SPEND
+		</select>
+		
+		<select id="getGtProjectChabun" resultType="gtprojectvo">
+			SELECT LPAD(NVL(MAX(SUBSTR(GPNUM , -4)), 0) + 1, 4, '0') AS GPNUM
+			FROM GOAT_PROJECT
+		</select>
+		<select id="getGtDraftChabun" resultType="gtdraftvo">
+			SELECT LPAD(NVL(MAX(SUBSTR(GDRNUM , -4)), 0) + 1, 4, '0') AS GDRNUM
+			FROM GOAT_DRAFT 
+		</select>
+
+		<select id="getGtResignationChabun" resultType="gtresignationvo">
+			SELECT LPAD(NVL(MAX(SUBSTR(GRNUM , -4)), 0) + 1, 4, '0') AS GRNUM
+			FROM GOAT_RESIGNATION 
+		</select>
+		
+		<select id="getGtContractChabun" resultType="gtcontractvo">
+			SELECT LPAD(NVL(MAX(SUBSTR(GCNUM , -4)), 0) + 1, 4, '0') AS GCNUM
+			FROM GOAT_CONTRACT
+		</select>
+			<select id="getGtPlanChabun" resultType="gtplanvo">
+			SELECT LPAD(NVL(MAX(SUBSTR(GPNUM , -4)), 0) + 1, 4, '0') AS GPNUM
+			FROM GOAT_PLAN
+		</select>
+		<select id="getGtAccountChabun" resultType="gtaccountvo">
+			SELECT LPAD(NVL(MAX(SUBSTR(GANUM , -4)), 0) + 1, 4, '0') AS GANUM
+			FROM GOAT_ACCOUNT
+		</select>
+		<select id="getGtEmployeeChabun" resultType="gtemployeevo">
+			SELECT LPAD(NVL(MAX(SUBSTR(GENUM , -4)), 0) + 1, 4, '0') AS GENUM
+			FROM GOAT_EMPLOYEE
+		</select>
+</mapper>

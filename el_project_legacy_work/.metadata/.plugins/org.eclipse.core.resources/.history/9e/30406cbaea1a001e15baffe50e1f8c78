@@ -1,0 +1,506 @@
+<%@page import="java.util.Date"%>
+
+<%@page import="com.gt.s.kos.business.vo.GtBusinessVO"%>
+<%@page import="com.gt.s.common.CodeUtil" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<% String gename = (String)request.getAttribute("ge_name"); %>
+<% String dept = (String)request.getAttribute("dept"); %>
+<% String title = (String)request.getAttribute("title"); %>
+<% String titleNum = CodeUtil.title_gubun(title); %>
+
+<!DOCTYPE html>
+
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>Insert title here</title>
+          <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+		<script type="text/javascript" src="/final_goats/js/common.js"></script>
+          <script type="text/javascript">
+          
+          $(document).ready(function(){    	  
+        	  
+        	  var gename = "<%=gename%>";
+        	  var dept = "<%=dept%>";
+        	  var title = "<%=title%>";
+        	  var titlenum = "<%= titleNum%>"
+        	  titlenum = "3";
+        	  var writer = dept + " " + gename + " " + title;
+        	  
+        	  
+        	  alert(gename);
+        	  $("#writer").text(writer);
+        	  
+        	  totalprice();
+        	  writeday();
+        	  
+        	  
+			   function writeday(){
+	        		  
+					let md = new Date();
+       		 		console.log(md);
+			   		let year = md.getFullYear();
+			   		let month = md.getMonth() + 1;
+			   		let date = md.getDate();
+
+			   		let day = year + "-" + month.toString() + "-" + date.toString();
+			   		
+			   		$("#writeday").text(day);
+			   
+			   }
+        	  
+        	  $.ajax({
+        		  url : "gtBusinessChanbun.gos",
+        		  success:function(res){
+        			  
+        			  alert(res);
+        			  
+        			  var gbt_num = res;
+        			  
+//         			  alert(typeof(gbt_num));
+        			  
+        			  $("#gbtnum1").text(gbt_num);
+        			  $("#gbtnum").val(gbt_num);
+        			  
+        		  },
+        		  error:function(e){
+        			  console.log(e.responseText)
+        		  }
+        		  
+        	  });
+        	  
+        	  
+        	  if(parseInt(titlenum) > 3){
+	        	  $.ajax({
+	        		  
+	        		  url : "goatsEmployeeSelect.gos",
+	        		  data : { dept : "개발2팀" },
+	        		  success : function(res){
+	        			  console.log(res);
+	                	 selectDept(res);
+	        		  },
+	        		  error : function(e){
+	        			  console.log(e.responseText);
+	        		  }
+        		  
+        	  });
+        	  }
+        	  
+        	  function selectDept(dept){ 
+        		 
+        		  var a = dept.split('/');
+        		  console.log(a);
+        		  var select = "";
+        		  for (var i = 0; i < a.length -1 ; i++){
+        			  
+        			  var b = a[i].replaceAll(",","/")
+        			  var selectOption = "<option value=" + b + ">" + b + "</option>"
+        			  select += selectOption;
+        		  }
+        		  console.log(select);
+        		  
+        		  $("#decianother").append(select);
+        		  
+        	  };
+
+        	  $(document).on('click','#btn',function(){
+        		  
+        			 var hu1 = $("#hu1").text()
+           			 var hu2 = $("#hu2").text()
+           			 var hu3 = $("#hu3").text()
+           			 var hu4 = $("#hu4").text()
+           			 var hu5 = $("#hu5").text()
+           			 
+           			 var dept1 = $("#dept1").text()
+           			 var dept2 = $("#dept2").text()
+           			 var dept3 = $("#dept3").text()
+           			 var dept4 = $("#dept4").text()
+           			 var dept5 = $("#dept5").text()
+        			 
+        			 $("#hu1_1").val(hu1);
+           			 $("#hu2_1").val(hu2);
+           			 $("#hu3_1").val(hu3);
+           			 $("#hu4_1").val(hu4);
+           			 $("#hu5_1").val(hu5);
+           			 
+        			 $("#dept1_1").val(dept1);
+           			 $("#dept2_1").val(dept2);
+           			 $("#dept3_1").val(dept3);
+           			 $("#dept4_1").val(dept4);
+           			 $("#dept5_1").val(dept5);
+           			 
+           			 
+           		
+           			 
+    				 var cc = $("#cham1").find("tr:eq(0)").find("td:eq(0)").text();
+    				 
+    				 var aa = cc.replaceAll(", ", "/");
+    				 
+    				 console.log(">>> " +  aa);
+    				 
+    				$("#reference").val(aa);
+        		  
+				let dataParam = $("#gbtform").serialize();
+				
+        		  alert($("#gbtnum").val());
+        		  
+        			$.ajax({
+        				url : "gtBusinessInsert.gos",
+        				data : dataParam,
+        				success : function(res){
+        					alert(res);
+							if(res == "OK"){
+        	        		  $("#gbt_file_form").attr({
+        	        			  "action" : "gtBusinessInsertFile.gos",
+        	        			  "method" : "POST",
+        	        			  "enctype":"multipart/form-data"
+        	        		  }).submit();
+							}else{
+								alert("입력 실패");
+							}
+        				},
+        				error : function(e){
+        					console.log(e.responseText);
+        				}
+        			});
+        	  });
+        	  
+        	  $(document).on('input','#gbtprice1_2',function(){
+            	  totalprice();
+        	  });
+        	  $(document).on('input','#gbtprice2_2',function(){
+            	  totalprice();
+        	  });
+        	  $(document).on('input','#gbtprice3_2',function(){
+            	  totalprice();
+        	  });
+        	  $(document).on('input','#gbtprice4_2',function(){
+            	  totalprice();
+        	  });
+        	  $(document).on('input','#gbtprice5_2',function(){
+            	  totalprice();
+        	  });
+        	  
+        	  function totalprice(){
+        		  
+        		var price1 = $("#gbtprice1_2").val();
+        		var price2 = $("#gbtprice2_2").val();
+        		var price3 = $("#gbtprice3_2").val();
+        		var price4 = $("#gbtprice4_2").val();
+        		var price5 = $("#gbtprice5_2").val();
+        		  
+ 					if(price1 == ""){
+ 						price1 = "0" ;
+ 					}
+		        		
+ 					if(price2 == ""){
+ 						price2 = "0";
+ 					}
+ 					
+ 					if(price3 == ""){
+ 						price3 = "0";
+
+ 					}
+ 					
+ 					if(price4 == ""){
+ 						price4 = "0";
+
+ 					}
+ 					
+ 					if(price5 == ""){
+ 						price5 = "0";
+ 					}
+ 					
+ 						
+ 					var totalprice = parseInt(price1) + parseInt(price2) + parseInt(price3) + parseInt(price4) + parseInt(price5);
+		        			        	
+		        	$("#gbttotalprice_1").text(totalprice + "원");
+		        	$("#gbttotalprice").val(totalprice);
+		        		
+		        }
+        	  
+        	  $(document).on("click", "#line12", function(){
+        		  $("#approvalline").css({"visibility":"visible"});
+        	  });
+          });
+          </script>
+      <style type="text/css">
+         .button-container {
+            text-align: right;
+          }
+          
+          .initial-size {
+              min-height: 200px; 
+          }
+          
+         th {
+                 background-color: #f2f2f2;
+              }
+            table {
+               border-collapse: collapse;
+               width: 1000px;
+             }
+           th, td {
+               border: 1px solid black;
+               padding: 8px;
+             }
+             
+           .aa {
+                text-align: right;
+           }
+           
+           #approvalline{
+           		visibility: hidden;
+           		position: absolute;
+           		background-color:#fff;
+           		width:100%;
+           		height:100%;
+           		margin:auto;
+           }
+      </style>
+   </head>
+   <body>
+         <div id="approvalline">
+       		<jsp:include page="../approvalline/select.jsp"></jsp:include>
+         </div>
+   		<form id = "gbtform">
+      <div class="button-container">
+         <button type="button" id="line12">결재선지정</button>
+         <button type="button" id="btn">상신</button>
+         <button type="button" id="btn1">취소</button>
+      </div>
+      
+      <h2 align="center">출장계획서</h2>
+      <br>
+      <table>
+         <tr>
+            <th width="120px">문서번호</th><td width="230px" id="gbtnum1">
+			</td>
+            <th width="120px">보안구분</th><td width="230px">비공개 </td><!--  채번 -->
+            <th width="120px">보존연한</th><td width="230px">5년</td>
+         </tr>
+         <tr>
+            <th width="100px">작성자</th><td width="230px" id="writer"></td><!-- 작성자 -->
+            <th width="120px">작성일자</th><td width="230px" id="writeday"></td><!-- 작성일자 -->
+            <th width="120px">대결자</th><td width="230px"><select id="decianother" name="decianother">
+            <option id="-" selected>-</option>
+            </select></td><!-- 작성일자 -->
+         </tr>
+      </table>
+      <br>
+      <table id="table1">
+         <tr>
+            <th width="50px">순서
+</th>
+            <th width="80px">구분</th>
+            <th width="170px">결재자</th>
+            <th width="170px">부서</th>
+            <th width="80px">상태</th>
+            <th width="100px">결재일</th>
+            <th width="350px">결재의견</th>
+         </tr>
+         <tr>
+            <td align="center">1</td>
+            <td id="snag1"></td>
+            <td id="hu1"></td>
+            <td id="dept1"></td>
+            <td ></td>
+            <td ></td>
+            <td ></td>
+         </tr>
+         <tr>
+            <td align="center">2</td>
+            <td id="snag2"></td>
+            <td id="hu2"></td>
+            <td id="dept2"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+         </tr>
+         <tr>
+            <td align="center">3</td>
+            <td id="snag3"></td>
+            <td id="hu3"></td>
+            <td id="dept3"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+         </tr>
+         <tr>
+            <td align="center">4</td>
+            <td id="snag4"></td>
+            <td id="hu4"></td>
+            <td id="dept4"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+         </tr>
+         <tr>
+            <td align="center">5</td>
+            <td id="snag5"></td>
+            <td id="hu5"></td>
+            <td id="dept5"></td>
+            <td></td>
+            <td></td>
+            <td></td>
+         </tr>
+      </table>
+      <br>
+      <table id="cham1">
+         <tr>
+            <th width="150px" >참　　조</th>
+            <td id="reference"></td>
+         </tr>
+      </table>
+      <br>
+      <table>
+         <tr>
+            <th width="150px">제　　목</th>
+            <td><input type="text" name="gbtname" id="gbtname" size="110"></td> <!-- 제목 -->
+         </tr>
+      </table>
+      <br>
+      <table>
+      		<tr>
+      			<th width="15%">프로젝트</th>
+      			<td><div align="center"><button type="button">project</button></div></td>
+      		</tr>
+      </table>
+      <br>
+      <table>
+      	<tr>
+      		<th width="15%">시행일자</th>
+      		<td style="align:left;"><input type="date" name="gbtstart" id="gbtstart"> <!-- 시작일 -->
+      		~ <input type="date" name="gbtend" id="gbtend"></td> <!-- 종료일 -->
+      	</tr>
+      </table>
+      <br>
+      <table>
+      	<tr>
+      	<th width="50px"></th>
+      	<th colspan="7"style="text-align:center; width:950px;"> 비  용 </th>
+      	</tr>
+      	<tr>
+      		<th width="50px"></th>
+            <th width="100px">구분</th>
+            <th width="100px">장소</th>
+            <th width="100px">예상금액</th>
+            <th width="400px">상세내용</th>
+            <th width="70px">기타</th>
+	    </tr>
+      	<tr>
+	      	<td align="center">1</td>
+	      	<td align="center">
+	      	<select name="gbtprice1" id="" class=""> <!-- 구분 -->
+	      		<option value="01">교통비</option>
+	      		<option value="02">식비</option>
+	      		<option value="03">접대비</option>
+	      		<option value="04">기타</option>
+	      	</select></td>
+	      	<td align="center"><input type="text" size="9" name="gbtprice1" id="" class=""></td> <!-- 장소 -->
+	        <td align="center"><input type="text" size="9" name="gbtprice1" id="gbtprice1_2" class="aa"></td> <!-- 예상금액 -->
+	      	<td align="center"><input type="text" size="49" name="gbtprice1" id="" class=""></td> <!-- 내용 -->
+	      	<td align="center"><input type="text" size="3" name="gbtprice1" id="" class=""></td> <!-- 기타 -->
+      	</tr>
+      	<tr>
+	      	<td align="center">2</td>
+	      	<td align="center">
+	      	<select name="gbtprice2" id="" class="">
+	      		<option value="01">교통비</option>
+	      		<option value="02">식비</option>
+	      		<option value="03">접대비</option>
+	      		<option value="04">기타</option>
+	      	</select></td>
+	      	<td align="center"><input type="text" size="9" name="gbtprice2" id="" class=""></td>
+	        <td align="center"><input type="text" size="9" name="gbtprice2" id="gbtprice2_2" class="aa"></td>
+	      	<td align="center"><input type="text" size="49" name="gbtprice2" id="" class=""></td>
+	      	<td align="center"><input type="text" size="3" name="gbtprice2" id="" class=""></td>
+      	</tr>
+      	      	<tr>
+	      	<td align="center">3</td>
+	      	<td align="center">
+	      	<select name="gbtprice3" id="" class="">
+	      		<option value="01">교통비</option>
+	      		<option value="02">식비</option>
+	      		<option value="03">접대비</option>
+	      		<option value="04">기타</option>
+	      	</select></td>
+	      	<td align="center"><input type="text" size="9" name="gbtprice3" id="" class=""></td>
+	        <td align="center"><input type="text" size="9" name="gbtprice3" id="gbtprice3_2" class="aa"></td>
+	      	<td align="center"><input type="text" size="49" name="gbtprice3" id="" class=""></td>
+	      	<td align="center"><input type="text" size="3" name="gbtprice3" id="" class=""></td>
+      	</tr>
+      	<tr>
+	      	<td align="center">4</td>
+	      	<td align="center">
+	      	<select name="gbtprice4" id="" class="">
+	      		<option value="01">교통비</option>
+	      		<option value="02">식비</option>
+	      		<option value="03">접대비</option>
+	      		<option value="04">기타</option>
+	      	</select></td>
+	      	<td align="center"><input type="text" size="9" name="gbtprice4" id="" class=""></td>
+	        <td align="center"><input type="text" size="9" name="gbtprice4" id="gbtprice4_2" class="aa"></td>
+	      	<td align="center"><input type="text" size="49" name="gbtprice4" id="" class=""></td>
+	      	<td align="center"><input type="text" size="3" name="gbtprice4" id="" class=""></td>
+      	</tr>
+      	<tr>
+	      	<td align="center">5</td>
+	      	<td align="center">
+	      	<select name="gbtprice5" id="" class="">
+	      		<option value="01">교통비</option>
+	      		<option value="02">식비</option>
+	      		<option value="03">접대비</option>
+	      		<option value="04">기타</option>
+	      	</select></td>
+	      	<td align="center"><input type="text" size="9" name="gbtprice5" id="" class=""></td>
+	        <td align="center"><input type="text" size="9" name="gbtprice5" id="gbtprice5_2" class="aa"></td>
+	      	<td align="center"><input type="text" size="49" name="gbtprice5" id="" class=""></td>
+	      	<td align="center"><input type="text" size="3" name="gbtprice5" id="" class=""></td>
+      	</tr>
+      </table>
+        <div id="aaa">
+      	</div>
+      <br>
+      <table>
+         <tr>
+            <th width="150px">예상 금액 합계</th><!--비용 합계 -->
+            <td id="gbttotalprice_1" style="text-align:right;"></td>
+         </tr>
+         </table>
+         <br>
+		<div>
+	      <input type="hidden" name="gbtnum" id="gbtnum" value="">
+	      <input type="hidden" id="gbttotalprice" name="gbttotalprice" value="">
+	      <input type="hidden" id="gpnum" name="gpnum" value="">
+	      <input type="hidden" id="reference" name="reference" value="">
+	      <input type="hidden" id="hu1_1" name="approver1" value="">
+	      <input type="hidden" id="hu2_1" name="approver2" value="">
+	      <input type="hidden" id="hu3_1" name="approver3" value="">
+	      <input type="hidden" id="hu4_1" name="approver4" value="">
+	      <input type="hidden" id="hu5_1" name="approver5" value="">
+	      <input type="hidden" id="dept1_1" name="dept1" value="">
+	      <input type="hidden" id="dept2_1" name="dept2" value="">
+	      <input type="hidden" id="dept3_1" name="dept3" value="">
+	      <input type="hidden" id="dept4_1" name="dept4" value="">
+	      <input type="hidden" id="dept5_1" name="dept5" value="">
+      	  <input type="hidden" name="writer" id="writer" value="">
+      	  <input type="hidden" name="genum" id="genum" value="">
+      	  <input type="hidden" id="dept" name="dept" value="">
+		  <input type="hidden" name="approver" id="approver" value="">
+          <input type="hidden" name="proval" id="proval" value="">
+          <input type="hidden" name="count" id="count" value="">
+      </div>
+     </form>
+         <form id="gbtfile_form">
+               <table>
+         <tr>
+            <th width="150px">첨부 파일</th>
+            <td><input type="file" name="gbtfile" id="gbtfile" class=""></td><!-- 파일 -->
+         </tr>
+         </table>
+         </form>
+
+   </body>
+</html>
